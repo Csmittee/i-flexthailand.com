@@ -1,0 +1,5 @@
+/js/iflex-core.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/iflex-config.js
+  Cache-Control: public, max-age=0, must-revalidate
