@@ -7,7 +7,9 @@
     <meta name="description" content="I-Flex imports reliable Pilates equipment proven 5+ years in Bangkok studios. Friendly support for new studio owners. Fast delivery Thailand.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
     <style>
-        /* Additional page-specific styles (minimal, complements injector) */
+        /* Additional page-specific styles */
+        
+        /* Hero section with its own overlay */
         .hero-section {
             min-height: 70vh;
             background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774380814/Nok_studio.png');
@@ -42,36 +44,45 @@
         .hero-content h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
         .hero-content p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+        /* Section container - max-width 1280px */
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
         
-        .feature-card {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            padding: 1.5rem;
-            border-radius: 12px;
+        /* Section 2 - 5 years proven */
+        .proven-section {
             text-align: center;
+            padding: 4rem 0;
         }
         
-        .feature-card h3 {
+        .proven-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
             color: #FFD700;
-            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         
+        .proven-section h3 {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* Compare table - no overlay, left-aligned spec */
         .compare-table {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
             overflow: hidden;
             margin: 2rem 0;
@@ -84,19 +95,27 @@
         }
         
         .compare-header {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.5);
             font-weight: 700;
             color: #FFD700;
         }
         
         .compare-cell {
             padding: 1rem;
-            text-align: center;
         }
         
         .compare-cell:first-child {
             text-align: left;
             font-weight: 600;
+        }
+        
+        .compare-cell:nth-child(2) {
+            text-align: left;
+        }
+        
+        .compare-cell:nth-child(3),
+        .compare-cell:nth-child(4) {
+            text-align: center;
         }
         
         .check-yes::before {
@@ -120,6 +139,40 @@
             font-weight: bold;
         }
         
+        /* Equipment section */
+        .equipment-section {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .banner-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .banner-card {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+        
+        .banner-card img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 12px;
+        }
+        
+        .banner-card .banner-text {
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* Product cards - glass blur with animation */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -128,17 +181,30 @@
         }
         
         .category-card {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
             padding: 1.5rem;
+            animation: slideIn 0.3s ease-out;
         }
         
         .category-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .category-card img {
@@ -152,8 +218,14 @@
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         
+        .category-card p {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* FAQ section - no overlay */
         .faq-item {
             background: rgba(0, 0, 0, 0.3);
             margin-bottom: 1rem;
@@ -165,7 +237,7 @@
             width: 100%;
             text-align: left;
             padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4);
             border: none;
             color: white;
             font-size: 1rem;
@@ -174,10 +246,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         
         .faq-question:hover {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
         }
         
         .faq-question::after {
@@ -201,9 +274,28 @@
             padding: 1rem;
         }
         
+        .faq-answer p {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* CTA sections */
         .cta-section {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .cta-section p {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         
         .btn {
@@ -216,6 +308,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
             margin-top: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         
         .btn:hover {
@@ -224,21 +317,27 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        section {
-            margin: 4rem 0;
-        }
-        
         h2 {
             font-size: 2rem;
             margin-bottom: 1.5rem;
             text-align: center;
             color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        h3 {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        p, li, .banner-text {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .bottom-hero {
+            background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
         }
         
         @media (max-width: 768px) {
@@ -255,6 +354,10 @@
             .hero-content p {
                 font-size: 1.2rem;
             }
+            .banner-grid {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -263,189 +366,192 @@
     <!-- HERO SECTION -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1>5 Years Tested</h1>
-            <p>Used daily at Nok Yoga Pattaya</p>
-            <p style="font-size: 1.2rem;">I-Flex Thailand — Powered by Adjusted Body China</p>
-            <a href="/contact-us.html" class="btn">Get Your Quote</a>
+            <h1>5 years tested <br>used daily at Nok Yoga Pattaya</h1>
+            <p>I-flex Thailand <br>Power by Adjusted body<br>China</p>
+            <a href="/contact-us.html" class="btn">Get your Quote today</a>
         </div>
     </section>
 
-    <!-- FEATURE SECTION -->
-    <section>
-        <div class="container">
-            <h2>Reliable Performances</h2>
-            <p style="text-align: center; margin-bottom: 2rem;">5 years proven — Tracks and springs are the top performance of a good reformer</p>
+    <!-- SECTION 2: PROVEN PERFORMANCE -->
+    <div class="section-container">
+        <div class="proven-section">
+            <h2>5 years proven</h2>
+            <h3>Track and spring are the top performance<br>of a good reformer</h3>
+        </div>
+    </div>
+
+    <!-- SECTION 3: COMPARE MATRIX -->
+    <div class="section-container">
+        <h2>So many choices !<br>Whats actually matter ?</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Save your time and hidden cost with us</p>
+        
+        <div class="compare-table">
+            <div class="compare-row compare-header">
+                <div class="compare-cell">Feature</div>
+                <div class="compare-cell">Spec</div>
+                <div class="compare-cell">I-flex</div>
+                <div class="compare-cell">Other</div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Track</div>
+                <div class="compare-cell">Aluminum profile</div>
+                <div class="compare-cell check-yes"></div>
+                <div class="compare-cell check-maybe"></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Track</div>
+                <div class="compare-cell">Thickness 3mm</div>
+                <div class="compare-cell check-yes"></div>
+                <div class="compare-cell check-maybe"></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Spring</div>
+                <div class="compare-cell">German import</div>
+                <div class="compare-cell check-yes"></div>
+                <div class="compare-cell check-no"></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Cable and Pulley</div>
+                <div class="compare-cell">Cordula 300 strand high tensile</div>
+                <div class="compare-cell check-yes"></div>
+                <div class="compare-cell check-maybe"></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Lining</div>
+                <div class="compare-cell">Micro fiber leather 1.3 mm</div>
+                <div class="compare-cell check-yes"></div>
+                <div class="compare-cell check-maybe"></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Structure</div>
+                <div class="compare-cell">High quality import Oak, Maple from US, Canada, Thailand</div>
+                <div class="compare-cell check-yes"></div>
+                <div class="compare-cell check-maybe"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
+    <div class="section-container">
+        <div class="equipment-section">
+            <h2>We can provide equipments<br>that fit your need.</h2>
+            <p>Either you are a studio owner, commercial estate, or home user</p>
+            <a href="/contact-us.html" class="btn">Get your Quote today</a>
             
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Track</h3>
-                    <p>Aluminum profile, 3mm thickness</p>
+            <div class="banner-grid">
+                <div class="banner-card">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use">
+                    <div class="banner-text">Studio use</div>
                 </div>
-                <div class="feature-card">
-                    <h3>Spring</h3>
-                    <p>German import</p>
+                <div class="banner-card">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium">
+                    <div class="banner-text">Resort / Condominium</div>
                 </div>
-                <div class="feature-card">
-                    <h3>Cable & Pulley</h3>
-                    <p>Cordula 300 strand high tensile</p>
+                <div class="banner-card">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use">
+                    <div class="banner-text">Home use</div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- COMPARISON TABLE -->
-    <section>
-        <div class="container">
-            <h2>What Actually Matters?</h2>
-            <div class="compare-table">
-                <div class="compare-row compare-header">
-                    <div class="compare-cell">Feature</div>
-                    <div class="compare-cell">Spec</div>
-                    <div class="compare-cell">I-Flex</div>
-                    <div class="compare-cell">Other</div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-cell">Track</div>
-                    <div class="compare-cell">Aluminum profile</div>
-                    <div class="compare-cell check-yes"></div>
-                    <div class="compare-cell check-maybe"></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-cell">Track</div>
-                    <div class="compare-cell">Thickness 3mm</div>
-                    <div class="compare-cell check-yes"></div>
-                    <div class="compare-cell check-maybe"></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-cell">Spring</div>
-                    <div class="compare-cell">German import</div>
-                    <div class="compare-cell check-yes"></div>
-                    <div class="compare-cell check-no"></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-cell">Cable and Pulley</div>
-                    <div class="compare-cell">Cordula 300 strand high tensile</div>
-                    <div class="compare-cell check-yes"></div>
-                    <div class="compare-cell check-maybe"></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-cell">Lining</div>
-                    <div class="compare-cell">Micro fiber leather 1.3 mm</div>
-                    <div class="compare-cell check-yes"></div>
-                    <div class="compare-cell check-maybe"></div>
-                </div>
-                <div class="compare-row">
-                    <div class="compare-cell">Structure</div>
-                    <div class="compare-cell">High quality import Oak, Maple from US, Canada, Thailand</div>
-                    <div class="compare-cell check-yes"></div>
-                    <div class="compare-cell check-maybe"></div>
-                </div>
-            </div>
+    <!-- SECTION 5: STARTING A STUDIO CTA -->
+    <div class="section-container">
+        <div class="cta-section">
+            <h2>Starting a studio?<br>Lets talk.</h2>
+            <p>From product selection choice, Start up cost, ROI, we can help provide calculation!</p>
+            <a href="/contact-us.html" class="btn">Get your business plan</a>
         </div>
-    </section>
+    </div>
 
-    <!-- PRODUCT CATEGORIES -->
-    <section>
-        <div class="container">
-            <h2>Our Products</h2>
-            <div class="category-grid">
-                <div class="category-card">
-                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381186/Reformer_FT_3.png" alt="Reformer">
-                    <h3>Reformer</h3>
-                    <p>Available in wood maple, oak, aluminum, single track, double track, and 6 colors of microfiber leather.</p>
-                </div>
-                <div class="category-card">
-                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381147/Cadilac_2.png" alt="Cadillac">
-                    <h3>Cadillac</h3>
-                    <p>Available in wood maple, oak, aluminum and 6 colors of microfiber leather.</p>
-                </div>
-                <div class="category-card">
-                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381107/Barrel_ladder_2.png" alt="Barrel Ladder">
-                    <h3>Barrel Ladder</h3>
-                    <p>Available in wood maple, oak and 6 colors of microfiber leather.</p>
-                </div>
-                <div class="category-card">
-                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381272/Wunda_chair_xxx3.png" alt="Wunda Chair">
-                    <h3>Wunda Chair</h3>
-                    <p>Available in wood maple, oak, and 6 colors of microfiber leather.</p>
-                </div>
+    <!-- SECTION 6: PRODUCT CATEGORIES -->
+    <div class="section-container">
+        <h2>Our products</h2>
+        <p style="text-align: center;">Products available in various materials, we can help you choose.<br>Either you are a professional studio, commercial resident, or home use.</p>
+        <div style="text-align: center; margin: 1rem 0;">
+            <a href="/product-listing.html" class="btn">Check our Products Now</a>
+        </div>
+        
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381186/Reformer_FT_3.png" alt="Reformer">
+                <h3>Reformer</h3>
+                <p>Available in wood maple, oak, Aluminum, single track, double track, and 6 colors of micro fiber leather.</p>
             </div>
-            <div style="text-align: center;">
-                <a href="/product-listing.html" class="btn">View All Products</a>
+            <div class="category-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381147/Cadilac_2.png" alt="Cadillac">
+                <h3>Cadillac</h3>
+                <p>Available in wood maple, oak, aluminum and 6 colors of micro fiber leather.</p>
+            </div>
+            <div class="category-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381107/Barrel_ladder_2.png" alt="Barrel Ladder">
+                <h3>Barrel ladder</h3>
+                <p>Available in wood maple, oak and 6 colors of micro fiber leather.</p>
+            </div>
+            <div class="category-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381272/Wunda_chair_xxx3.png" alt="Wunda Chair">
+                <h3>Wunda chair</h3>
+                <p>Available in wood maple, oak, and 6 colors of micro fiber leather.</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- CTA SECTION: STUDIO -->
-    <section>
-        <div class="container">
-            <div class="cta-section" style="background: rgba(0,0,0,0.3); border-radius: 16px;">
-                <h2>Starting a studio? Let's talk.</h2>
-                <p>From product selection, start-up cost, to ROI — we can help calculate!</p>
-                <a href="/contact-us.html" class="btn">Get Your Business Plan</a>
+    <!-- SECTION 7: FAQ -->
+    <div class="section-container" id="faq">
+        <h2>FAQs</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Need more information?</p>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item">
+                <button class="faq-question">What are the payment terms?</button>
+                <div class="faq-answer">
+                    <p>Our products are mostly pre-order unless specified. We have some stock for common models. Payment term is 70% deposit on order and 30% upon shipping confirmation from China. For high volume and repeat customers, we may have varying contracts.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Does I-Flex have a showroom?</button>
+                <div class="faq-answer">
+                    <p>No, currently we keep our stock at warehouse in the eastern seaboard area. However, customers who want to visit and review samples are welcome at our partner studio in Pattaya.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How to place an order?</button>
+                <div class="faq-answer">
+                    <p>Currently we do not have e-commerce online shopping. Customers can contact us by email, phone, Line, or WhatsApp. Please leave a message and we will call back within 24 hours.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What is our warranty policy?</button>
+                <div class="faq-answer">
+                    <p>Based on normal use, we guarantee functional equipment such as tracks, springs, and cables for up to 3 years. Replacement is free of charge. For soft lining, we can continue to supply at factory price. For cancellation after deposit, we cannot return the full amount if the product is produced and ready to ship.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Where does I-Flex equipment come from?</button>
+                <div class="faq-answer">
+                    <p>Our products are mainly from our partner in China. Adjusted Body is our long-term partnership. We have proven coordination and were selected from many sources and tested in real studios. We have reliable quality assurance, customization, warranty, and other commitments to build great value products.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Can we customize brand for customers?</button>
+                <div class="faq-answer">
+                    <p>Yes, even one unit. We accept customer branding requests, basically with customer logo in various locations. For advanced paint or patterns, we need to discuss. This depends on volume order and other factors. Special heights or dimensions are also possible but may require more lead time.</p>
+                </div>
             </div>
         </div>
-    </section>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/contact-us.html" class="btn">Contact us</a>
+        </div>
+    </div>
 
-    <!-- FAQ SECTION -->
-    <section id="faq">
-        <div class="container">
-            <h2>FAQs</h2>
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div class="faq-item">
-                    <button class="faq-question">What are the payment terms?</button>
-                    <div class="faq-answer">
-                        <p>Our products are mostly pre-order unless specified. We have some stock for common models. Payment term is 70% deposit on order and 30% upon shipping confirmation from China. For high volume and repeat customers, we may have varying contracts.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Does I-Flex have a showroom?</button>
-                    <div class="faq-answer">
-                        <p>No, currently we keep our stock at warehouse in the eastern seaboard area. However, customers who want to visit and review samples are welcome at our partner studio in Pattaya.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">How to place an order?</button>
-                    <div class="faq-answer">
-                        <p>Currently we do not have e-commerce online shopping. Customers can contact us by email, phone, Line, or WhatsApp. Please leave a message and we will call back within 24 hours.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What is our warranty policy?</button>
-                    <div class="faq-answer">
-                        <p>Based on normal use, we guarantee functional equipment such as tracks, springs, and cables for up to 3 years. Replacement is free of charge. For soft lining, we can continue to supply at factory price. For cancellation after deposit, we cannot return the full amount if the product is produced and ready to ship.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Where does I-Flex equipment come from?</button>
-                    <div class="faq-answer">
-                        <p>Our products are mainly from our partner in China. Adjusted Body is our long-term partnership. We have proven coordination and were selected from many sources and tested in real studios. We have reliable quality assurance, customization, warranty, and other commitments to build great value products.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Can we customize brand for customers?</button>
-                    <div class="faq-answer">
-                        <p>Yes, even one unit. We accept customer branding requests, basically with customer logo in various locations. For advanced paint or patterns, we need to discuss. This depends on volume order and other factors. Special heights or dimensions are also possible but may require more lead time.</p>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="/contact-us.html" class="btn">Contact Us</a>
-            </div>
+    <!-- SECTION 8: BOTTOM HERO -->
+    <div class="section-container">
+        <div class="cta-section bottom-hero">
+            <h2>Ready to outfit your studio ?</h2>
+            <p>Skip the headaches,<br>Get the quality!</p>
+            <p>My 5-Year Partnership Guarantee:<br>Get Your Studio Quote Today</p>
+            <a href="/contact-us.html" class="btn">Get your Quote today</a>
         </div>
-    </section>
-
-    <!-- FINAL CTA SECTION -->
-    <section>
-        <div class="container">
-            <div class="cta-section" style="background: rgba(0,0,0,0.3); border-radius: 16px;">
-                <h2>Ready to outfit your studio?</h2>
-                <p>Skip the headaches, get the quality!</p>
-                <p>My 5-Year Partnership Guarantee — Get Your Studio Quote Today</p>
-                <a href="/contact-us.html" class="btn">Get Your Quote Today</a>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
