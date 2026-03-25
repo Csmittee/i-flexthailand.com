@@ -214,6 +214,7 @@
             
           .navbar {
                 width: 100%;
+                high: 100px;
                 padding: 0.5rem 2rem;          /* 8px top/bottom, 2rem left/right */
                 background: rgba(0, 0, 0, 0.6);
                 backdrop-filter: blur(12px);
