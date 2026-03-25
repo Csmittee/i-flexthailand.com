@@ -1,7 +1,7 @@
 // ============================================
 // I-FLEX STANDALONE CORE v1.3
-// - Larger navbar logo (80px)
-// - Larger footer logo (200px, adjust as needed)
+// - Grid-based navbar with fixed columns
+// - Language selector absolute on desktop, in mobile menu
 // - Buttons with depth, shadow, better hover
 // ============================================
 
@@ -25,90 +25,73 @@
         return window.location.pathname.startsWith('/th/') ? 'th' : 'en';
     }
 
-  function buildNavbar() {
-    const isThai = getCurrentLang() === 'th';
-    const prefix = isThai ? '/th/' : '/';
-    
-    const navLinks = isThai ? [
-        { href: prefix + 'about-us.html', text: 'เกี่ยวกับเรา' },
-        { href: prefix + 'case-study.html', text: 'กรณีศึกษา' },
-        { href: prefix + 'product-listing.html', text: 'สินค้า' },
-        { href: prefix + 'blog-listing.html', text: 'บล็อก' },
-        { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
-    ] : [
-        { href: prefix + 'about-us.html', text: 'About Us' },
-        { href: prefix + 'case-study.html', text: 'Case Study' },
-        { href: prefix + 'product-listing.html', text: 'Products' },
-        { href: prefix + 'blog-listing.html', text: 'Blog' },
-        { href: prefix + 'contact-us.html', text: 'Contact' }
-    ];
-    
-    console.log(`🌐 Building navbar for language: ${isThai ? 'TH' : 'EN'}`);
-    
-    return `
-        <div class="navbar-fixed-wrapper">
-            <div class="navbar">
-                <div class="nav-container">
-                    <div class="brand-wrapper">
-                        <a href="${prefix}index.html" class="logo-link">
-                            <img src="${IFLEX_CONFIG.logo}" alt="${IFLEX_CONFIG.name}" class="logo-img">
-                        </a>
+    function buildNavbar() {
+        const isThai = getCurrentLang() === 'th';
+        const prefix = isThai ? '/th/' : '/';
+        
+        const navLinks = isThai ? [
+            { href: prefix + 'about-us.html', text: 'เกี่ยวกับเรา' },
+            { href: prefix + 'case-study.html', text: 'กรณีศึกษา' },
+            { href: prefix + 'product-listing.html', text: 'สินค้า' },
+            { href: prefix + 'blog-listing.html', text: 'บล็อก' },
+            { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
+        ] : [
+            { href: prefix + 'about-us.html', text: 'About Us' },
+            { href: prefix + 'case-study.html', text: 'Case Study' },
+            { href: prefix + 'product-listing.html', text: 'Products' },
+            { href: prefix + 'blog-listing.html', text: 'Blog' },
+            { href: prefix + 'contact-us.html', text: 'Contact' }
+        ];
+        
+        console.log(`🌐 Building navbar for language: ${isThai ? 'TH' : 'EN'}`);
+        
+        return `
+            <div class="navbar-fixed-wrapper">
+                <div class="navbar">
+                    <div class="nav-container">
+                        <div class="brand-wrapper">
+                            <a href="${prefix}index.html" class="logo-link">
+                                <img src="${IFLEX_CONFIG.logo}" alt="${IFLEX_CONFIG.name}" class="logo-img">
+                            </a>
+                        </div>
+                        <div class="nav-menu-wrap">
+                            <ul class="nav-menu">
+                                ${navLinks.map(link => `
+                                    <li><a href="${link.href}" class="nav-link">${link.text}</a></li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        <div class="ham-wrapper">
+                            <div class="hamburger" id="iflexHamburger">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="nav-menu-wrap">
-                        <ul class="nav-menu">
-                            ${navLinks.map(link => `
-                                <li><a href="${link.href}" class="nav-link">${link.text}</a></li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                    <div class="ham-wrapper">
-                        <div class="hamburger" id="iflexHamburger">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                    <div class="lang-sel-wrapper">
+                        <div class="language-selector">
+                            <span class="lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
+                            <span class="lang-sep">|</span>
+                            <span class="lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
                         </div>
                     </div>
                 </div>
-                <div class="lang-sel-wrapper">
-                    <div class="language-selector">
-                        <span class="lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
-                        <span class="lang-sep">|</span>
-                        <span class="lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
-                    </div>
+                
+                <div class="mobile-menu" id="iflexMobileMenu">
+                    <ul class="mobile-menu-list">
+                        ${navLinks.map(link => `
+                            <li><a href="${link.href}" class="mobile-menu-link">${link.text}</a></li>
+                        `).join('')}
+                        <li class="mobile-language-selector">
+                            <div class="mobile-language-options">
+                                <span class="mobile-lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
+                                <span class="mobile-lang-sep">|</span>
+                                <span class="mobile-lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            
-            <div class="mobile-menu" id="iflexMobileMenu">
-                <ul class="mobile-menu-list">
-                    ${navLinks.map(link => `
-                        <li><a href="${link.href}" class="mobile-menu-link">${link.text}</a></li>
-                    `).join('')}
-                    <li class="mobile-language-selector">
-                        <div class="mobile-language-options">
-                            <span class="mobile-lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
-                            <span class="mobile-lang-sep">|</span>
-                            <span class="mobile-lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-      `;
-    }
-            
-            <div class="mobile-menu" id="iflexMobileMenu">
-                <ul class="mobile-menu-list">
-                    ${navLinks.map(link => `
-                        <li><a href="${link.href}" class="mobile-menu-link">${link.text}</a></li>
-                    `).join('')}
-                    <li class="mobile-language-selector">
-                        <div class="mobile-language-options">
-                            <span class="mobile-lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
-                            <span class="mobile-lang-sep">|</span>
-                            <span class="mobile-lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
-                        </div>
-                    </li>
-                </ul>
             </div>
         `;
     }
@@ -221,7 +204,7 @@
                 z-index: 0;
             }
             
-           /* Fixed wrapper */
+            /* Fixed wrapper */
             .navbar-fixed-wrapper {
                 position: fixed;
                 top: 0;
@@ -354,6 +337,8 @@
                 transform: scale(1.1);
                 color: ${IFLEX_CONFIG.secondary};
             }
+            
+            /* Mobile Menu */
             .mobile-menu {
                 display: none;
                 position: fixed;
@@ -454,7 +439,6 @@
                 text-align: center;
             }
             
-            /* FIX 2: Footer logo much larger */
             .footer-logo {
                 width: 200px;
                 height: auto;
@@ -505,7 +489,7 @@
                 border-top: 1px solid rgba(255,255,255,0.2);
             }
             
-            /* FIX 3: Buttons with depth and shadow */
+            /* Buttons */
             .btn, .common-button, a.common-button, button.common-button, [class*="btn"] {
                 display: inline-block;
                 background: ${IFLEX_CONFIG.secondary};
@@ -536,45 +520,46 @@
                 z-index: 2;
             }
             
+            /* Mobile Responsive */
             @media (max-width: 768px) {
-            .nav-menu-wrap {
-                display: none;
+                .nav-menu-wrap {
+                    display: none;
+                }
+                
+                .hamburger {
+                    display: flex;
+                }
+                
+                .lang-sel-wrapper {
+                    display: none;
+                }
+                
+                body {
+                    padding-top: 70px;
+                }
+                
+                .nav-container {
+                    min-height: 60px;
+                }
+                
+                .logo-img {
+                    max-height: 45px;
+                }
+                
+                .footer-content {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+                
+                .footer-brand, .footer-links, .footer-contact {
+                    text-align: center;
+                }
+                
+                .footer-social {
+                    justify-content: center;
+                }
             }
-            
-            .hamburger {
-                display: flex;
-            }
-            
-            .lang-sel-wrapper {
-                display: none;
-            }
-            
-            body {
-                padding-top: 70px;
-            }
-            
-            .nav-container {
-                min-height: 60px;
-            }
-            
-            .logo-img {
-                max-height: 45px;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .footer-brand, .footer-links, .footer-contact {
-                text-align: center;
-            }
-            
-            .footer-social {
-                justify-content: center;
-            }
-        }
         `;
         document.head.appendChild(style);
     }
