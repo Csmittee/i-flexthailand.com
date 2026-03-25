@@ -1,8 +1,7 @@
 // ============================================
 // I-FLEX STANDALONE CONFIG v1.0
-// - Independent site (no Janishammer dependency)
 // - All brand colors, fonts, background
-// - Cloudinary image assets
+// - No external dependencies
 // ============================================
 
 const IFLEX_CONFIG = {
@@ -25,23 +24,20 @@ const IFLEX_CONFIG = {
     logo: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768378/I-Flex_main_no_bg.svg",
     favicon: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768489/Original.png",
     
-    // Social Links (update when you have them)
+    // Social Links (update later)
     social: {
         facebook: "https://www.facebook.com/profile.php?id=61586061685340",
         instagram: "#",
-        line: "#",
-        whatsapp: "#"
+        line: "#"
     },
     
     // Contact Info
     contact: {
         name: "Chairit Smittee",
         phone: "089 5412121",
-        email: "info@janishammer.com",
-        lineQR: "/images/Line-qR.JPG",     // Will update with Cloudinary
-        whatsappQR: "/images/Whatsapp-QR.JPG"
+        email: "info@janishammer.com"
     }
 };
 
-// Dark overlay opacity (consistent with Janishammer ecosystem)
+// Dark overlay opacity
 const DARK_OVERLAY = "rgba(0, 0, 0, 0.4)";
