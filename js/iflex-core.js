@@ -500,7 +500,7 @@
                     padding-top: 70px;
                 }
                 .logo-img {
-                    height: 60px;
+                    height: 40px;
                 }
                 .footer-logo {
                     width: 150px;
