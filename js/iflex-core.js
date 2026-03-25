@@ -229,28 +229,18 @@
                 gap: 2rem;
             }
             
-            /* FIX 1: Navbar logo larger */
-            .nav-left {
-                display: flex;
-                align-items: center;
-                flex-shrink: 0;
-            }
-            
-            .nav-center {
-                flex: 1;
-                display: flex;
-                justify-content: center;
-            }
-            
-            .nav-right {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
+         /* Navbar logo - fixed size */
+            .logo-img {
+                height: 50px;
+                width: auto;
+                max-width: 180px;
+                transition: transform 0.3s ease;
             }
             
             .logo-img:hover {
                 transform: scale(1.05);
             }
+                
             
             .nav-menu {
                 display: flex;
