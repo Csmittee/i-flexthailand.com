@@ -212,7 +212,7 @@
                 z-index: 1000;
             }
             
-           .navbar {
+          .navbar {
                 width: 100%;
                 padding: 0.75rem 2rem;
                 background: rgba(0, 0, 0, 0.6);
@@ -220,14 +220,13 @@
                 border-bottom: 1px solid rgba(255,255,255,0.2);
                 display: flex;
                 align-items: center;
+                min-height: 70px;
             }
 
             .nav-left {
                 display: flex;
                 align-items: center;
-                padding: 0;
-                margin: 0;
-                line-height: 0;
+                height: 100%;
             }
 
             
@@ -240,11 +239,12 @@
                 gap: 2rem;
                 width: 100%;
             }
-            
+                        
          /* Navbar logo - fixed size */
             .logo-img {
                 height: 50px;
                 width: auto;
+                display: block;
                 transition: transform 0.3s ease;
             }
             
