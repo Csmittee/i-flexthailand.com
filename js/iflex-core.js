@@ -1,14 +1,14 @@
 // ============================================
-// I-FLEX STANDALONE CORE v1.0
-// - Navbar, Footer, Mobile Menu
-// - Language Switcher (EN/TH with /th/ structure)
-// - Dark overlay and all global styling
-// - No external CSS files needed
+// I-FLEX STANDALONE CORE v1.2
+// - Footer fully centered
+// - Console logs for debugging
 // ============================================
 
 (function() {
-    // ===== LOAD FONTS & ICONS =====
+    console.log('🔧 I-Flex Core: Initializing...');
+
     function loadAssets() {
+        console.log('📦 Loading fonts and icons...');
         const fonts = document.createElement('link');
         fonts.rel = 'stylesheet';
         fonts.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap';
@@ -20,12 +20,10 @@
         document.head.appendChild(fa);
     }
 
-    // ===== GET CURRENT LANGUAGE =====
     function getCurrentLang() {
         return window.location.pathname.startsWith('/th/') ? 'th' : 'en';
     }
 
-    // ===== BUILD NAVBAR =====
     function buildNavbar() {
         const isThai = getCurrentLang() === 'th';
         const prefix = isThai ? '/th/' : '/';
@@ -43,6 +41,8 @@
             { href: prefix + 'blog-listing.html', text: 'Blog' },
             { href: prefix + 'contact-us.html', text: 'Contact' }
         ];
+        
+        console.log(`🌐 Building navbar for language: ${isThai ? 'TH' : 'EN'}`);
         
         return `
             <div class="navbar-fixed-wrapper">
@@ -95,7 +95,6 @@
         `;
     }
 
-    // ===== BUILD FOOTER =====
     function buildFooter() {
         const isThai = getCurrentLang() === 'th';
         const prefix = isThai ? '/th/' : '/';
@@ -135,6 +134,8 @@
             rights: `© ${year} ${IFLEX_CONFIG.name}. All rights reserved.`
         };
         
+        console.log(`📋 Building footer for language: ${isThai ? 'TH' : 'EN'}`);
+        
         return `
             <footer class="footer">
                 <div class="footer-container">
@@ -172,8 +173,8 @@
         `;
     }
 
-    // ===== INJECT ALL STYLES =====
     function injectStyles() {
+        console.log('🎨 Injecting styles...');
         const style = document.createElement('style');
         style.id = 'iflex-core-styles';
         style.textContent = `
@@ -197,12 +198,11 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: ${DARK_OVERLAY};
+                background: rgba(0, 0, 0, 0.2);
                 pointer-events: none;
                 z-index: 0;
             }
             
-            /* ===== NAVBAR ===== */
             .navbar-fixed-wrapper {
                 position: fixed;
                 top: 0;
@@ -214,7 +214,7 @@
             .navbar {
                 width: 100%;
                 padding: 0.75rem 2rem;
-                background: rgba(0, 0, 0, 0.75);
+                background: rgba(0, 0, 0, 0.5);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(255,255,255,0.2);
             }
@@ -229,7 +229,7 @@
             }
             
             .logo-img {
-                height: 45px;
+                height: 55px;
                 width: auto;
                 transition: transform 0.3s ease;
             }
@@ -293,7 +293,6 @@
                 transition: all 0.3s ease;
             }
             
-            /* ===== MOBILE MENU ===== */
             .mobile-menu {
                 display: none;
                 position: fixed;
@@ -365,7 +364,7 @@
                 transform: rotate(-45deg) translate(7px, -6px);
             }
             
-            /* ===== FOOTER ===== */
+            /* FOOTER - FULLY CENTERED */
             .footer {
                 background: rgba(0, 0, 0, 0.85);
                 backdrop-filter: blur(10px);
@@ -385,15 +384,17 @@
                 justify-content: space-between;
                 gap: 2rem;
                 margin-bottom: 3rem;
+                text-align: center;
             }
             
             .footer-brand, .footer-links, .footer-contact {
                 flex: 1;
                 min-width: 200px;
+                text-align: center;
             }
             
             .footer-logo {
-                height: 50px;
+                height: 55px;
                 width: auto;
                 margin-bottom: 1rem;
             }
@@ -401,6 +402,7 @@
             .footer-links ul {
                 list-style: none;
                 padding: 0;
+                margin: 0;
             }
             
             .footer-links li {
@@ -421,6 +423,7 @@
                 display: flex;
                 gap: 1rem;
                 margin-top: 1rem;
+                justify-content: center;
             }
             
             .footer-social a {
@@ -440,13 +443,11 @@
                 border-top: 1px solid rgba(255,255,255,0.2);
             }
             
-            /* ===== UTILITY CLASSES ===== */
             .hero, .content, .footer {
                 position: relative;
                 z-index: 2;
             }
             
-            /* ===== RESPONSIVE ===== */
             @media (max-width: 768px) {
                 .nav-menu, .language-selector {
                     display: none;
@@ -456,6 +457,10 @@
                 }
                 .footer-content {
                     flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+                .footer-brand, .footer-links, .footer-contact {
                     text-align: center;
                 }
                 .footer-social {
@@ -469,7 +474,6 @@
         document.head.appendChild(style);
     }
 
-    // ===== MOBILE MENU TOGGLE =====
     function initMobileMenu() {
         setTimeout(() => {
             const hamburger = document.getElementById('iflexHamburger');
@@ -480,11 +484,11 @@
                     hamburger.classList.toggle('active');
                     mobileMenu.classList.toggle('active');
                 });
+                console.log('📱 Mobile menu initialized');
             }
         }, 100);
     }
 
-    // ===== LANGUAGE SWITCHER =====
     function initLanguageSwitcher() {
         const currentPath = window.location.pathname;
         const isThai = getCurrentLang() === 'th';
@@ -500,6 +504,7 @@
                 if (newPath === '/th') newPath = '/th/index.html';
                 if (!newPath.includes('.')) newPath += '.html';
             }
+            console.log(`🔄 Switching to ${lang}: ${newPath}`);
             window.location.href = newPath;
         }
         
@@ -511,28 +516,30 @@
                 }
             });
         });
+        console.log(`🌍 Language switcher initialized. Current: ${isThai ? 'TH' : 'EN'}`);
     }
 
-    // ===== FAVICON =====
     function setFavicon() {
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
-        favicon.type = 'image/png';
-        favicon.href = IFLEX_CONFIG.favicon;
+        favicon.type = 'image/svg+xml';
+        favicon.href = IFLEX_CONFIG.logo;
         document.head.appendChild(favicon);
         
         const appleIcon = document.createElement('link');
         appleIcon.rel = 'apple-touch-icon';
-        appleIcon.href = IFLEX_CONFIG.favicon;
+        appleIcon.href = IFLEX_CONFIG.logo;
         document.head.appendChild(appleIcon);
+        console.log('⭐ Favicon set');
     }
 
-    // ===== INITIALIZE =====
     function init() {
         if (typeof IFLEX_CONFIG === 'undefined') {
-            console.error('I-Flex: Config not loaded.');
+            console.error('❌ I-Flex: Config not loaded! Check if iflex-config.js is loaded first.');
             return;
         }
+        
+        console.log('✅ Config loaded:', IFLEX_CONFIG.name);
         
         loadAssets();
         injectStyles();
@@ -542,7 +549,7 @@
         initMobileMenu();
         initLanguageSwitcher();
         
-        console.log(`✅ I-Flex Core loaded for ${IFLEX_CONFIG.name}`);
+        console.log(`🎉 I-Flex Core v1.2 loaded successfully for ${IFLEX_CONFIG.name}`);
     }
     
     if (document.readyState === 'loading') {
