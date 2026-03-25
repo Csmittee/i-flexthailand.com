@@ -231,7 +231,7 @@
             
             /* FIX 1: Navbar logo larger */
             .logo-img {
-                height: 80px;
+                height: 50px;           /* Fixed height - keeps navbar compact */
                 width: auto;
                 transition: transform 0.3s ease;
             }
