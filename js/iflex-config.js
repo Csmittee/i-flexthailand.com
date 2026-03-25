@@ -21,7 +21,7 @@ const IFLEX_CONFIG = {
     
     // Images (Cloudinary)
     bgImage: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773775103/I_flex_only.png",
-    logo: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768378/I-Flex_main_no_bg.svg",
+    logo: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1774452079/I-Flex-p-500.png",
     favicon: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768489/Original.png",
     
     // Social Links (update later)
