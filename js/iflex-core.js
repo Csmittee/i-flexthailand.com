@@ -1,7 +1,8 @@
 // ============================================
-// I-FLEX STANDALONE CORE v1.2
-// - Footer fully centered
-// - Console logs for debugging
+// I-FLEX STANDALONE CORE v1.3
+// - Larger navbar logo (80px)
+// - Larger footer logo (200px, adjust as needed)
+// - Buttons with depth, shadow, better hover
 // ============================================
 
 (function() {
@@ -214,7 +215,7 @@
             .navbar {
                 width: 100%;
                 padding: 0.75rem 2rem;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.6);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(255,255,255,0.2);
             }
@@ -228,8 +229,9 @@
                 gap: 2rem;
             }
             
+            /* FIX 1: Navbar logo larger */
             .logo-img {
-                height: 55px;
+                height: 80px;
                 width: auto;
                 transition: transform 0.3s ease;
             }
@@ -249,6 +251,7 @@
                 text-decoration: none;
                 font-weight: 500;
                 transition: color 0.3s ease;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.3);
             }
             
             .nav-link:hover {
@@ -364,7 +367,7 @@
                 transform: rotate(-45deg) translate(7px, -6px);
             }
             
-            /* FOOTER - FULLY CENTERED */
+            /* FOOTER */
             .footer {
                 background: rgba(0, 0, 0, 0.85);
                 backdrop-filter: blur(10px);
@@ -393,9 +396,10 @@
                 text-align: center;
             }
             
+            /* FIX 2: Footer logo much larger */
             .footer-logo {
-                height: 55px;
-                width: auto;
+                width: 200px;
+                height: auto;
                 margin-bottom: 1rem;
             }
             
@@ -443,6 +447,32 @@
                 border-top: 1px solid rgba(255,255,255,0.2);
             }
             
+            /* FIX 3: Buttons with depth and shadow */
+            .btn, .common-button, a.common-button, button.common-button, [class*="btn"] {
+                display: inline-block;
+                background: ${IFLEX_CONFIG.secondary};
+                color: #1a1a1a;
+                padding: 0.75rem 2rem;
+                border-radius: 40px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                border: none;
+                cursor: pointer;
+            }
+            
+            .btn:hover, .common-button:hover, [class*="btn"]:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+                background: #ffed4a;
+            }
+            
+            .btn:active, .common-button:active {
+                transform: translateY(1px);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }
+            
             .hero, .content, .footer {
                 position: relative;
                 z-index: 2;
@@ -468,6 +498,12 @@
                 }
                 body {
                     padding-top: 70px;
+                }
+                .logo-img {
+                    height: 60px;
+                }
+                .footer-logo {
+                    width: 150px;
                 }
             }
         `;
@@ -549,7 +585,7 @@
         initMobileMenu();
         initLanguageSwitcher();
         
-        console.log(`🎉 I-Flex Core v1.2 loaded successfully for ${IFLEX_CONFIG.name}`);
+        console.log(`🎉 I-Flex Core v1.3 loaded successfully for ${IFLEX_CONFIG.name}`);
     }
     
     if (document.readyState === 'loading') {
