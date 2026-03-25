@@ -2,33 +2,30 @@
 // I-FLEX STANDALONE CORE v1.0
 // - Navbar, Footer, Mobile Menu
 // - Language Switcher (EN/TH with /th/ structure)
-// - Dark overlay and styling
-// - No external dependencies
+// - Dark overlay and all global styling
+// - No external CSS files needed
 // ============================================
 
 (function() {
-    // Load Google Fonts
-    function loadFonts() {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap';
-        document.head.appendChild(link);
+    // ===== LOAD FONTS & ICONS =====
+    function loadAssets() {
+        const fonts = document.createElement('link');
+        fonts.rel = 'stylesheet';
+        fonts.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap';
+        document.head.appendChild(fonts);
+        
+        const fa = document.createElement('link');
+        fa.rel = 'stylesheet';
+        fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+        document.head.appendChild(fa);
     }
-    
-    // Load Font Awesome
-    function loadFontAwesome() {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-        document.head.appendChild(link);
-    }
-    
-    // Get current language from path
+
+    // ===== GET CURRENT LANGUAGE =====
     function getCurrentLang() {
         return window.location.pathname.startsWith('/th/') ? 'th' : 'en';
     }
-    
-    // Navbar HTML
+
+    // ===== BUILD NAVBAR =====
     function buildNavbar() {
         const isThai = getCurrentLang() === 'th';
         const prefix = isThai ? '/th/' : '/';
@@ -36,13 +33,15 @@
         const navLinks = isThai ? [
             { href: prefix + 'about-us.html', text: 'เกี่ยวกับเรา' },
             { href: prefix + 'case-study.html', text: 'กรณีศึกษา' },
-            { href: prefix + 'product.html', text: 'สินค้า' },
-            { href: prefix + 'blog.html', text: 'บล้อก' }
+            { href: prefix + 'product-listing.html', text: 'สินค้า' },
+            { href: prefix + 'blog-listing.html', text: 'บล็อก' },
+            { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
         ] : [
             { href: prefix + 'about-us.html', text: 'About Us' },
-            { href: prefix + 'case-study.html', text: 'Case study' },
-            { href: prefix + 'product.html', text: 'Products' },
-            { href: prefix + 'blog.html', text: 'Blog' }
+            { href: prefix + 'case-study.html', text: 'Case Study' },
+            { href: prefix + 'product-listing.html', text: 'Products' },
+            { href: prefix + 'blog-listing.html', text: 'Blog' },
+            { href: prefix + 'contact-us.html', text: 'Contact' }
         ];
         
         return `
@@ -95,44 +94,45 @@
             </div>
         `;
     }
-    
-    // Footer HTML
+
+    // ===== BUILD FOOTER =====
     function buildFooter() {
         const isThai = getCurrentLang() === 'th';
         const prefix = isThai ? '/th/' : '/';
+        const year = new Date().getFullYear();
         
         const footerLinks = isThai ? {
             supports: [
-                { href: prefix + 'index.html#faq-th', text: 'FAQ' },
-                { href: prefix + 'index.html#faq-th', text: 'การรับประกัน' },
-                { href: prefix + 'index.html#faq-th', text: 'คู่มือ' },
-                { href: prefix + 'index.html#faq-th', text: 'การจัดส่ง' },
-                { href: prefix + 'contact-us.html#message-form-th', text: 'ติดต่อเรา' }
+                { href: prefix + 'index.html#faq', text: 'FAQ' },
+                { href: prefix + 'index.html#faq', text: 'การรับประกัน' },
+                { href: prefix + 'index.html#faq', text: 'คู่มือ' },
+                { href: prefix + 'index.html#faq', text: 'การจัดส่ง' },
+                { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
             ],
             equipment: [
-                { href: prefix + 'product.html', text: 'กลุ่ม รีฟอร์มเมอร์' },
-                { href: prefix + 'product.html', text: 'กลุ่มคาดิลแลก' },
-                { href: prefix + 'product.html', text: 'กลุ่มบาเรล' },
-                { href: prefix + 'product.html', text: 'กลุ่มวันด้า' }
+                { href: prefix + 'product-listing.html', text: 'รีฟอร์มเมอร์' },
+                { href: prefix + 'product-listing.html', text: 'คาดิลแลค' },
+                { href: prefix + 'product-listing.html', text: 'บาร์เรล' },
+                { href: prefix + 'product-listing.html', text: 'วันด้าเชียร์' }
             ],
-            contactText: `ติดต่อเราได้ที่นี่<br><br>${IFLEX_CONFIG.contact.name}<br>${IFLEX_CONFIG.contact.phone}<br>${IFLEX_CONFIG.contact.email}<br><br>ติดตามเรา:`,
-            rights: `© ${new Date().getFullYear()} ${IFLEX_CONFIG.name}. All rights reserved.`
+            contactText: `ติดต่อเราได้ที่นี่<br><br>${IFLEX_CONFIG.contact.name}<br>${IFLEX_CONFIG.contact.phone}<br>${IFLEX_CONFIG.contact.email}`,
+            rights: `© ${year} ${IFLEX_CONFIG.name}. All rights reserved.`
         } : {
             supports: [
-                { href: prefix + 'index.html#faq-eng', text: 'FAQ' },
-                { href: prefix + 'index.html#faq-eng', text: 'Warranty' },
-                { href: prefix + 'index.html#faq-eng', text: 'Manual' },
-                { href: prefix + 'index.html#faq-eng', text: 'Shipping' },
-                { href: prefix + 'contact-us.html#message-form-eng', text: 'Contact' }
+                { href: prefix + 'index.html#faq', text: 'FAQ' },
+                { href: prefix + 'index.html#faq', text: 'Warranty' },
+                { href: prefix + 'index.html#faq', text: 'Manual' },
+                { href: prefix + 'index.html#faq', text: 'Shipping' },
+                { href: prefix + 'contact-us.html', text: 'Contact' }
             ],
             equipment: [
-                { href: prefix + 'product.html', text: 'Reformer group' },
-                { href: prefix + 'product.html', text: 'Cadillac group' },
-                { href: prefix + 'product.html', text: 'Barrel ladder group' },
-                { href: prefix + 'product.html', text: 'Wunda chair group' }
+                { href: prefix + 'product-listing.html', text: 'Reformer' },
+                { href: prefix + 'product-listing.html', text: 'Cadillac' },
+                { href: prefix + 'product-listing.html', text: 'Barrel Ladder' },
+                { href: prefix + 'product-listing.html', text: 'Wunda Chair' }
             ],
-            contactText: `contact us at <br><br>${IFLEX_CONFIG.contact.name}<br>${IFLEX_CONFIG.contact.phone}<br>${IFLEX_CONFIG.contact.email}<br><br>Follow us:`,
-            rights: `© ${new Date().getFullYear()} ${IFLEX_CONFIG.name}. All rights reserved.`
+            contactText: `Contact us at<br><br>${IFLEX_CONFIG.contact.name}<br>${IFLEX_CONFIG.contact.phone}<br>${IFLEX_CONFIG.contact.email}`,
+            rights: `© ${year} ${IFLEX_CONFIG.name}. All rights reserved.`
         };
         
         return `
@@ -154,7 +154,7 @@
                             <ul>
                                 ${footerLinks.supports.map(link => `<li><a href="${link.href}">${link.text}</a></li>`).join('')}
                             </ul>
-                            <h4>Equipments</h4>
+                            <h4>Equipment</h4>
                             <ul>
                                 ${footerLinks.equipment.map(link => `<li><a href="${link.href}">${link.text}</a></li>`).join('')}
                             </ul>
@@ -171,8 +171,8 @@
             </footer>
         `;
     }
-    
-    // Inject global styles
+
+    // ===== INJECT ALL STYLES =====
     function injectStyles() {
         const style = document.createElement('style');
         style.id = 'iflex-core-styles';
@@ -202,6 +202,7 @@
                 z-index: 0;
             }
             
+            /* ===== NAVBAR ===== */
             .navbar-fixed-wrapper {
                 position: fixed;
                 top: 0;
@@ -292,7 +293,7 @@
                 transition: all 0.3s ease;
             }
             
-            /* Mobile Menu */
+            /* ===== MOBILE MENU ===== */
             .mobile-menu {
                 display: none;
                 position: fixed;
@@ -364,7 +365,7 @@
                 transform: rotate(-45deg) translate(7px, -6px);
             }
             
-            /* Footer */
+            /* ===== FOOTER ===== */
             .footer {
                 background: rgba(0, 0, 0, 0.85);
                 backdrop-filter: blur(10px);
@@ -439,7 +440,13 @@
                 border-top: 1px solid rgba(255,255,255,0.2);
             }
             
-            /* Responsive */
+            /* ===== UTILITY CLASSES ===== */
+            .hero, .content, .footer {
+                position: relative;
+                z-index: 2;
+            }
+            
+            /* ===== RESPONSIVE ===== */
             @media (max-width: 768px) {
                 .nav-menu, .language-selector {
                     display: none;
@@ -454,18 +461,15 @@
                 .footer-social {
                     justify-content: center;
                 }
-            }
-            
-            /* Utility Classes */
-            .hero, .content, .footer {
-                position: relative;
-                z-index: 2;
+                body {
+                    padding-top: 70px;
+                }
             }
         `;
         document.head.appendChild(style);
     }
-    
-    // Mobile menu toggle
+
+    // ===== MOBILE MENU TOGGLE =====
     function initMobileMenu() {
         setTimeout(() => {
             const hamburger = document.getElementById('iflexHamburger');
@@ -479,8 +483,8 @@
             }
         }, 100);
     }
-    
-    // Language switcher
+
+    // ===== LANGUAGE SWITCHER =====
     function initLanguageSwitcher() {
         const currentPath = window.location.pathname;
         const isThai = getCurrentLang() === 'th';
@@ -490,11 +494,11 @@
             if (lang === 'en') {
                 newPath = currentPath.replace(/^\/th\//, '/');
                 if (newPath === '/') newPath = '/index.html';
-                if (!newPath.endsWith('.html') && !newPath.endsWith('/')) newPath += '.html';
+                if (!newPath.includes('.')) newPath += '.html';
             } else {
                 newPath = '/th' + currentPath;
                 if (newPath === '/th') newPath = '/th/index.html';
-                if (!newPath.endsWith('.html') && !newPath.endsWith('/')) newPath += '.html';
+                if (!newPath.includes('.')) newPath += '.html';
             }
             window.location.href = newPath;
         }
@@ -508,8 +512,8 @@
             });
         });
     }
-    
-    // Set favicon
+
+    // ===== FAVICON =====
     function setFavicon() {
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
@@ -522,16 +526,15 @@
         appleIcon.href = IFLEX_CONFIG.favicon;
         document.head.appendChild(appleIcon);
     }
-    
-    // Initialize
+
+    // ===== INITIALIZE =====
     function init() {
         if (typeof IFLEX_CONFIG === 'undefined') {
             console.error('I-Flex: Config not loaded.');
             return;
         }
         
-        loadFonts();
-        loadFontAwesome();
+        loadAssets();
         injectStyles();
         setFavicon();
         document.body.insertAdjacentHTML('afterbegin', buildNavbar());
@@ -539,7 +542,7 @@
         initMobileMenu();
         initLanguageSwitcher();
         
-        console.log(`✅ I-Flex Core v1.0 loaded for ${IFLEX_CONFIG.name}`);
+        console.log(`✅ I-Flex Core loaded for ${IFLEX_CONFIG.name}`);
     }
     
     if (document.readyState === 'loading') {
