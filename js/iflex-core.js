@@ -251,7 +251,12 @@
             .logo-img:hover {
                 transform: scale(1.05);
             }
-                
+            
+            .logo-link {
+                display: flex;
+                align-items: center;
+                line-height: 0;
+            }
             
             .nav-menu {
                 display: flex;
