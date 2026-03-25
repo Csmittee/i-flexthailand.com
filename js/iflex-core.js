@@ -25,59 +25,76 @@
         return window.location.pathname.startsWith('/th/') ? 'th' : 'en';
     }
 
-    function buildNavbar() {
-        const isThai = getCurrentLang() === 'th';
-        const prefix = isThai ? '/th/' : '/';
-        
-        const navLinks = isThai ? [
-            { href: prefix + 'about-us.html', text: 'เกี่ยวกับเรา' },
-            { href: prefix + 'case-study.html', text: 'กรณีศึกษา' },
-            { href: prefix + 'product-listing.html', text: 'สินค้า' },
-            { href: prefix + 'blog-listing.html', text: 'บล็อก' },
-            { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
-        ] : [
-            { href: prefix + 'about-us.html', text: 'About Us' },
-            { href: prefix + 'case-study.html', text: 'Case Study' },
-            { href: prefix + 'product-listing.html', text: 'Products' },
-            { href: prefix + 'blog-listing.html', text: 'Blog' },
-            { href: prefix + 'contact-us.html', text: 'Contact' }
-        ];
-        
-        console.log(`🌐 Building navbar for language: ${isThai ? 'TH' : 'EN'}`);
-        
-        return `
-            <div class="navbar-fixed-wrapper">
-                <nav class="navbar">
-                    <div class="nav-container">
-                        <div class="nav-left">
-                            <a href="${prefix}index.html" class="logo-link">
-                                <img src="${IFLEX_CONFIG.logo}" alt="${IFLEX_CONFIG.name}" class="logo-img">
-                            </a>
-                        </div>
-                        
-                        <div class="nav-center">
-                            <ul class="nav-menu">
-                                ${navLinks.map(link => `
-                                    <li><a href="${link.href}" class="nav-link">${link.text}</a></li>
-                                `).join('')}
-                            </ul>
-                        </div>
-                        
-                        <div class="nav-right">
-                            <div class="language-selector">
-                                <span class="lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
-                                <span class="lang-sep">|</span>
-                                <span class="lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
-                            </div>
-                            <div class="hamburger" id="iflexHamburger">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
+  function buildNavbar() {
+    const isThai = getCurrentLang() === 'th';
+    const prefix = isThai ? '/th/' : '/';
+    
+    const navLinks = isThai ? [
+        { href: prefix + 'about-us.html', text: 'เกี่ยวกับเรา' },
+        { href: prefix + 'case-study.html', text: 'กรณีศึกษา' },
+        { href: prefix + 'product-listing.html', text: 'สินค้า' },
+        { href: prefix + 'blog-listing.html', text: 'บล็อก' },
+        { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
+    ] : [
+        { href: prefix + 'about-us.html', text: 'About Us' },
+        { href: prefix + 'case-study.html', text: 'Case Study' },
+        { href: prefix + 'product-listing.html', text: 'Products' },
+        { href: prefix + 'blog-listing.html', text: 'Blog' },
+        { href: prefix + 'contact-us.html', text: 'Contact' }
+    ];
+    
+    console.log(`🌐 Building navbar for language: ${isThai ? 'TH' : 'EN'}`);
+    
+    return `
+        <div class="navbar-fixed-wrapper">
+            <div class="navbar">
+                <div class="nav-container">
+                    <div class="brand-wrapper">
+                        <a href="${prefix}index.html" class="logo-link">
+                            <img src="${IFLEX_CONFIG.logo}" alt="${IFLEX_CONFIG.name}" class="logo-img">
+                        </a>
+                    </div>
+                    <div class="nav-menu-wrap">
+                        <ul class="nav-menu">
+                            ${navLinks.map(link => `
+                                <li><a href="${link.href}" class="nav-link">${link.text}</a></li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    <div class="ham-wrapper">
+                        <div class="hamburger" id="iflexHamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
                     </div>
-                </nav>
+                </div>
+                <div class="lang-sel-wrapper">
+                    <div class="language-selector">
+                        <span class="lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
+                        <span class="lang-sep">|</span>
+                        <span class="lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
+                    </div>
+                </div>
             </div>
+            
+            <div class="mobile-menu" id="iflexMobileMenu">
+                <ul class="mobile-menu-list">
+                    ${navLinks.map(link => `
+                        <li><a href="${link.href}" class="mobile-menu-link">${link.text}</a></li>
+                    `).join('')}
+                    <li class="mobile-language-selector">
+                        <div class="mobile-language-options">
+                            <span class="mobile-lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
+                            <span class="mobile-lang-sep">|</span>
+                            <span class="mobile-lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+      `;
+    }
             
             <div class="mobile-menu" id="iflexMobileMenu">
                 <ul class="mobile-menu-list">
@@ -204,47 +221,52 @@
                 z-index: 0;
             }
             
+           /* Fixed wrapper */
             .navbar-fixed-wrapper {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 z-index: 1000;
-            }
-            
-          .navbar {
-                width: 100%;
-                high: 100px;
-                padding: 0.5rem 2rem;          /* 8px top/bottom, 2rem left/right */
                 background: rgba(0, 0, 0, 0.6);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(255,255,255,0.2);
-                display: flex;
-                align-items: center;
             }
-
-            .nav-left {
-                display: flex;
-                align-items: center;
-               
-            }
-
             
-            .nav-container {
+            /* Navbar inner container */
+            .navbar {
                 max-width: 1280px;
                 margin: 0 auto;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 2rem;
-                width: 100%;
+                padding: 0 2rem;
+                position: relative;
             }
-                        
-         /* Navbar logo - fixed size */
+            
+            /* Grid container for logo, nav, hamburger */
+            .nav-container {
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: center;
+                min-height: 70px;
+            }
+            
+            /* Logo wrapper */
+            .brand-wrapper {
+                grid-column: 1;
+                display: flex;
+                align-items: center;
+                height: 100%;
+            }
+            
+            .logo-link {
+                display: block;
+                line-height: 0;
+                height: 100%;
+            }
+            
             .logo-img {
                 height: 100%;
                 width: auto;
-                display: block;
+                max-height: 60px;
                 transition: transform 0.3s ease;
             }
             
@@ -252,16 +274,19 @@
                 transform: scale(1.05);
             }
             
-            .logo-link {
+            /* Nav menu wrapper */
+            .nav-menu-wrap {
+                grid-column: 2;
                 display: flex;
-                align-items: center;
-                line-height: 0;
+                justify-content: center;
             }
             
             .nav-menu {
                 display: flex;
                 list-style: none;
                 gap: 2rem;
+                margin: 0;
+                padding: 0;
             }
             
             .nav-link {
@@ -274,6 +299,36 @@
             
             .nav-link:hover {
                 color: ${IFLEX_CONFIG.secondary};
+            }
+            
+            /* Hamburger wrapper */
+            .ham-wrapper {
+                grid-column: 3;
+                display: flex;
+                justify-content: flex-end;
+            }
+            
+            .hamburger {
+                display: none;
+                flex-direction: column;
+                gap: 6px;
+                cursor: pointer;
+                padding: 10px;
+            }
+            
+            .hamburger span {
+                width: 28px;
+                height: 2px;
+                background: white;
+                transition: all 0.3s ease;
+            }
+            
+            /* Language selector - positioned absolutely on desktop */
+            .lang-sel-wrapper {
+                position: absolute;
+                right: 2rem;
+                top: 50%;
+                transform: translateY(-50%);
             }
             
             .language-selector {
@@ -299,21 +354,6 @@
                 transform: scale(1.1);
                 color: ${IFLEX_CONFIG.secondary};
             }
-            
-            .hamburger {
-                display: none;
-                flex-direction: column;
-                gap: 6px;
-                cursor: pointer;
-            }
-            
-            .hamburger span {
-                width: 28px;
-                height: 2px;
-                background: white;
-                transition: all 0.3s ease;
-            }
-            
             .mobile-menu {
                 display: none;
                 position: fixed;
@@ -497,33 +537,44 @@
             }
             
             @media (max-width: 768px) {
-                .nav-menu, .language-selector {
-                    display: none;
-                }
-                .hamburger {
-                    display: flex;
-                }
-                .footer-content {
-                    flex-direction: column;
-                    align-items: center;
-                    text-align: center;
-                }
-                .footer-brand, .footer-links, .footer-contact {
-                    text-align: center;
-                }
-                .footer-social {
-                    justify-content: center;
-                }
-                body {
-                    padding-top: 70px;
-                }
-                .logo-img {
-                    height: 40px;
-                }
-                .footer-logo {
-                    width: 150px;
-                }
+            .nav-menu-wrap {
+                display: none;
             }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .lang-sel-wrapper {
+                display: none;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .nav-container {
+                min-height: 60px;
+            }
+            
+            .logo-img {
+                max-height: 45px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-brand, .footer-links, .footer-contact {
+                text-align: center;
+            }
+            
+            .footer-social {
+                justify-content: center;
+            }
+        }
         `;
         document.head.appendChild(style);
     }
