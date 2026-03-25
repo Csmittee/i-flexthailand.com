@@ -545,6 +545,28 @@
                 .logo-img {
                     max-height: 45px;
                 }
+
+                /* Hero overlay with gradient fade */
+                .hero-section {
+                    position: relative;
+                }
+                
+                .hero-section::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 70%, transparent 100%);
+                    pointer-events: none;
+                    z-index: 1;
+                }
+                
+                .hero-content {
+                    position: relative;
+                    z-index: 2;
+                }
                 
                 .footer-content {
                     flex-direction: column;
@@ -559,6 +581,7 @@
                 .footer-social {
                     justify-content: center;
                 }
+
             }
         `;
         document.head.appendChild(style);
