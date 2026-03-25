@@ -441,6 +441,27 @@
                 margin: 0;
             }
             
+            /* Footer headings */
+            .footer-links h4,
+            .footer-contact h4 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 1.25rem;
+                color: #FFD700;
+            }
+            
+            /* Footer links spacing */
+            .footer-links li {
+                margin-bottom: 0.75rem;
+            }
+            
+            /* Third column vertical center */
+            .footer-contact {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }            
+            
             .footer-links li {
                 margin-bottom: 0.5rem;
             }
