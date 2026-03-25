@@ -230,10 +230,22 @@
             }
             
             /* FIX 1: Navbar logo larger */
-            .logo-img {
-                height: 50px;           /* Fixed height - keeps navbar compact */
-                width: auto;
-                transition: transform 0.3s ease;
+            .nav-left {
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+            }
+            
+            .nav-center {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .nav-right {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
             }
             
             .logo-img:hover {
