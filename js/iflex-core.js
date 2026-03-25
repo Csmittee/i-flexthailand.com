@@ -233,7 +233,9 @@
             .logo-img {
                 height: 50px;
                 width: auto;
-                max-width: 180px;
+                max-width: 200px;
+                object-fit: contain;
+                object-position: left;
                 transition: transform 0.3s ease;
             }
             
