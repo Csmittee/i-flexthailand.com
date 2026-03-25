@@ -214,19 +214,18 @@
             
           .navbar {
                 width: 100%;
-                padding: 0.75rem 2rem;
+                padding: 0.5rem 2rem;          /* 8px top/bottom, 2rem left/right */
                 background: rgba(0, 0, 0, 0.6);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(255,255,255,0.2);
                 display: flex;
                 align-items: center;
-                min-height: 70px;
             }
 
             .nav-left {
                 display: flex;
                 align-items: center;
-                height: 100%;
+               
             }
 
             
@@ -242,7 +241,7 @@
                         
          /* Navbar logo - fixed size */
             .logo-img {
-                height: 50px;
+                height: 100%;
                 width: auto;
                 display: block;
                 transition: transform 0.3s ease;
