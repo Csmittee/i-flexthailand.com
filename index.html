@@ -333,12 +333,20 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         
-        .bottom-hero {
-            background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
-            background-size: cover;
-            background-position: center;
-            border-radius: 16px;
-        }
+       .bottom-hero {
+                background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                width: 100%;
+                aspect-ratio: 16 / 9;  /* Change this to match your image ratio */
+                border-radius: 16px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
         
         @media (max-width: 768px) {
             .compare-row {
