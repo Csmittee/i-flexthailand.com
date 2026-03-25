@@ -333,20 +333,21 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         
-       .bottom-hero {
-                background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                width: 100%;
-                aspect-ratio: 16 / 9;  /* Change this to match your image ratio */
-                border-radius: 16px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
+     .bottom-hero {
+            background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            aspect-ratio: 1600 / 667;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0;
+            border-radius: 0;  /* Optional: remove radius for full width */
+        }
         
         @media (max-width: 768px) {
             .compare-row {
@@ -552,14 +553,14 @@
     </div>
 
     <!-- SECTION 8: BOTTOM HERO -->
-    <div class="section-container">
+   
         <div class="cta-section bottom-hero">
             <h2>Ready to outfit your studio ?</h2>
             <p>Skip the headaches,<br>Get the quality!</p>
             <p>My 5-Year Partnership Guarantee:<br>Get Your Studio Quote Today</p>
             <a href="/contact-us.html" class="btn">Get your Quote today</a>
         </div>
-    </div>
+   
 
     <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
