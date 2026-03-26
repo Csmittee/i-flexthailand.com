@@ -208,35 +208,11 @@ BLOG_TEMPLATE = '''<!DOCTYPE html>
     </div>
 </div>
 
-<div class="lightbox" id="lightbox">
-    <span class="lightbox-close">&times;</span>
-    <img src="" alt="Lightbox">
-</div>
+
 
 <script src="/js/iflex-config.js"></script>
 <script src="/js/iflex-core.js"></script>
-<script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox?.querySelector('img');
-    const lightboxClose = lightbox?.querySelector('.lightbox-close');
-    
-    function openLightbox(src) {
-        if (lightboxImg) {
-            lightboxImg.src = src;
-            lightbox.classList.add('active');
-        }
-    }
-    
-    lightboxClose?.addEventListener('click', () => {
-        lightbox.classList.remove('active');
-    });
-    
-    lightbox?.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            lightbox.classList.remove('active');
-        }
-    });
-</script>
+
 </body>
 </html>
 '''
@@ -336,7 +312,7 @@ def parse_gallery(gallery_str):
     
     html = '<div class="blog-gallery"><h3>Gallery</h3><div class="gallery-grid">'
     for url in urls:
-        html += f'<img src="{url}" class="gallery-image" onclick="openLightbox(this.src)">'
+        html += f'<img src="{url}" class="gallery-image">'
     html += '</div></div>'
     return html
 
