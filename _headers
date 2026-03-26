@@ -1,5 +1,24 @@
+# Injector files - always fresh
 /js/iflex-core.js
   Cache-Control: public, max-age=0, must-revalidate
 
 /js/iflex-config.js
   Cache-Control: public, max-age=0, must-revalidate
+
+# HTML pages - always fresh
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# CSS/JS - cache 1 hour
+/*.css
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.js
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# JSON data - never cache
+/products.json
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/blog-posts.json
+  Cache-Control: no-cache, no-store, must-revalidate
