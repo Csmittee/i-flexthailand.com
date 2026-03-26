@@ -196,9 +196,9 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
 
 <div class="products-page">
     <div class="page-header">
-        <h1>Our Pilates Equipment</h1>
-        <p>Engineered for movement with world-class materials and quality</p>
-    </div>
+            <h1>{page_title}</h1>
+            <p>{page_subtitle}</p>
+        </div>
     
     <div class="filter-buttons">
         <button class="filter-btn active" data-filter="all">All</button>
@@ -339,8 +339,18 @@ def generate_listing_page(products, lang, prefix, output_file):
     for product in products:
         product_cards += generate_product_card(product, lang, prefix)
     
+    # Add bilingual header text
+    if lang == 'th':
+        page_title = "อุปกรณ์พิลาทิสของเรา"
+        page_subtitle = "ออกแบบมาเพื่อการเคลื่อนไหวด้วยวัสดุระดับโลกและคุณภาพชั้นเลิศ"
+    else:
+        page_title = "Our Pilates Equipment"
+        page_subtitle = "Engineered for movement with world-class materials and quality"
+    
     html = LISTING_TEMPLATE.format(
         lang=lang,
+        page_title=page_title,
+        page_subtitle=page_subtitle,
         product_cards=product_cards
     )
     
