@@ -4,8 +4,8 @@ from pathlib import Path
 
 # Configuration
 CSV_PATH = Path('data/blog.csv')
-ENGLISH_LISTING = Path('blog.html')
-THAI_LISTING = Path('th/blog.html')
+ENGLISH_LISTING = Path('blog-listing.html')
+THAI_LISTING = Path('th/blog-listing.html')
 ENGLISH_POSTS_DIR = Path('blog')
 THAI_POSTS_DIR = Path('th/blog')
 
@@ -503,13 +503,13 @@ def main():
     # Generate English pages
     print('\n📄 Generating English blog pages...')
     for post in posts:
-        generate_blog_page(post, posts, 'en', ENGLISH_POSTS_DIR, '/blog.html')
+        generate_blog_page(post, posts, 'en', ENGLISH_POSTS_DIR, '/blog-listing.html')
     generate_listing_page(posts, 'en', ENGLISH_LISTING)
     
     # Generate Thai pages
     print('\n📄 Generating Thai blog pages...')
     for post in posts:
-        generate_blog_page(post, posts, 'th', THAI_POSTS_DIR, '/th/blog.html')
+        generate_blog_page(post, posts, 'th', THAI_POSTS_DIR, '/th/blog-listing.html')
     generate_listing_page(posts, 'th', THAI_LISTING)
     
     print('\n✅ Blog generation complete!')
