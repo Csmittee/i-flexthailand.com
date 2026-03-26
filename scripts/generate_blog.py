@@ -81,26 +81,6 @@ BLOG_TEMPLATE = '''<!DOCTYPE html>
             border-radius: 12px;
             margin: 1.5rem 0;
         }}
-        .blog-gallery {{
-            margin: 2rem 0;
-        }}
-        .gallery-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }}
-        .gallery-image {{
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }}
-        .gallery-image:hover {{
-            transform: scale(1.02);
-        }}
         .blog-navigation {{
             display: flex;
             justify-content: space-between;
@@ -138,34 +118,6 @@ BLOG_TEMPLATE = '''<!DOCTYPE html>
             flex: 1;
             justify-content: flex-end;
         }}
-        .lightbox {{
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }}
-        .lightbox.active {{
-            display: flex;
-        }}
-        .lightbox img {{
-            max-width: 90vw;
-            max-height: 90vh;
-            object-fit: contain;
-        }}
-        .lightbox-close {{
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-        }}
         @media (max-width: 768px) {{
             .blog-detail-page {{ padding: 2rem 1rem; }}
             .blog-header h1 {{ font-size: 1.8rem; }}
@@ -196,7 +148,6 @@ BLOG_TEMPLATE = '''<!DOCTYPE html>
     
     <div class="blog-content">
         {content}
-        {gallery_html}
     </div>
     
     <div class="blog-navigation">
@@ -208,11 +159,8 @@ BLOG_TEMPLATE = '''<!DOCTYPE html>
     </div>
 </div>
 
-
-
 <script src="/js/iflex-config.js"></script>
 <script src="/js/iflex-core.js"></script>
-
 </body>
 </html>
 '''
@@ -302,20 +250,6 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
 </html>
 '''
 
-def parse_gallery(gallery_str):
-    """Convert multi-line gallery URLs to HTML gallery grid"""
-    if not gallery_str or gallery_str == 'nan':
-        return ''
-    urls = [line.strip() for line in gallery_str.split('\n') if line.strip() and line.strip() != 'nan']
-    if not urls:
-        return ''
-    
-    html = '<div class="blog-gallery"><h3>Gallery</h3><div class="gallery-grid">'
-    for url in urls:
-        html += f'<img src="{url}" class="gallery-image">'
-    html += '</div></div>'
-    return html
-
 def generate_blog_card(post, lang, prefix):
     """Generate blog card HTML for listing page"""
     title = post['title'] if lang == 'en' else post['title_th']
@@ -342,20 +276,16 @@ def generate_blog_card(post, lang, prefix):
     '''
 
 def generate_blog_page(post, all_posts, lang, prefix, back_link):
-    """Generate individual blog post page with navigation and gallery"""
+    """Generate individual blog post page with navigation"""
     title = post['title'] if lang == 'en' else post['title_th']
     slug = post['slug'] if lang == 'en' else post['slug_th']
     excerpt = post['excerpt'] if lang == 'en' else post['excerpt_th']
     content = post['content'] if lang == 'en' else post['content_th']
     category = post['category'] if lang == 'en' else post['category_th']
     featured_image = post['featured_image']
-    gallery_images = post.get('gallery_images', '')
     author = post.get('author', 'I-Flex Team')
     date = post.get('date', '')
     read_time = post.get('read_time', '')
-    
-    # Parse gallery images
-    gallery_html = parse_gallery(gallery_images)
     
     # Find current index for prev/next navigation
     current_idx = next((i for i, p in enumerate(all_posts) if (p['slug'] if lang == 'en' else p['slug_th']) == slug), 0)
@@ -380,7 +310,6 @@ def generate_blog_page(post, all_posts, lang, prefix, back_link):
         read_time=read_time,
         author=author,
         content=content,
-        gallery_html=gallery_html,
         back_link=back_link,
         prev_link=prev_link,
         next_link=next_link,
