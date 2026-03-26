@@ -215,10 +215,7 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     </div>
     
     <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="Wellness">Wellness</button>
-        <button class="filter-btn" data-filter="Equipments">Equipment</button>
-        <button class="filter-btn" data-filter="Excercise">Exercise</button>
+        {filter_buttons}
     </div>
     
     <div class="blog-grid" id="blogGrid">
@@ -342,8 +339,25 @@ def generate_listing_page(posts, lang, prefix, output_file):
     for post in posts:
         blog_cards += generate_blog_card(post, lang, prefix)
     
+    # Filter buttons based on language
+    if lang == 'th':
+        filter_buttons = '''
+        <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+        <button class="filter-btn" data-filter="สุขภาพ">สุขภาพ</button>
+        <button class="filter-btn" data-filter="อุปกรณ์">อุปกรณ์</button>
+        <button class="filter-btn" data-filter="การออกกำลังกาย">การออกกำลังกาย</button>
+        '''
+    else:
+        filter_buttons = '''
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Wellness">Wellness</button>
+        <button class="filter-btn" data-filter="Equipments">Equipment</button>
+        <button class="filter-btn" data-filter="Excercise">Exercise</button>
+        '''
+    
     html = LISTING_TEMPLATE.format(
         lang=lang,
+        filter_buttons=filter_buttons,
         blog_cards=blog_cards
     )
     
