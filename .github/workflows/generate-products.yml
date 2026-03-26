@@ -6,27 +6,46 @@ on:
       - 'data/products.csv'
     branches:
       - main
+  workflow_dispatch:  # Manual trigger
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up Python
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Run product generator
         run: python scripts/generate_products.py
-      
-      - name: Commit and push changes
+
+      - name: Commit changes
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add all generated files
           git add product-listing.html th/product-listing.html product/ th/product/
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate product pages [skip ci]"
-          git push
+          
+          # Check if anything changed
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          # Commit
+          git commit -m "Auto-generate product pages from CSV"
+          
+          # Pull latest changes (in case of race condition)
+          git pull --rebase origin main || true
+          
+          # Push
+          git push origin main
