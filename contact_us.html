@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact I-Flex Thailand | Professional Pilates Equipment</title>
+    <meta name="description" content="Contact I-Flex Thailand for expert advice on Pilates equipment, product recommendations, and support for studio owners.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    <style>
+        body {
+            background: white;
+        }
+        .contact-page {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        .contact-info {
+            text-align: center;
+        }
+        .qr-grid {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .qr-card {
+            text-align: center;
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .qr-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        .qr-card h3 {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        .form-container {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        .h2-large {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #FFD700;
+            text-align: center;
+        }
+        .h2-medium {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .contact-page {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-page">
+    <h1 class="h2-large">Contact Us</h1>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">
+        Have questions about our Pilates equipment or need help with your order? We're here for you! 
+        Contact our team for expert advice, product recommendations, or any support you need.
+    </p>
+    
+    <div class="contact-grid">
+        <!-- Left Column: QR Codes -->
+        <div class="contact-info">
+            <h2 class="h2-medium">Quick Connect</h2>
+            <div class="qr-grid">
+                <div class="qr-card">
+                    <img src="https://placehold.co/150x150/f0f0f0/999?text=WhatsApp+QR" alt="WhatsApp QR">
+                    <h3>WhatsApp</h3>
+                    <p>Quick reply</p>
+                </div>
+                <div class="qr-card">
+                    <img src="https://placehold.co/150x150/f0f0f0/999?text=LINE+QR" alt="LINE QR">
+                    <h3>LINE Official</h3>
+                    <p>Quick reply</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column: Airtable Form -->
+        <div class="form-container">
+            <h2 class="h2-medium">Send us a message</h2>
+            <iframe 
+                class="airtable-embed" 
+                src="https://airtable.com/embed/appMBjlfYyVd8I7ML/pag3gWn7q647bFPCV/form" 
+                frameborder="0" 
+                width="100%" 
+                height="533" 
+                style="background: transparent; border: 1px solid #ccc; border-radius: 8px;">
+            </iframe>
+        </div>
+    </div>
+</div>
+
+<script src="/js/iflex-config.js"></script>
+<script src="/js/iflex-core.js"></script>
+</body>
+</html>
