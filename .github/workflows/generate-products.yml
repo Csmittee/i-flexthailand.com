@@ -33,7 +33,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add product-listing.html th/product-listing.html product/ th/product/
+          git add product-listing.html th/product-listing.html product/ th/product/ products.json
           
           if git diff --cached --quiet; then
             echo "No changes to commit"
