@@ -3,7 +3,7 @@ import shutil
 from pathlib import Path
 
 # Configuration
-CSV_PATH = Path('blog/posts.csv')
+CSV_PATH = Path('data/blog.csv')
 ENGLISH_LISTING = Path('blog.html')
 THAI_LISTING = Path('th/blog.html')
 ENGLISH_POSTS_DIR = Path('blog')
