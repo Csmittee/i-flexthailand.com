@@ -308,8 +308,8 @@ def generate_blog_page(post, all_posts, lang, prefix, back_link):
     prev_slug = prev_post['slug'] if lang == 'en' and prev_post else (prev_post['slug_th'] if prev_post else None)
     next_slug = next_post['slug'] if lang == 'en' and next_post else (next_post['slug_th'] if next_post else None)
     
-    prev_link = f'/{prefix}blog/{prev_slug}.html' if prev_slug else '#'
-    next_link = f'/{prefix}blog/{next_slug}.html' if next_slug else '#'
+    prev_link = f'/{prefix}{prev_slug}.html' if prev_slug else '#'
+    next_link = f'/{prefix}{next_slug}.html' if next_slug else '#'
     prev_disabled = 'disabled' if not prev_slug else ''
     next_disabled = 'disabled' if not next_slug else ''
     
