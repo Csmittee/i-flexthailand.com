@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม | I-Flex Thailand</title>
+    <title>วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม | I-Flex Pilates</title>
     <meta name="description" content="เมื่อเลือกเครื่องพิลาทิสที่มีประสิทธิภาพ เช่น รีฟอร์เมอร์หรือเตียงคาดิลแลค มีปัจจัยสำคัญที่ควรพิจารณา ไม่ว่าคุณจะใช้ที่บ้านหรือในสตูดิโอ ควรดูที่คุณภาพของวัสดุ ">
     <meta property="og:title" content="วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม">
     <meta property="og:description" content="เมื่อเลือกเครื่องพิลาทิสที่มีประสิทธิภาพ เช่น รีฟอร์เมอร์หรือเตียงคาดิลแลค มีปัจจัยสำคัญที่ควรพิจารณา ไม่ว่าคุณจะใช้ที่บ้านหรือในสตูดิโอ ควรดูที่คุณภาพของวัสดุ ">
     <meta property="og:image" content="https://res.cloudinary.com/dfiomi0lb/image/upload/v1771608996/9555f445976448ab907785b631ecd7c1_sbvovv.jpg">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    
+    <!-- INJECTORS -->
+    <script src="https://assets.janishammer.com/js/injector-core.js"></script>
+    <script src="https://assets.janishammer.com/js/injector-config.js"></script>
+    
     <style>
-        body { background: white; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: white; font-family: 'Inter', sans-serif; }
+        
         .blog-detail-page { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
-        .blog-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .blog-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
+        .blog-header { text-align: center; margin-bottom: 3rem; }
+        .blog-header h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #1A1A1A; }
         .blog-meta {
             display: flex;
             justify-content: center;
@@ -52,24 +51,26 @@
             line-height: 1.8;
             color: #444;
         }
-        .blog-content h1, .blog-content h2, .blog-content h3 {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #333;
+        .blog-content p { margin-bottom: 1.5rem; }
+        .blog-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; }
+        
+        .blog-gallery { margin: 2rem 0; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
-        .blog-content p {
-            margin-bottom: 1.5rem;
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        .blog-content ul, .blog-content ol {
-            margin-bottom: 1.5rem;
-            padding-left: 2rem;
-        }
-        .blog-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin: 1.5rem 0;
-        }
+        .gallery-image:hover { transform: scale(1.02); }
+        
         .blog-navigation {
             display: flex;
             justify-content: space-between;
@@ -92,31 +93,38 @@
             min-width: 110px;
             text-align: center;
         }
-        .btn-back:hover, .btn-nav:hover {
-            background: #FFD700;
-            color: #1a1a1a;
+        .btn-back:hover, .btn-nav:hover { background: #FFD700; color: #1a1a1a; }
+        .btn-nav.disabled { opacity: 0.5; pointer-events: none; background: #e0e0e0; }
+        .blog-nav-buttons { display: flex; gap: 1rem; flex: 1; justify-content: flex-end; }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
-        .btn-nav.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-            background: #e0e0e0;
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
         }
-        .blog-nav-buttons {
-            display: flex;
-            gap: 1rem;
-            flex: 1;
-            justify-content: flex-end;
-        }
+        
         @media (max-width: 768px) {
             .blog-detail-page { padding: 2rem 1rem; }
             .blog-header h1 { font-size: 1.8rem; }
-            .blog-navigation {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .blog-nav-buttons {
-                justify-content: center;
-            }
+            .blog-navigation { flex-direction: column; align-items: stretch; }
+            .blog-nav-buttons { justify-content: center; }
         }
     </style>
 </head>
@@ -128,7 +136,7 @@
         <h1>วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม</h1>
         <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> 1/3/2026</span>
-            <span><i class="far fa-clock"></i> 3 min min read</span>
+            <span><i class="far fa-clock"></i> 3 min</span>
             <span><i class="far fa-user"></i> Chairit Smittee</span>
         </div>
     </div>
@@ -241,19 +249,44 @@
 <p>ไม่ว่าคุณจะซื้อให้ตัวเองหรือสตูดิโอ เต็มไปด้วยลูกค้า เชื่อในความรู้สึกนี้ เพราะมันคือผลรวมของวิศวกรรม วัสดุ และฝีมือช่าง—แปลออกมาเป็นภาษาของการเคลื่อนไหว</p>
 
 <p><strong>เลือกให้ดี การฝึกของคุณคู่ควรกับสิ่งที่ดีที่สุด</strong></p>
+        <div class="blog-gallery"><h3>Gallery</h3><div class="gallery-grid"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618525/%E6%A9%A1%E6%9C%A8%E7%A8%B3%E8%B8%8F%E6%A4%85%E8%8B%B1%E6%96%87_03_ryh9hv.jpg" class="gallery-image" onclick="openLightbox(this.src)"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770567363/Wunda_chair_features_otinbl.jpg" class="gallery-image" onclick="openLightbox(this.src)"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618692/%E6%9E%AB%E6%9C%A8%E6%A0%B8%E5%BF%83%E5%BA%8A%E8%AF%A6%E6%83%85%E9%A1%B5_07_hfcqzu.jpg" class="gallery-image" onclick="openLightbox(this.src)"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618641/%E7%BB%86%E8%8A%82%E5%9B%BE_thedcp.jpg" class="gallery-image" onclick="openLightbox(this.src)"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618618/%E7%BB%86%E8%8A%82%E5%9B%BE_t1cqrj.jpg" class="gallery-image" onclick="openLightbox(this.src)"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618570/%E6%9E%AB%E6%9C%A8%E5%85%A8%E9%AB%98%E6%9E%B6_04_wurefc.jpg" class="gallery-image" onclick="openLightbox(this.src)"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770567358/Pil_wood_block_jqvqgj.jpg" class="gallery-image" onclick="openLightbox(this.src)"></div></div>
     </div>
     
     <div class="blog-navigation">
-        <a href="/th/blog-listing.html" class="btn-back">← Back to Blog</a>
+        <a href="/th/blog.html" class="btn-back">← Back to Blog</a>
         <div class="blog-nav-buttons">
-            <a href="/th/blog/ทำไมอุปกรณ์สำคัญ.html" class="btn-nav ">← Prev</a>
-            <a href="/th/blog/โยคะ-vs-พิลาทิส.html" class="btn-nav ">Next →</a>
+            <a href="ทำไมอุปกรณ์สำคัญ.html" class="btn-nav ">← Prev</a>
+            <a href="โยคะ-vs-พิลาทิส.html" class="btn-nav ">Next →</a>
         </div>
     </div>
 </div>
 
-<script src="/js/iflex-config.js"></script>
-<script src="/js/iflex-core.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img src="" alt="Lightbox">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox?.querySelector('img');
+    const lightboxClose = lightbox?.querySelector('.lightbox-close');
+    
+    function openLightbox(src) {
+        if (lightboxImg) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+        }
+    }
+    
+    lightboxClose?.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+    
+    lightbox?.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>

@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoga vs Pilates | I-Flex Thailand</title>
+    <title>Yoga vs Pilates | I-Flex Pilates</title>
     <meta name="description" content="What are the key difference between Yoga and Pilates performing, What are the key result in long term practice. They are alike in some area but they is some big">
     <meta property="og:title" content="Yoga vs Pilates">
     <meta property="og:description" content="What are the key difference between Yoga and Pilates performing, What are the key result in long term practice. They are alike in some area but they is some big">
     <meta property="og:image" content="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547276/pilates-vs-yoga-1.jpg">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    
+    <!-- INJECTORS -->
+    <script src="https://assets.janishammer.com/js/injector-core.js"></script>
+    <script src="https://assets.janishammer.com/js/injector-config.js"></script>
+    
     <style>
-        body { background: white; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: white; font-family: 'Inter', sans-serif; }
+        
         .blog-detail-page { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
-        .blog-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .blog-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
+        .blog-header { text-align: center; margin-bottom: 3rem; }
+        .blog-header h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #1A1A1A; }
         .blog-meta {
             display: flex;
             justify-content: center;
@@ -52,24 +51,26 @@
             line-height: 1.8;
             color: #444;
         }
-        .blog-content h1, .blog-content h2, .blog-content h3 {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #333;
+        .blog-content p { margin-bottom: 1.5rem; }
+        .blog-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; }
+        
+        .blog-gallery { margin: 2rem 0; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
-        .blog-content p {
-            margin-bottom: 1.5rem;
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        .blog-content ul, .blog-content ol {
-            margin-bottom: 1.5rem;
-            padding-left: 2rem;
-        }
-        .blog-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin: 1.5rem 0;
-        }
+        .gallery-image:hover { transform: scale(1.02); }
+        
         .blog-navigation {
             display: flex;
             justify-content: space-between;
@@ -92,31 +93,38 @@
             min-width: 110px;
             text-align: center;
         }
-        .btn-back:hover, .btn-nav:hover {
-            background: #FFD700;
-            color: #1a1a1a;
+        .btn-back:hover, .btn-nav:hover { background: #FFD700; color: #1a1a1a; }
+        .btn-nav.disabled { opacity: 0.5; pointer-events: none; background: #e0e0e0; }
+        .blog-nav-buttons { display: flex; gap: 1rem; flex: 1; justify-content: flex-end; }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
-        .btn-nav.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-            background: #e0e0e0;
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
         }
-        .blog-nav-buttons {
-            display: flex;
-            gap: 1rem;
-            flex: 1;
-            justify-content: flex-end;
-        }
+        
         @media (max-width: 768px) {
             .blog-detail-page { padding: 2rem 1rem; }
             .blog-header h1 { font-size: 1.8rem; }
-            .blog-navigation {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .blog-nav-buttons {
-                justify-content: center;
-            }
+            .blog-navigation { flex-direction: column; align-items: stretch; }
+            .blog-nav-buttons { justify-content: center; }
         }
     </style>
 </head>
@@ -128,7 +136,7 @@
         <h1>Yoga vs Pilates</h1>
         <div class="blog-meta">
             <span><i class="far fa-calendar-alt"></i> 1/3/2026</span>
-            <span><i class="far fa-clock"></i> 5 min min read</span>
+            <span><i class="far fa-clock"></i> 5 min</span>
             <span><i class="far fa-user"></i> Chairit Smittee</span>
         </div>
     </div>
@@ -137,19 +145,44 @@
     
     <div class="blog-content">
         <h1>Yoga vs. Pilates: Two Paths, One Destination—But Which Journey Is Yours?</h1><p>Walk into any gym or studio, and you'll find them side by side on the schedule: Yoga at 9 AM, Pilates at 10:30. They're often grouped together, labeled as "mind-body" classes, and taught in similar spaces with similar-looking mats. And yes, they share common ground—both are low-impact, both emphasize breath, and both can transform the way you move through the world [citation:1].</p><p>But here's the truth I've learned after years of teaching and practicing: Yoga and Pilates are not the same. They feel different in your body. They produce different results over time. And depending on your background, your age, and your purpose, one may serve you better than the other—or better yet, they may serve you beautifully together [citation:5].</p><p>Let's unpack the differences, the long-term outcomes, and how to choose the path that's right for you.</p><h2>The Philosophical Divide: Ancient Wisdom vs. Modern Science</h2><p>To understand where these practices lead, you have to understand where they come from.</p><p><strong>Yoga is ancient.</strong> Its origins stretch back thousands of years to India, where it developed as a spiritual philosophy as much as a physical practice. The physical postures (asanas) were designed to prepare the body for long periods of meditation—to sit still, to breathe deeply, to turn inward [citation:9]. Even in a modern, sweaty vinyasa class, that thread remains: yoga invites you to connect movement with breath, to find presence, to quiet the mind [citation:1].</p><p><strong>Pilates is modern.</strong> Joseph Pilates developed his method in the early 20th century, initially to help injured soldiers and gymnasts recover. He called it "Contrology"—the art of controlled movements engaging both body and mind. The focus was never spiritual; it was functional. How can we build core strength, improve posture, and rehabilitate the body? [citation:5][citation:9]</p><p>This philosophical difference ripples through every aspect of practice. Yoga asks, "How do I feel?" Pilates asks, "How do I move?"</p><h2>The Physical Experience: Flow vs. Precision</h2><p>Step into a yoga class, and you'll likely experience a sequence of poses that flow from one to the next. In Vinyasa, you might move through Sun Salutations, hold a Warrior pose for several breaths, then fold forward and transition to the other side. The emphasis is on opening the body, developing flexibility, and moving with intuition. Breath leads movement [citation:9].</p><p>Step into a Pilates class, and the vibe shifts. Movements are repetitive and precise. You might do "The Hundred"—pumping your arms while holding your head and shoulders off the mat for a full 100 counts. Or you might work on a Reformer, controlling the carriage with exacting attention to alignment. The emphasis is on core engagement, spinal articulation, and muscular endurance [citation:1][citation:9].</p><p>In yoga, you stretch. In Pilates, you strengthen—though of course, both practices offer elements of each.</p><h2>Long-Term Results: What Actually Happens to Your Body?</h2><p>This is where the rubber meets the road. If you practice consistently for months and years, what changes can you expect?</p><h3>The Yoga Body: Flexibility, Breath, and Balance</h3><p>Long-term yoga practitioners develop remarkable flexibility and range of motion. Research confirms that regular practice significantly improves flexibility—one study found that a year of consistent yoga led to dramatic gains in sit-and-reach scores [citation:6].</p><p>But the benefits go deeper. Yoga trains the respiratory system. The same study showed significant improvements in forced vital capacity (FVC) and forced expiratory volume (FEV1)—meaning yogis literally learn to breathe more fully and efficiently [citation:6].</p><p>Cardiovascular fitness also improves. VO2 max—a measure of aerobic capacity—increased substantially in long-term practitioners, along with treadmill endurance time [citation:6]. For those who practice more dynamic styles like Vinyasa or Power Yoga, the cardio component can be even more pronounced [citation:9].</p><p>And then there's the nervous system. Long-term yoga practitioners show distinct neural adaptations: more efficient activation in the prefrontal cortex during breath work and meditation. The brain literally learns to regulate attention and emotion more effectively [citation:2]. This aligns with what yogis have always known—the practice changes not just the body, but the mind.</p><h3>The Pilates Body: Core Stability and Functional Strength</h3><p>Pilates builds a different kind of body. The core—what Joseph Pilates called the "powerhouse"—becomes exceptionally strong and stable. Research shows that consistent Pilates practice improves lower body strength, postural balance, and abdominal muscle engagement [citation:1][citation:7].</p><p>One woman's experiment with 100 Reformer classes revealed profound changes: her chronic joint instability virtually disappeared. "I haven't had a shoulder 'uh-oh' in months, whereas it used to be almost a bi-weekly occurrence," she reported [citation:3]. This speaks to Pilates' unique ability to strengthen the tiny stabilizing muscles that protect our joints.</p><p>For older adults, the benefits are particularly compelling. A major research review found that Pilates significantly reduces back pain (with an effect size of 0.65—a meaningful clinical improvement) and improves physical function and quality of life [citation:4]. For those dealing with osteoarthritis, osteoporosis, or general age-related decline, Pilates offers a safe, effective path to better movement [citation:4].</p><p>Visible changes take time—our 100-class veteran didn't notice muscle definition until around class 70—but they do come. By eight weeks of consistent practice, many people see improved muscle tone and body composition [citation:7].</p><h2>The Big Difference: Where Each Practice Excels</h2><p>Let's be direct about where these practices diverge:</p><p><strong>Core strength?</strong> Pilates wins, hands down. Every exercise targets the deep abdominal muscles, pelvic floor, and spinal stabilizers. If you want a flat, strong midsection and better posture, Pilates is your practice [citation:5][citation:9].</p><p><strong>Flexibility?</strong> Yoga takes the lead. The long-held stretches and varied poses systematically open tight areas—hamstrings, hips, shoulders, spine [citation:5].</p><p><strong>Stress relief?</strong> Both help, but yoga's meditative roots give it an edge. The combination of breath work, mindfulness, and philosophy creates a powerful antidote to modern anxiety [citation:1][citation:9].</p><p><strong>Injury rehabilitation?</strong> Pilates was literally designed for this. Physical therapists often recommend it for back pain, joint instability, and post-injury recovery [citation:1][citation:4].</p><p><strong>Cardiovascular fitness?</strong> Neither is a replacement for running or cycling, but dynamic yoga styles elevate heart rate more than traditional Pilates [citation:3][citation:9]. One study found energy expenditure during Pilates was similar to slow walking—great for movement, but not enough for aerobic conditioning on its own [citation:3].</p><h2>Choosing Based on Your Story: Background, Age, and Purpose</h2><p>Here's where it gets personal. Your history, your body, and your goals all point toward one practice or the other.</p><h3>If You're Dealing with Injury or Chronic Pain</h3><p>Pilates may be your safer starting point. Research suggests yoga has a higher rate of injury in participation, particularly for those with existing musculoskeletal conditions [citation:4]. The controlled, equipment-based nature of Pilates allows for precise modifications and support. As one physical therapist notes, "I recommend Pilates for people who need more cues or support to execute movements safely" [citation:5].</p><p>That said, yoga can be adapted. The key is finding an instructor who understands your limitations and offers appropriate modifications.</p><h3>If You're Over 50</h3><p>Both practices serve older adults well, but in different ways. Research on adults over 50 found that both yoga and Pilates are safe and adaptable, but Pilates showed statistically significant effects for back pain, while yoga participants often cited stress reduction as a primary benefit [citation:4].</p><p>Interestingly, the same research revealed that yoga was more popular and widely available, but less suitable for those with existing injuries [citation:4]. If you're over 50 with a history of back, knee, or shoulder issues, Pilates may offer a more forgiving path. If your joints are healthy and you're seeking mental as well as physical benefits, yoga could be ideal.</p><h3>If You're an Athlete or Dancer</h3><p>Pilates was practically made for you. Many dancers have used it for decades to build the long, lean muscles needed for their art [citation:1][citation:8]. The focus on core stability, alignment, and controlled movement translates directly to better performance and fewer injuries.</p><p>Yoga also serves athletes well, particularly for maintaining flexibility and balance. Many athletes combine both—Pilates for strength and stability, yoga for flexibility and recovery [citation:8].</p><h3>If You're Seeking Mental Health Benefits</h3><p>Yoga's track record here is impressive. Studies show it reduces symptoms of depression, anxiety, and stress [citation:1][citation:2]. The meditative components train the brain to regulate emotion and find calm.</p><p>But Pilates shouldn't be discounted. Our 100-class veteran reported immediate mental benefits: "I leave feeling refreshed and in a better headspace" [citation:3]. The focused, screen-free hour of movement provides its own form of mental reset.</p><h3>If You're a Beginner to Exercise</h3><p>Both are accessible, but they feel different. Yoga might appeal if you're drawn to a holistic experience that includes breath and mindfulness. Pilates might suit you if you prefer structured, repetitive movements with clear technique cues [citation:5].</p><p>Many people try both and discover their preference. There's no wrong answer.</p><h2>The Beautiful Truth: You Can Do Both</h2><p>Here's what I tell my students and clients: you don't have to choose. Yoga and Pilates complement each other beautifully [citation:5][citation:8].</p><p>Pilates strengthens the deep core muscles that support good posture. Yoga stretches those muscles and keeps them supple. Pilates builds joint stability. Yoga maintains joint mobility. Pilates teaches you control. Yoga teaches you flow [citation:8].</p><p>Together, they create a balanced body—strong yet flexible, stable yet mobile, controlled yet free. Many people find that practicing both gives them the best of all worlds.</p><p>One caution: if you're new to both, don't dive into advanced classes in either discipline. Start with beginner sessions, learn proper form, and listen to your body. Give yourself time to build the foundational strength and awareness each practice requires [citation:7].</p><h2>The Bottom Line: Listen to Your Body and Your Heart</h2><p>At the end of the day, the "better" practice is the one you'll actually do consistently. Research shows that people who enjoy their exercise stick with it longer and see better results [citation:4].</p><p>So try a class. Better yet, try several. Notice how you feel during and after. Does your body crave the deep stretch and meditative quiet of yoga? Or the precise, strengthening burn of Pilates? Does your mind feel more at peace after one or the other?</p><p>Your answers will guide you. And if you find that both call to you, welcome to the club. Your body will thank you for the variety.</p><p>Whether you choose yoga, Pilates, or both, you're choosing movement, awareness, and care for yourself. And that, truly, is the point.</p>
+        <div class="blog-gallery"><h3>Gallery</h3><div class="gallery-grid"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547278/dce40a11-b373-4186-ae4b-58e7832771c7.jpg" class="gallery-image" onclick="openLightbox(this.src)"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547280/pilates-blog-9.jpg" class="gallery-image" onclick="openLightbox(this.src)"></div></div>
     </div>
     
     <div class="blog-navigation">
-        <a href="/blog-listing.html" class="btn-back">← Back to Blog</a>
+        <a href="/blog.html" class="btn-back">← Back to Blog</a>
         <div class="blog-nav-buttons">
-            <a href="/blog/how-to-select-the-right-pilates-equipment.html" class="btn-nav ">← Prev</a>
-            <a href="/blog/regular-gym-vs-pilates.html" class="btn-nav ">Next →</a>
+            <a href="how-to-select-the-right-pilates-equipment.html" class="btn-nav ">← Prev</a>
+            <a href="regular-gym-vs-pilates.html" class="btn-nav ">Next →</a>
         </div>
     </div>
 </div>
 
-<script src="/js/iflex-config.js"></script>
-<script src="/js/iflex-core.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img src="" alt="Lightbox">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox?.querySelector('img');
+    const lightboxClose = lightbox?.querySelector('.lightbox-close');
+    
+    function openLightbox(src) {
+        if (lightboxImg) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+        }
+    }
+    
+    lightboxClose?.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+    
+    lightbox?.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>
