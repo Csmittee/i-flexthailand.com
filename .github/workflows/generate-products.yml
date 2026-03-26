@@ -4,9 +4,10 @@ on:
   push:
     paths:
       - 'data/products.csv'
+      - 'scripts/generate_products.py'   # Add this
     branches:
       - main
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -32,20 +33,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Add all generated files
           git add product-listing.html th/product-listing.html product/ th/product/
           
-          # Check if anything changed
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
           
-          # Commit
-          git commit -m "Auto-generate product pages from CSV"
-          
-          # Pull latest changes (in case of race condition)
+          git commit -m "Auto-generate product pages"
           git pull --rebase origin main || true
-          
-          # Push
           git push origin main
