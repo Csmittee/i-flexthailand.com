@@ -374,7 +374,7 @@ def generate_blog_page(post, all_posts, lang, prefix, back_link):
     category = post['category'] if lang == 'en' else post['category_th']
     featured_image = post['featured_image']
     gallery_images = post.get('gallery_images', '')
-    author = post['Author']
+    author = post['author']
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
