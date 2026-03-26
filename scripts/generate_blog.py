@@ -305,22 +305,22 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     const filterBtns = document.querySelectorAll('.filter-btn');
     const blogCards = document.querySelectorAll('.blog-card');
     
-    filterBtns.forEach(btn => {{
-        btn.addEventListener('click', () => {{
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
             const filter = btn.getAttribute('data-filter');
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
-            blogCards.forEach(card => {{
+            blogCards.forEach(card => {
                 const category = card.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {{
+                if (filter === 'all' || category === filter) {
                     card.style.display = 'block';
-                }} else {{
+                } else {
                     card.style.display = 'none';
-                }}
-            }});
-        }});
-    }});
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
