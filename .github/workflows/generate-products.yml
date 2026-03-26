@@ -34,7 +34,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
           git add product-listing.html th/product-listing.html product/ th/product/ products.json
-          
+          git status   # ← ADD THIS LINE to see what's staged
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
