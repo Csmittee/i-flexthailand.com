@@ -21,9 +21,8 @@ POST_TEMPLATE = '''<!DOCTYPE html>
     <meta property="og:description" content="{excerpt}">
     <meta property="og:image" content="{featured_image}">
     
-    <!-- INJECTORS -->
-    <script src="https://assets.janishammer.com/js/injector-core.js"></script>
-    <script src="https://assets.janishammer.com/js/injector-config.js"></script>
+   <script src="/js/iflex-config.js"></script>
+   <script src="/js/iflex-core.js"></script>
     
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
