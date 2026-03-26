@@ -1,0 +1,44 @@
+name: Generate Blog Pages
+
+on:
+  push:
+    paths:
+      - 'data/blog.csv'
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run blog generator
+        run: python scripts/generate_blog.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add blog-listing.html th/blog-listing.html blog/ th/blog/
+          
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          git commit -m "Auto-generate blog pages from CSV"
+          git pull --rebase origin main || true
+          git push origin main
