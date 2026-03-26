@@ -325,7 +325,6 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
 </body>
 </html>
 '''
-
 def parse_gallery(gallery_str):
     """Convert multi-line gallery URLs to HTML gallery grid"""
     if not gallery_str or gallery_str == 'nan':
