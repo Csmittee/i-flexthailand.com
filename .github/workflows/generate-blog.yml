@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'data/blog.csv'
+      - 'scripts/generate_blog.py'
     branches:
       - main
   workflow_dispatch:
@@ -39,6 +40,6 @@ jobs:
             exit 0
           fi
           
-          git commit -m "Auto-generate blog pages from CSV"
+          git commit -m "Auto-generate blog pages"
           git pull --rebase origin main || true
           git push origin main
