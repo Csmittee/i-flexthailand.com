@@ -111,7 +111,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
             <div class="product-navigation">
                 <a href="{back_link}product-listing.html" class="btn-back">← Back to Products</a>
                 <div class="product-nav-buttons">
-                    <a href="{prev_link}" class="btn-nav {prev_disabled}">← Previous</a>
+                    <a href="{prev_link}" class="btn-nav {prev_disabled}">← Prev</a>
                     <a href="{next_link}" class="btn-nav {next_disabled}">Next →</a>
                 </div>
             </div>
