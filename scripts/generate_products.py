@@ -16,7 +16,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{name} | I-Flex Thailand</title>
-    <meta name="description" content="{description}">
+    <meta name="description" content="{meta_description}">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
     <style>
         body {{ background: white; }}
@@ -36,7 +36,6 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         .features li::before {{ content: "✓"; color: #FFD700; position: absolute; left: 0; }}
         .btn {{ display: inline-block; background: #FFD700; color: #1a1a1a; padding: 0.75rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 1rem; }}
         .btn:hover {{ transform: translateY(-2px); background: #ffed4a; }}
-        /* Lightbox */
         .lightbox {{ display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }}
         .lightbox.active {{ display: flex; }}
         .lightbox img {{ max-width: 90vw; max-height: 90vh; object-fit: contain; }}
@@ -75,7 +74,6 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
     </div>
 </div>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox">
     <span class="lightbox-close">&times;</span>
     <img src="" alt="Lightbox">
@@ -258,7 +256,7 @@ def generate_product_page(product, lang, prefix):
     html = PRODUCT_TEMPLATE.format(
         lang=lang,
         name=name,
-        description=description[:160],
+        meta_description=description[:160],
         main_image=main_image,
         price=price,
         material=material,
