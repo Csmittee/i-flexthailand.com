@@ -280,8 +280,8 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
 
 <div class="blog-page">
     <div class="page-header">
-        <h1>Pilates for Real Life</h1>
-        <p>Just someone who got hurt, found Pilates, and wants to help you choose equipment and move better. For home users and new teachers, figuring it out together.</p>
+        <h1>{page_title}</h1>
+        <p>{page_subtitle}</p>
     </div>
     
     <div class="filter-buttons">
@@ -442,6 +442,8 @@ def generate_listing_page(posts, lang, output_file):
         <button class="filter-btn" data-filter="อุปกรณ์">อุปกรณ์</button>
         <button class="filter-btn" data-filter="การออกกำลังกาย">การออกกำลังกาย</button>
         '''
+        page_title = "พิลาทิสเพื่อชีวิตจริง"
+        page_subtitle = "แค่คนที่เคยเจ็บ เคยเจอพิลาทิส และอยากช่วยคุณเลือกอุปกรณ์และเคลื่อนไหวให้ดีขึ้น สำหรับผู้ใช้ที่บ้านและครูใหม่"
     else:
         filter_buttons = '''
         <button class="filter-btn active" data-filter="all">All</button>
@@ -449,9 +451,13 @@ def generate_listing_page(posts, lang, output_file):
         <button class="filter-btn" data-filter="Equipments">Equipment</button>
         <button class="filter-btn" data-filter="Exercise">Exercise</button>
         '''
+        page_title = "Pilates for Real Life"
+        page_subtitle = "Just someone who got hurt, found Pilates, and wants to help you choose equipment and move better. For home users and new teachers, figuring it out together."
     
     html = LISTING_TEMPLATE.format(
         lang='th' if lang == 'th' else 'en',
+        page_title=page_title,
+        page_subtitle=page_subtitle,
         filter_buttons=filter_buttons,
         blog_cards=blog_cards
     )
