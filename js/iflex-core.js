@@ -628,6 +628,8 @@
                 if (newPath === '/th') newPath = '/th/index.html';
                 if (!newPath.includes('.')) newPath += '.html';
             }
+            
+            // Optional: check if page exists, fallback to home if not
             console.log(`🔄 Switching to ${lang}: ${newPath}`);
             window.location.href = newPath;
         }
