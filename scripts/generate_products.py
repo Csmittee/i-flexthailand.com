@@ -21,28 +21,9 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         .product-detail-page {{ max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }}
         .product-detail-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }}
         .product-gallery {{ position: relative; }}
-        .main-image {{
-            width: 100%;
-            height: auto;
-            aspect-ratio: 1 / 1;
-            object-fit: contain;
-            background: #f5f5f5;
-            border-radius: 12px;
-            cursor: pointer;
-        }}
-
+        .main-image {{ width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #f5f5f5; border-radius: 12px; cursor: pointer; }}
         .thumbnail-grid {{ display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }}
-       .thumbnail {{
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            background: #f5f5f5;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }}
-        
+        .thumbnail {{ width: 80px; height: 80px; object-fit: contain; background: #f5f5f5; border-radius: 8px; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; }}
         .thumbnail:hover, .thumbnail.active {{ opacity: 1; }}
         .product-info h1 {{ font-size: 2rem; margin-bottom: 1rem; }}
         .price {{ font-size: 1.5rem; font-weight: 700; color: #FFD700; margin-bottom: 1rem; }}
@@ -53,6 +34,35 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         .features li::before {{ content: "✓"; color: #FFD700; position: absolute; left: 0; }}
         .btn {{ display: inline-block; background: #FFD700; color: #1a1a1a; padding: 0.75rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 1rem; }}
         .btn:hover {{ transform: translateY(-2px); background: #ffed4a; }}
+        .product-navigation {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }}
+        .btn-back, .btn-nav {{
+            display: inline-block;
+            background: #f0f0f0;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }}
+        .btn-back:hover, .btn-nav:hover {{
+            background: #FFD700;
+            color: #1a1a1a;
+        }}
+        .btn-nav.disabled {{
+            opacity: 0.5;
+            pointer-events: none;
+            background: #e0e0e0;
+        }}
         .lightbox {{ display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }}
         .lightbox.active {{ display: flex; }}
         .lightbox img {{ max-width: 90vw; max-height: 90vh; object-fit: contain; }}
@@ -60,6 +70,15 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         @media (max-width: 768px) {{
             .product-detail-grid {{ grid-template-columns: 1fr; gap: 2rem; }}
             .product-detail-page {{ padding: 2rem 1rem; }}
+            .product-navigation {{
+                flex-direction: column;
+                align-items: stretch;
+            }}
+            .product-nav-buttons {{
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+            }}
         }}
     </style>
 </head>
@@ -87,6 +106,14 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
                 {features_html}
             </div>
             <a href="/{lang}/contact-us.html" class="btn">Request Quote</a>
+            
+            <div class="product-navigation">
+                <a href="/{lang}/product-listing.html" class="btn-back">← Back to Products</a>
+                <div class="product-nav-buttons">
+                    <a href="{prev_link}" class="btn-nav {prev_disabled}">← Previous</a>
+                    <a href="{next_link}" class="btn-nav {next_disabled}">Next →</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -150,7 +177,7 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
         .product-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }}
         .product-card {{ background: #f9f9f9; border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: inherit; display: block; }}
         .product-card:hover {{ transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }}
-        .product-card img {{ width: 100%; height: 220px; object-fit: cover; }}
+        .product-card img {{ width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #f5f5f5; display: block; }}
         .product-card-info {{ padding: 1.5rem; }}
         .product-card-info h3 {{ font-size: 1.2rem; margin-bottom: 0.5rem; }}
         .product-card-price {{ font-size: 1.3rem; font-weight: 700; color: #FFD700; margin-bottom: 0.5rem; }}
@@ -266,8 +293,8 @@ def generate_product_card(product, lang, prefix):
     </a>
     '''
 
-def generate_product_page(product, lang, prefix):
-    """Generate individual product detail page"""
+def generate_product_page(product, all_products, lang, prefix):
+    """Generate individual product detail page with navigation"""
     name = product['name'] if lang == 'en' else product['name_th']
     slug = product['Slug']
     price = float(product['price'])
@@ -277,6 +304,16 @@ def generate_product_page(product, lang, prefix):
     features = product['feature_details'] if lang == 'en' else product['feature_details_th']
     main_image = product['main_image']
     gallery_images = product.get('gallery_images', '')
+    
+    # Find current index for prev/next navigation
+    current_idx = next((i for i, p in enumerate(all_products) if p['Slug'] == slug), 0)
+    prev_slug = all_products[current_idx - 1]['Slug'] if current_idx > 0 else None
+    next_slug = all_products[current_idx + 1]['Slug'] if current_idx < len(all_products) - 1 else None
+    
+    prev_link = f'/{prefix}product/{prev_slug}.html' if prev_slug else '#'
+    next_link = f'/{prefix}product/{next_slug}.html' if next_slug else '#'
+    prev_disabled = 'disabled' if not prev_slug else ''
+    next_disabled = 'disabled' if not next_slug else ''
     
     thumbnails = parse_gallery(gallery_images)
     features_html = parse_features(features)
@@ -291,7 +328,11 @@ def generate_product_page(product, lang, prefix):
         sub_category=sub_category,
         description=description,
         features_html=features_html,
-        thumbnails=thumbnails
+        thumbnails=thumbnails,
+        prev_link=prev_link,
+        next_link=next_link,
+        prev_disabled=prev_disabled,
+        next_disabled=next_disabled
     )
     
     output_path = Path(prefix) / f'{slug}.html'
@@ -347,13 +388,13 @@ def main():
     # Generate English pages
     print('\n📄 Generating English product pages...')
     for product in products:
-        generate_product_page(product, 'en', 'product/')
+        generate_product_page(product, products, 'en', 'product/')
     generate_listing_page(products, 'en', '/', LISTING_FILE)
     
     # Generate Thai pages
     print('\n📄 Generating Thai product pages...')
     for product in products:
-        generate_product_page(product, 'th', 'th/product/')
+        generate_product_page(product, products, 'th', 'th/product/')
     generate_listing_page(products, 'th', '/th/', TH_LISTING_FILE)
     
     print('\n✅ Done!')
