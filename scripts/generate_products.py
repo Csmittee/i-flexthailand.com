@@ -299,8 +299,8 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
     prev_slug = all_products[current_idx - 1]['Slug'] if current_idx > 0 else None
     next_slug = all_products[current_idx + 1]['Slug'] if current_idx < len(all_products) - 1 else None
     
-    prev_link = f'{prefix}product/{prev_slug}.html' if prev_slug else '#'
-    next_link = f'{prefix}product/{next_slug}.html' if next_slug else '#'
+    prev_link = f'/{prefix}{prev_slug}.html' if prev_slug else '#'
+    next_link = f'/{prefix}{next_slug}.html' if next_slug else '#'
     prev_disabled = 'disabled' if not prev_slug else ''
     next_disabled = 'disabled' if not next_slug else ''
     
