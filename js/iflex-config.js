@@ -35,7 +35,7 @@ const IFLEX_CONFIG = {
     contact: {
         name: "Chairit Smittee",
         phone: "089 5412121",
-        email: "info@janishammer.com"
+        email: "info@i-flexthailand.com"
     }
 };
 
