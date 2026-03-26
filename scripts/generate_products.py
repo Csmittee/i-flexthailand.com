@@ -1,5 +1,5 @@
 import csv
-import os
+import shutil
 from pathlib import Path
 
 # Configuration
@@ -108,7 +108,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
             <a href="/{lang}/contact-us.html" class="btn">Request Quote</a>
             
             <div class="product-navigation">
-                <a href="/{lang}/product-listing.html" class="btn-back">← Back to Products</a>
+                <a href="{back_link}product-listing.html" class="btn-back">← Back to Products</a>
                 <div class="product-nav-buttons">
                     <a href="{prev_link}" class="btn-nav {prev_disabled}">← Previous</a>
                     <a href="{next_link}" class="btn-nav {next_disabled}">Next →</a>
@@ -260,17 +260,6 @@ def parse_features(features_str):
     html += '</ul>\n'
     return html
 
-def cleanup_old_files(folder_path, current_slugs):
-    """Remove HTML files that are no longer in the CSV"""
-    folder = Path(folder_path)
-    if not folder.exists():
-        return
-    for file in folder.glob('*.html'):
-        slug = file.stem
-        if slug not in current_slugs:
-            file.unlink()
-            print(f'  Removed old file: {file}')
-
 def generate_product_card(product, lang, prefix):
     """Generate product card HTML for listing page"""
     name = product['name'] if lang == 'en' else product['name_th']
@@ -293,7 +282,7 @@ def generate_product_card(product, lang, prefix):
     </a>
     '''
 
-def generate_product_page(product, all_products, lang, prefix):
+def generate_product_page(product, all_products, lang, prefix, back_link):
     """Generate individual product detail page with navigation"""
     name = product['name'] if lang == 'en' else product['name_th']
     slug = product['Slug']
@@ -310,8 +299,8 @@ def generate_product_page(product, all_products, lang, prefix):
     prev_slug = all_products[current_idx - 1]['Slug'] if current_idx > 0 else None
     next_slug = all_products[current_idx + 1]['Slug'] if current_idx < len(all_products) - 1 else None
     
-    prev_link = f'/{prefix}product/{prev_slug}.html' if prev_slug else '#'
-    next_link = f'/{prefix}product/{next_slug}.html' if next_slug else '#'
+    prev_link = f'{prefix}product/{prev_slug}.html' if prev_slug else '#'
+    next_link = f'{prefix}product/{next_slug}.html' if next_slug else '#'
     prev_disabled = 'disabled' if not prev_slug else ''
     next_disabled = 'disabled' if not next_slug else ''
     
@@ -332,7 +321,8 @@ def generate_product_page(product, all_products, lang, prefix):
         prev_link=prev_link,
         next_link=next_link,
         prev_disabled=prev_disabled,
-        next_disabled=next_disabled
+        next_disabled=next_disabled,
+        back_link=back_link
     )
     
     output_path = Path(prefix) / f'{slug}.html'
@@ -365,9 +355,27 @@ def main():
         print(f'❌ Error: {CSV_PATH} not found!')
         return
     
+    # ===== CLEAN OLD FOLDERS =====
+    product_dir = Path('product')
+    th_product_dir = Path('th/product')
+    
+    if product_dir.exists():
+        shutil.rmtree(product_dir)
+        print('🗑️ Deleted old product folder')
+    
+    if th_product_dir.exists():
+        shutil.rmtree(th_product_dir)
+        print('🗑️ Deleted old Thai product folder')
+    
+    # Create fresh folders
+    product_dir.mkdir(exist_ok=True)
+    th_product_dir.mkdir(parents=True, exist_ok=True)
+    print('📁 Created fresh product folders')
+    # ===== END CLEAN =====
+    
     # Read CSV
     products = []
-    with open(CSV_PATH, 'r', encoding='utf-8') as f:
+    with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         for row in reader:
             products.append(row)
@@ -377,24 +385,16 @@ def main():
     # Sort by display_order
     products.sort(key=lambda x: int(x.get('display_order', 999)))
     
-    # Get current slugs for cleanup
-    current_slugs = [p['Slug'] for p in products]
-    
-    # Clean up old files
-    print('\n🧹 Cleaning up old files...')
-    cleanup_old_files('product', current_slugs)
-    cleanup_old_files('th/product', current_slugs)
-    
     # Generate English pages
     print('\n📄 Generating English product pages...')
     for product in products:
-        generate_product_page(product, products, 'en', 'product/')
+        generate_product_page(product, products, 'en', 'product/', '/')
     generate_listing_page(products, 'en', '/', LISTING_FILE)
     
     # Generate Thai pages
     print('\n📄 Generating Thai product pages...')
     for product in products:
-        generate_product_page(product, products, 'th', 'th/product/')
+        generate_product_page(product, products, 'th', 'th/product/', '/th/')
     generate_listing_page(products, 'th', '/th/', TH_LISTING_FILE)
     
     print('\n✅ Done!')
