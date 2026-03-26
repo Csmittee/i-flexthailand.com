@@ -44,7 +44,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
             gap: 1rem;
             flex-wrap: wrap;
         }}
-        .btn-back, .btn-nav {{
+       .btn-back, .btn-nav {{
             display: inline-block;
             background: #f0f0f0;
             color: #333;
@@ -53,6 +53,8 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
+            min-width: 100px;
+            text-align: center;
         }}
         .btn-back:hover, .btn-nav:hover {{
             background: #FFD700;
@@ -77,7 +79,6 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
             .product-nav-buttons {{
                 display: flex;
                 gap: 1rem;
-                justify-content: center;
             }}
         }}
     </style>
