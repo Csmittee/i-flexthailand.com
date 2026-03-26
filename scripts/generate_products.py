@@ -1,4 +1,5 @@
 import csv
+import json
 import shutil
 from pathlib import Path
 
@@ -243,7 +244,7 @@ def parse_gallery(gallery_str):
     """Convert multi-line gallery URLs to HTML thumbnails"""
     if not gallery_str or gallery_str == 'nan':
         return ''
-    urls = [line.strip() for line in gallery_str.split('\n') if line.strip() and line.strip() != 'nan']
+    urls = [line.strip() for line in str(gallery_str).split('\n') if line.strip() and line.strip() != 'nan']
     html = ''
     for i, url in enumerate(urls):
         active_class = 'active' if i == 0 else ''
@@ -254,7 +255,7 @@ def parse_features(features_str):
     """Convert multi-line features to HTML list"""
     if not features_str or features_str == 'nan':
         return '<ul><li>No features listed</li></ul>'
-    lines = [line.strip() for line in features_str.split('\n') if line.strip() and line.strip() != 'nan']
+    lines = [line.strip() for line in str(features_str).split('\n') if line.strip() and line.strip() != 'nan']
     html = '<ul>\n'
     for line in lines:
         html += f'<li>{line}</li>\n'
@@ -266,7 +267,7 @@ def generate_product_card(product, lang, prefix):
     name = product['name'] if lang == 'en' else product['name_th']
     slug = product['Slug']
     price = float(product['price'])
-    material = product['material'] if lang == 'en' else product['material_th']
+    material = product['material'] if lang == 'en' else product.get('material_th', product['material'])
     desc = product['full_description'] if lang == 'en' else product['full_description_th']
     sub_category = product['sub_category']
     main_image = product['main_image']
@@ -288,10 +289,10 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
     name = product['name'] if lang == 'en' else product['name_th']
     slug = product['Slug']
     price = float(product['price'])
-    material = product['material'] if lang == 'en' else product['material_th']
+    material = product['material'] if lang == 'en' else product.get('material_th', product['material'])
     sub_category = product['sub_category']
     description = product['full_description'] if lang == 'en' else product['full_description_th']
-    features = product['feature_details'] if lang == 'en' else product['feature_details_th']
+    features = product['feature_details'] if lang == 'en' else product.get('feature_details_th', product['feature_details'])
     main_image = product['main_image']
     gallery_images = product.get('gallery_images', '')
     
@@ -348,6 +349,28 @@ def generate_listing_page(products, lang, prefix, output_file):
         f.write(html)
     print(f'Generated: {output_file}')
 
+def generate_products_json(products):
+    """Generate products.json for main page dynamic loading"""
+    json_data = []
+    for p in products:
+        json_data.append({
+            'id': p.get('id', p['Slug']),
+            'name': p['name'],
+            'name_th': p.get('name_th', p['name']),
+            'price': float(p['price']),
+            'main_image': p['main_image'],
+            'category': p['sub_category'],
+            'material': p['material'],
+            'material_th': p.get('material_th', p['material']),
+            'slug': p['Slug'],
+            'description': p['full_description'][:120] + '...' if len(p['full_description']) > 120 else p['full_description'],
+            'description_th': p.get('full_description_th', p['full_description'])[:120] + '...' if len(p.get('full_description_th', p['full_description'])) > 120 else p.get('full_description_th', p['full_description'])
+        })
+    
+    with open('products.json', 'w', encoding='utf-8') as f:
+        json.dump(json_data, f, ensure_ascii=False, indent=2)
+    print('✅ Generated products.json')
+
 def main():
     print('📦 Reading products.csv...')
     
@@ -385,6 +408,10 @@ def main():
     
     # Sort by display_order
     products.sort(key=lambda x: int(x.get('display_order', 999)))
+    
+    # ===== GENERATE products.json =====
+    generate_products_json(products)
+    # ===== END GENERATE =====
     
     # Generate English pages
     print('\n📄 Generating English product pages...')
