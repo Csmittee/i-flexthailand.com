@@ -21,9 +21,28 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         .product-detail-page {{ max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }}
         .product-detail-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }}
         .product-gallery {{ position: relative; }}
-        .main-image {{ width: 100%; border-radius: 12px; cursor: pointer; }}
+        .main-image {{
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            background: #f5f5f5;
+            border-radius: 12px;
+            cursor: pointer;
+        }}
+
         .thumbnail-grid {{ display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }}
-        .thumbnail {{ width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; }}
+       .thumbnail {{
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }}
+        
         .thumbnail:hover, .thumbnail.active {{ opacity: 1; }}
         .product-info h1 {{ font-size: 2rem; margin-bottom: 1rem; }}
         .price {{ font-size: 1.5rem; font-weight: 700; color: #FFD700; margin-bottom: 1rem; }}
