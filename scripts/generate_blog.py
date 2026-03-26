@@ -325,6 +325,7 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
 </body>
 </html>
 '''
+
 def parse_gallery(gallery_str):
     """Convert multi-line gallery URLs to HTML gallery grid"""
     if not gallery_str or gallery_str == 'nan':
@@ -373,7 +374,7 @@ def generate_blog_page(post, all_posts, lang, prefix, back_link):
     category = post['category'] if lang == 'en' else post['category_th']
     featured_image = post['featured_image']
     gallery_images = post.get('gallery_images', '')
-    author = post['author']
+    author = post.get('author', 'I-Flex Team')
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
