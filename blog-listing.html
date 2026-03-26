@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | I-Flex Pilates</title>
+    <meta name="description" content="Practical advice for opening and growing your Pilates studio in Thailand. Equipment guides, space planning, and insider tips from experienced owners.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    <style>
+        body { background: white; }
+        .blog-page { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+        .page-header { text-align: center; padding: 2rem 0; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #FFD700; }
+        .filter-buttons { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
+        .filter-btn { background: #f0f0f0; border: none; padding: 0.75rem 1.5rem; border-radius: 40px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: #FFD700; color: #1a1a1a; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+        .blog-card { background: #f9f9f9; border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: inherit; display: block; }
+        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .blog-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+        .blog-card-info { padding: 1.5rem; }
+        .blog-card-info h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .blog-card-meta { font-size: 0.8rem; color: #888; margin-bottom: 0.75rem; display: flex; gap: 1rem; }
+        .blog-card-excerpt { font-size: 0.9rem; color: #666; line-height: 1.5; }
+        .blog-card-category {
+            display: inline-block;
+            background: #FFD700;
+            color: #1a1a1a;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        @media (max-width: 768px) {
+            .blog-page { padding: 1rem; }
+            .blog-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blog-page">
+    <div class="page-header">
+        <h1>Pilates for Real Life</h1>
+        <p>Just someone who got hurt, found Pilates, and wants to help you choose equipment and move better. For home users and new teachers, figuring it out together.</p>
+    </div>
+    
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Wellness">Wellness</button>
+        <button class="filter-btn" data-filter="Equipments">Equipment</button>
+        <button class="filter-btn" data-filter="Excercise">Exercise</button>
+    </div>
+    
+    <div class="blog-grid" id="blogGrid">
+        
+    <a href="/blog/pilates-for-life.html" class="blog-card" data-category="Wellness">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1771584979/Gemini_Generated_Image_b76ph8b76ph8b76p_adpyfl.png" alt="Pilates for life">
+        <div class="blog-card-info">
+            <div class="blog-card-category">Wellness</div>
+            <h3>Pilates for life</h3>
+            <div class="blog-card-meta">
+                <span>1/3/2026</span>
+                <span> 5 min</span>
+            </div>
+            <div class="blog-card-excerpt">Pilates for life - talking about why pilates became most effective choice for general people rather regular gym visit. S...</div>
+        </div>
+    </a>
+    
+    <a href="/blog/why-equipment-matter.html" class="blog-card" data-category="Equipments">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1771605013/369ef4f8-5be5-4f4a-a019-1631f00d2f1c_tnik6f.jpg" alt="Why equipment matter">
+        <div class="blog-card-info">
+            <div class="blog-card-category">Equipments</div>
+            <h3>Why equipment matter</h3>
+            <div class="blog-card-meta">
+                <span>1/3/2026</span>
+                <span>3 min</span>
+            </div>
+            <div class="blog-card-excerpt">Among all the Pilates machine on the market, some are well engineer, some have very fine materials, some looks very good...</div>
+        </div>
+    </a>
+    
+    <a href="/blog/how-to-select-the-right-pilates-equipment.html" class="blog-card" data-category="Equipments">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1771608996/9555f445976448ab907785b631ecd7c1_sbvovv.jpg" alt="How to select the right Pilates equipment">
+        <div class="blog-card-info">
+            <div class="blog-card-category">Equipments</div>
+            <h3>How to select the right Pilates equipment</h3>
+            <div class="blog-card-meta">
+                <span>1/3/2026</span>
+                <span>3 min</span>
+            </div>
+            <div class="blog-card-excerpt">Lets look at a key element to consider choose a good performance Pilates machine like reformer and cadillac bed. What as...</div>
+        </div>
+    </a>
+    
+    <a href="/blog/yoga-vs-pilates.html" class="blog-card" data-category="Excercise">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547276/pilates-vs-yoga-1.jpg" alt="Yoga vs Pilates">
+        <div class="blog-card-info">
+            <div class="blog-card-category">Excercise</div>
+            <h3>Yoga vs Pilates</h3>
+            <div class="blog-card-meta">
+                <span>1/3/2026</span>
+                <span>5 min</span>
+            </div>
+            <div class="blog-card-excerpt">What are the key difference between Yoga and Pilates performing, What are the key result in long term practice. They are...</div>
+        </div>
+    </a>
+    
+    <a href="/blog/regular-gym-vs-pilates.html" class="blog-card" data-category="Excercise">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773236759/fitness_vs_pilates_3.jpg" alt="Regular gym vs Pilates">
+        <div class="blog-card-info">
+            <div class="blog-card-category">Excercise</div>
+            <h3>Regular gym vs Pilates</h3>
+            <div class="blog-card-meta">
+                <span>1/3/2026</span>
+                <span>4 min</span>
+            </div>
+            <div class="blog-card-excerpt">Should you go to regular gym with mix of cardio, cross fit, strenght training or just stay with Pilates  ? What is the k...</div>
+        </div>
+    </a>
+    
+    </div>
+</div>
+
+<script src="/js/iflex-config.js"></script>
+<script src="/js/iflex-core.js"></script>
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const blogCards = document.querySelectorAll('.blog-card');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            blogCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
