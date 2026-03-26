@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maple Reformer | I-Flex Thailand</title>
+    <meta name="description" content="All-purpose reformer for versatile Pilates exercises">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    <style>
+        body { background: white; }
+        .product-detail-page { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
+        .product-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .product-gallery { position: relative; }
+        .main-image { width: 100%; border-radius: 12px; cursor: pointer; }
+        .thumbnail-grid { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+        .thumbnail { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; }
+        .thumbnail:hover, .thumbnail.active { opacity: 1; }
+        .product-info h1 { font-size: 2rem; margin-bottom: 1rem; }
+        .price { font-size: 1.5rem; font-weight: 700; color: #FFD700; margin-bottom: 1rem; }
+        .material, .category { margin-bottom: 0.5rem; color: #666; }
+        .description, .features { margin-top: 1.5rem; }
+        .features ul { list-style: none; padding: 0; }
+        .features li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
+        .features li::before { content: "✓"; color: #FFD700; position: absolute; left: 0; }
+        .btn { display: inline-block; background: #FFD700; color: #1a1a1a; padding: 0.75rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 1rem; }
+        .btn:hover { transform: translateY(-2px); background: #ffed4a; }
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
+        @media (max-width: 768px) {
+            .product-detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .product-detail-page { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="product-detail-page">
+    <div class="product-detail-grid">
+        <div class="product-gallery">
+            <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770519987/d5830d304041955c78935aea441e483f_e7j0uf.jpg" alt="Maple Reformer" class="main-image" id="mainImage">
+            <div class="thumbnail-grid" id="thumbnailGrid">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/3412f1368102422b68881ebb58579e48_pjaumu.jpg" class="thumbnail active" data-index="0">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/d5830d304041955c78935aea441e483f_e7j0uf.jpg" class="thumbnail " data-index="1">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/e646d2baa251bd7f62bcc7806cdcadb8_uyd1rt.jpg" class="thumbnail " data-index="2">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/9fadf471a5c9a73396256e02f8944a94_laraq4.jpg" class="thumbnail " data-index="3">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/926a4b2e679a2a95f5299a84e73ea250_pto8ju.jpg" class="thumbnail " data-index="4">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/4ed982c5118d25c84d8abe5bf461b747_j1ki46.jpg" class="thumbnail " data-index="5">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/ab192eb6779ac41b1c6936049b1f3926_p564hx.jpg" class="thumbnail " data-index="6">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/t_800p_scale/89a4d2d0f46fc21d0e25eafb05cdae41_zjpsvb.jpg" class="thumbnail " data-index="7">
+
+            </div>
+        </div>
+        <div class="product-info">
+            <h1>Maple Reformer</h1>
+            <div class="price">฿44,221</div>
+            <div class="material"><strong>Material:</strong> Maple</div>
+            <div class="category"><strong>Category:</strong> Reformers</div>
+            <div class="description">
+                <h3>Description</h3>
+                <p>All-purpose reformer for versatile Pilates exercises</p>
+            </div>
+            <div class="features">
+                <h3>Features</h3>
+                <ul>
+<li>1. Bed Frame: White Maple imported from North America</li>
+<li>2. Rails: Thickened aluminum alloy rails (3.0mm) *2</li>
+<li>3. Springs: Musical steel springs imported from Germany *6</li>
+<li>4. Pulleys: Imported silent pulleys with brand-name bearings *4</li>
+<li>5. Leather: 1.3mm microfiber leather</li>
+<li>6. Foam: High-density sports foam/EVA</li>
+<li>7. Accessory set  (3-piece box, kickboard, and footrest)</li>
+</ul>
+
+            </div>
+            <a href="/en/contact-us.html" class="btn">Request Quote</a>
+        </div>
+    </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img src="" alt="Lightbox">
+</div>
+
+<script src="/js/iflex-config.js"></script>
+<script src="/js/iflex-core.js"></script>
+<script>
+    const mainImage = document.getElementById('mainImage');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            mainImage.src = thumb.src;
+            thumbnails.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        });
+    });
+    
+    mainImage.addEventListener('click', () => {
+        lightboxImg.src = mainImage.src;
+        lightbox.classList.add('active');
+    });
+    
+    lightboxClose.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+    
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+</script>
+</body>
+</html>

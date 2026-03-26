@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | I-Flex Pilates Equipment</title>
+    <meta name="description" content="Explore I-Flex Pilates equipment: Reformers, Cadillacs, Wunda Chairs, and Ladder Barrels. Proven 5+ years in studios.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    <style>
+        body { background: white; }
+        .products-page { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+        .page-header { text-align: center; padding: 2rem 0; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #FFD700; }
+        .filter-buttons { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
+        .filter-btn { background: #f0f0f0; border: none; padding: 0.75rem 1.5rem; border-radius: 40px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: #FFD700; color: #1a1a1a; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .product-card { background: #f9f9f9; border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: inherit; display: block; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .product-card img { width: 100%; height: 220px; object-fit: cover; }
+        .product-card-info { padding: 1.5rem; }
+        .product-card-info h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .product-card-price { font-size: 1.3rem; font-weight: 700; color: #FFD700; margin-bottom: 0.5rem; }
+        .product-card-material { color: #666; margin-bottom: 0.5rem; }
+        .product-card-desc { font-size: 0.9rem; color: #777; }
+        @media (max-width: 768px) {
+            .products-page { padding: 1rem; }
+            .filter-buttons { gap: 0.5rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="products-page">
+    <div class="page-header">
+        <h1>Our Pilates Equipment</h1>
+        <p>Engineered for movement with world-class materials and quality</p>
+    </div>
+    
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Reformers">Reformers</button>
+        <button class="filter-btn" data-filter="Cadillac">Cadillac</button>
+        <button class="filter-btn" data-filter="Wunda chair">Wunda Chairs</button>
+        <button class="filter-btn" data-filter="Barrel ladder">Barrel Ladders</button>
+    </div>
+    
+    <div class="product-grid" id="productGrid">
+        
+    <a href="/product/maple-reformer.html" class="product-card" data-category="Reformers">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770519987/d5830d304041955c78935aea441e483f_e7j0uf.jpg" alt="Maple Reformer">
+        <div class="product-card-info">
+            <h3>Maple Reformer</h3>
+            <div class="product-card-price">฿44,221</div>
+            <div class="product-card-material">Maple</div>
+            <div class="product-card-desc">All-purpose reformer for versatile Pilates exercises...</div>
+        </div>
+    </a>
+    
+    <a href="/product/oak-reformer.html" class="product-card" data-category="Reformers">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/dfc16146b2f5408bfeef79035d0ab7fe_n6815j.jpg" alt="Oak reformer">
+        <div class="product-card-info">
+            <h3>Oak reformer</h3>
+            <div class="product-card-price">฿35,934</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">All-purpose reformer for versatile Pilates exercises...</div>
+        </div>
+    </a>
+    
+    <a href="/product/oak-reformer-with-half-tower.html" class="product-card" data-category="Reformers">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/34DA25A5-DFA9-4B1B-8637-513F93A4CC4B_zhix6x.jpg" alt="Oak Reformer With Half Tower">
+        <div class="product-card-info">
+            <h3>Oak Reformer With Half Tower</h3>
+            <div class="product-card-price">฿45,684</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">All-purpose reformer for versatile Pilates exercises Half tower...</div>
+        </div>
+    </a>
+    
+    <a href="/product/maple-reformer-with-full-tower.html" class="product-card" data-category="Reformers">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/10527f0671a54f02ab2121b8eaaf8dad_oj17kb.jpg" alt="Maple Reformer With Full Tower">
+        <div class="product-card-info">
+            <h3>Maple Reformer With Full Tower</h3>
+            <div class="product-card-price">฿69,811</div>
+            <div class="product-card-material">Maple</div>
+            <div class="product-card-desc">All-purpose reformer for versatile Pilates exercises full tower...</div>
+        </div>
+    </a>
+    
+    <a href="/product/oak-reformer-with-full-tower.html" class="product-card" data-category="Reformers">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770479065/10527f0671a54f02ab2121b8eaaf8dad_oj17kb.jpg" alt="Oak Reformer With Full Tower">
+        <div class="product-card-info">
+            <h3>Oak Reformer With Full Tower</h3>
+            <div class="product-card-price">฿61,036</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">All-purpose reformer for versatile Pilates exercises full tower...</div>
+        </div>
+    </a>
+    
+    <a href="/product/ba-reformer-with-full-tower.html" class="product-card" data-category="Reformers">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/10527f0671a54f02ab2121b8eaaf8dad_oj17kb.jpg" alt="BA Reformer With Full Tower">
+        <div class="product-card-info">
+            <h3>BA Reformer With Full Tower</h3>
+            <div class="product-card-price">฿77,417</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">All-purpose reformer for versatile Pilates exercises full tower...</div>
+        </div>
+    </a>
+    
+    <a href="/product/aluminum-reformer-with-full-tower.html" class="product-card" data-category="Reformers">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773171812/reformer--Immovable-bar.77.3-5_chjf9j.jpg" alt="Aluminum Reformer With Full Tower">
+        <div class="product-card-info">
+            <h3>Aluminum Reformer With Full Tower</h3>
+            <div class="product-card-price">฿13,560</div>
+            <div class="product-card-material">Aluminum</div>
+            <div class="product-card-desc">All-purpose reformer for versatile Pilates exercises full tower...</div>
+        </div>
+    </a>
+    
+    <a href="/product/oak-cadillac.html" class="product-card" data-category="Cadillac">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/%E7%99%BD%E5%BA%95_efannj.jpg" alt="Oak Cadillac">
+        <div class="product-card-info">
+            <h3>Oak Cadillac</h3>
+            <div class="product-card-price">฿35,997</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">Elevated, versatile Pilates apparatus for varied movements....</div>
+        </div>
+    </a>
+    
+    <a href="/product/oak-ladder-barrel.html" class="product-card" data-category="Barrel ladder">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/5_n0y4jy.jpg" alt="Oak Ladder Barrel">
+        <div class="product-card-info">
+            <h3>Oak Ladder Barrel</h3>
+            <div class="product-card-price">฿16,816</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">Curved apparatus for spine mobility and muscle stretching....</div>
+        </div>
+    </a>
+    
+    <a href="/product/ba-combination-ladder-bucket.html" class="product-card" data-category="Barrel ladder">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/2275bff3f9682101419e2bbaca05c5f2_j3ef1j.jpg" alt="BA Combination ladder bucket">
+        <div class="product-card-info">
+            <h3>BA Combination ladder bucket</h3>
+            <div class="product-card-price">฿58,875</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">Compact chair for strength, stability, and balance training....</div>
+        </div>
+    </a>
+    
+    <a href="/product/oak-wunda-chair.html" class="product-card" data-category="Wunda chair">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/e_enhance/r_20/e_enhance/r_20/Maple-Wunda-Chair.27.3-1_xacrjt.jpg" alt="Oak Wunda Chair">
+        <div class="product-card-info">
+            <h3>Oak Wunda Chair</h3>
+            <div class="product-card-price">฿16,046</div>
+            <div class="product-card-material">Oak</div>
+            <div class="product-card-desc">Compact chair for strength, stability, and balance training....</div>
+        </div>
+    </a>
+    
+    </div>
+</div>
+
+<script src="/js/iflex-config.js"></script>
+<script src="/js/iflex-core.js"></script>
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('.product-card');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            productCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

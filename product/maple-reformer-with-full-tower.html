@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maple Reformer With Full Tower | I-Flex Thailand</title>
+    <meta name="description" content="All-purpose reformer for versatile Pilates exercises full tower">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    <style>
+        body { background: white; }
+        .product-detail-page { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
+        .product-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .product-gallery { position: relative; }
+        .main-image { width: 100%; border-radius: 12px; cursor: pointer; }
+        .thumbnail-grid { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+        .thumbnail { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; }
+        .thumbnail:hover, .thumbnail.active { opacity: 1; }
+        .product-info h1 { font-size: 2rem; margin-bottom: 1rem; }
+        .price { font-size: 1.5rem; font-weight: 700; color: #FFD700; margin-bottom: 1rem; }
+        .material, .category { margin-bottom: 0.5rem; color: #666; }
+        .description, .features { margin-top: 1.5rem; }
+        .features ul { list-style: none; padding: 0; }
+        .features li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
+        .features li::before { content: "✓"; color: #FFD700; position: absolute; left: 0; }
+        .btn { display: inline-block; background: #FFD700; color: #1a1a1a; padding: 0.75rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 1rem; }
+        .btn:hover { transform: translateY(-2px); background: #ffed4a; }
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
+        @media (max-width: 768px) {
+            .product-detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .product-detail-page { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="product-detail-page">
+    <div class="product-detail-grid">
+        <div class="product-gallery">
+            <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/10527f0671a54f02ab2121b8eaaf8dad_oj17kb.jpg" alt="Maple Reformer With Full Tower" class="main-image" id="mainImage">
+            <div class="thumbnail-grid" id="thumbnailGrid">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773175329/Maple-Full-tower-Reformer.5.3-1_vjhgpd.jpg" class="thumbnail active" data-index="0">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773175325/Maple-Full-tower-Reformer.5.3-2_mnirmv.jpg" class="thumbnail " data-index="1">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773175320/Maple-Full-tower-Reformer.5.3-3_tw4tyl.jpg" class="thumbnail " data-index="2">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773175316/Maple-Full-tower-Reformer.5.3-5_oepm1o.jpg" class="thumbnail " data-index="3">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773175311/Maple-Full-tower-Reformer.5.3-4_rygbe1.jpg" class="thumbnail " data-index="4">
+<img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773175309/Maple-Full-tower-Reformer.5.3-6_xgjloo.jpg" class="thumbnail " data-index="5">
+
+            </div>
+        </div>
+        <div class="product-info">
+            <h1>Maple Reformer With Full Tower</h1>
+            <div class="price">฿69,811</div>
+            <div class="material"><strong>Material:</strong> Maple</div>
+            <div class="category"><strong>Category:</strong> Reformers</div>
+            <div class="description">
+                <h3>Description</h3>
+                <p>All-purpose reformer for versatile Pilates exercises full tower</p>
+            </div>
+            <div class="features">
+                <h3>Features</h3>
+                <ul>
+<li>1. Bed frame: Rubber wood imported from Thailand</li>
+<li>2. Springs: 16 piano wire springs imported from South Korea</li>
+<li>3. Wheels: 4 imported silent pulleys with brand-name bearings</li>
+<li>4. Tracks: 2 thickened aluminum alloy tracks (3.0mm)</li>
+<li>5. Leather: 1.3mm microfiber leather</li>
+<li>6. Foam: High-density sports foam/EVA</li>
+<li>7. Tower: 3mm 304 stainless steel</li>
+<li>8. Accessory set (3-piece box, kickboard, and footrest)</li>
+</ul>
+
+            </div>
+            <a href="/en/contact-us.html" class="btn">Request Quote</a>
+        </div>
+    </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img src="" alt="Lightbox">
+</div>
+
+<script src="/js/iflex-config.js"></script>
+<script src="/js/iflex-core.js"></script>
+<script>
+    const mainImage = document.getElementById('mainImage');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            mainImage.src = thumb.src;
+            thumbnails.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        });
+    });
+    
+    mainImage.addEventListener('click', () => {
+        lightboxImg.src = mainImage.src;
+        lightbox.classList.add('active');
+    });
+    
+    lightboxClose.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+    
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+</script>
+</body>
+</html>
