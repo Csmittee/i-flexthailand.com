@@ -199,7 +199,7 @@ POST_TEMPLATE = '''<!DOCTYPE html>
 </body>
 </html>'''
 
-# ===== LISTING TEMPLATE (same as both) =====
+# ===== LISTING TEMPLATE =====
 LISTING_TEMPLATE = '''<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -209,8 +209,8 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <meta name="description" content="Practical advice for opening and growing your Pilates studio in Thailand. Equipment guides, space planning, and insider tips from experienced owners.">
     
    <!-- INJECTOR SCRIPTS -->
-<script src="/js/iflex-config.js"></script>
-<script src="/js/iflex-core.js"></script>
+    <script src="/js/iflex-config.js"></script>
+    <script src="/js/iflex-core.js"></script>
     
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -347,10 +347,7 @@ def generate_blog_card(post, lang):
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
-    # For Thai, use Thai slug if available, otherwise English slug
-    if lang == 'th' and post.get('slug_th'):
-        slug = post['slug_th']
-    return f'''
+    # Build correct link based on language
     if lang == 'th':
         link = f'/th/blog/{slug}.html'
     else:
