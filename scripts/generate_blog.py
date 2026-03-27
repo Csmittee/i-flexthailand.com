@@ -26,7 +26,7 @@ POST_TEMPLATE = '''<!DOCTYPE html>
     <script src="/js/iflex-core.js"></script>
     
     <style>
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        
         body {{ background: white; font-family: 'Inter', sans-serif; }}
         
         .blog-detail-page {{ max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }}
@@ -213,7 +213,7 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <script src="/js/iflex-core.js"></script>
     
     <style>
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        
         body {{ background: white; font-family: 'Inter', sans-serif; }}
         
         .blog-page {{ max-width: 1280px; margin: 0 auto; padding: 2rem; }}
