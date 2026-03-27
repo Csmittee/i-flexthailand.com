@@ -17,13 +17,12 @@
             min-height: 70vh;
             background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774380814/Nok_studio.png');
             background-size: cover;
-            background-position: center;
+            background-position: center 40px;  /* ← shifts image down 40px */
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding-top: 40px;  /* ← Add this — adjust to taste */
         }
         
         .hero-section::before {
@@ -426,7 +425,7 @@
                 height: 80px;
             }
             .hero-section {
-                padding-top: 70px;
+                background-position: center 30px;
             }
         }
     </style>
