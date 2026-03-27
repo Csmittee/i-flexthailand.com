@@ -52,10 +52,40 @@
             border-radius: 12px;
             padding: 1.5rem;
             text-align: center;
+            position: relative;
+            min-height: 600px;
         }
         .form-container h3 {
             margin-bottom: 1rem;
             color: #333;
+        }
+        .form-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #666;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+        .form-loading::after {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         .airtable-embed {
             background: transparent;
@@ -63,6 +93,11 @@
             border-radius: 8px;
             width: 100%;
             height: 533px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .airtable-embed.loaded {
+            opacity: 1;
         }
         .h2-large {
             font-size: 2rem;
@@ -87,6 +122,9 @@
             }
             .airtable-embed {
                 height: 600px;
+            }
+            .form-container {
+                min-height: 650px;
             }
         }
     </style>
@@ -126,7 +164,6 @@
                 class="airtable-embed"
                 src="https://airtable.com/embed/appMBjlfYyVd8I7ML/pag3gWn7q647bFPCV/form"
                 frameborder="0"
-                sandbox="allow-forms allow-same-origin allow-scripts allow-popups"
                 allow="camera; microphone; fullscreen">
             </iframe>
         </div>
@@ -135,5 +172,30 @@
 
 <script src="/js/iflex-config.js"></script>
 <script src="/js/iflex-core.js"></script>
+<script>
+    // Show loading indicator while iframe loads
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframes = document.querySelectorAll('.airtable-embed');
+        
+        iframes.forEach(iframe => {
+            const container = iframe.closest('.form-container');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'form-loading';
+            loadingDiv.innerHTML = 'Loading form';
+            container.appendChild(loadingDiv);
+            
+            iframe.onload = function() {
+                loadingDiv.style.display = 'none';
+                iframe.classList.add('loaded');
+            };
+            
+            setTimeout(() => {
+                if (!iframe.classList.contains('loaded')) {
+                    loadingDiv.innerHTML = 'Still loading... please wait';
+                }
+            }, 5000);
+        });
+    });
+</script>
 </body>
 </html>
