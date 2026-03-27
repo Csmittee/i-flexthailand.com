@@ -17,7 +17,7 @@
             padding-top: 0 !important;
         }        
         /* Hero section */
-        .hero-section {
+       .hero-section {
             min-height: 70vh;
             background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774380814/Nok_studio.png');
             background-size: cover;
@@ -27,13 +27,15 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding-top: 80px;   /* matches navbar height */
+            padding-top: 90px;        /* increased a bit for safety */
+            box-sizing: border-box;
         }
+        
         @media (max-width: 768px) {
             .hero-section {
-                padding-top: 70px;
+                padding-top: 75px;    /* slightly less on mobile */
             }
-        }       
+        }
         .hero-section::before {
             content: '';
             position: absolute;
