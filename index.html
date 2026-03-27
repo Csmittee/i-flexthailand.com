@@ -7,13 +7,11 @@
     <meta name="description" content="I-Flex imports reliable Pilates equipment proven 5+ years in Bangkok studios. Friendly support for new studio owners. Fast delivery Thailand.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
     <style>
-        /* Basic body */
+        /* Additional page-specific styles */
         body {
             background: white;
-            margin: 0;
-            padding: 0;
         }
-
+        
         /* Hero section */
         .hero-section {
             min-height: 70vh;
@@ -25,15 +23,9 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding-top: 80px;           /* Simple fix for navbar overlap */
+            padding-top: 80px; /* Prevents navbar overlap */
         }
         
-        @media (max-width: 768px) {
-            .hero-section {
-                padding-top: 70px;
-            }
-        }
-
         .hero-section::before {
             content: '';
             position: absolute;
@@ -53,7 +45,7 @@
             max-width: 800px;
             padding: 2rem;
         }
-
+        
         /* Header size classes */
         .h1-large {
             font-size: 3rem;
@@ -88,23 +80,35 @@
             margin-bottom: 0.75rem;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
-
+        
         /* Section container */
         .section-container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-
-        /* Brand section */
+        
+        /* Brand section below hero */
         .brand-section {
             text-align: center;
             padding: 3rem 2rem;
             background: linear-gradient(135deg, #f8f8f8 0%, #fff 100%);
             border-bottom: 1px solid #eee;
         }
-
-        /* Marquee - FIXED VERSION */
+        
+        .brand-section .h2-medium {
+            color: #FFD700;
+            text-shadow: none;
+            margin-bottom: 0.5rem;
+        }
+        
+        .brand-section p {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Marquee section - mobile optimized */
         .marquee-section {
             max-width: 1280px;
             margin: 2rem auto;
@@ -124,7 +128,7 @@
         .marquee-track {
             display: flex;
             width: fit-content;
-            animation: marquee 25s linear infinite;
+            animation: marquee 20s linear infinite;
             will-change: transform;
             transform: translate3d(0, 0, 0);
         }
@@ -145,24 +149,19 @@
         }
         
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
         
         .marquee-container:hover .marquee-track {
             animation-play-state: paused;
         }
-
-        @media (max-width: 768px) {
-            .marquee-track img {
-                height: 80px;
-            }
-            .h1-large {
-                font-size: 2rem;
-            }
-        }
-
-        /* ==================== YOUR ORIGINAL STYLES ==================== */
+        
+        /* Proven section */
         .proven-section {
             text-align: center;
             padding: 4rem 0;
@@ -194,14 +193,42 @@
             color: #333;
         }
         
-        .compare-cell:first-child { text-align: left; font-weight: 600; }
-        .compare-cell:nth-child(2) { text-align: left; }
-        .compare-cell:nth-child(3), .compare-cell:nth-child(4) { text-align: center; }
+        .compare-cell:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
         
-        .check-yes::before { content: "✓"; color: #10b981; font-size: 1.2rem; font-weight: bold; }
-        .check-no::before { content: "✗"; color: #ef4444; font-size: 1.2rem; font-weight: bold; }
-        .check-maybe::before { content: "?"; color: #f59e0b; font-size: 1.2rem; font-weight: bold; }
-
+        .compare-cell:nth-child(2) {
+            text-align: left;
+        }
+        
+        .compare-cell:nth-child(3),
+        .compare-cell:nth-child(4) {
+            text-align: center;
+        }
+        
+        .check-yes::before {
+            content: "✓";
+            color: #10b981;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .check-no::before {
+            content: "✗";
+            color: #ef4444;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .check-maybe::before {
+            content: "?";
+            color: #f59e0b;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        /* Equipment section */
         .equipment-section {
             text-align: center;
             padding: 2rem 0;
@@ -232,7 +259,8 @@
             font-weight: 600;
             font-size: 1.1rem;
         }
-
+        
+        /* Product cards */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -269,7 +297,8 @@
             color: #FFD700;
             text-shadow: none;
         }
-
+        
+        /* CTA sections */
         .cta-section {
             text-align: center;
             padding: 3rem 2rem;
@@ -277,7 +306,7 @@
             border-radius: 16px;
             margin: 2rem 0;
         }
-
+        
         .bottom-hero {
             background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
             background-size: cover;
@@ -294,40 +323,13 @@
             border-radius: 0;
             color: white;
         }
-
-        .btn {
-            display: inline-block;
-            background: #FFD700;
-            color: #1a1a1a;
-            padding: 0.75rem 2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        
+        .bottom-hero .h2-large,
+        .bottom-hero p {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
-        .btn:hover {
-            transform: translateY(-2px);
-            background: #ffed4a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        @media (max-width: 768px) {
-            .h1-large { font-size: 2rem; }
-            .h2-large { font-size: 1.8rem; }
-            .h2-medium { font-size: 1.5rem; }
-            .h3-medium { font-size: 1.2rem; }
-            .compare-row {
-                grid-template-columns: 1fr 1.5fr 0.8fr 0.8fr;
-                font-size: 0.85rem;
-            }
-            .compare-cell { padding: 0.75rem 0.5rem; }
-            .banner-grid { flex-direction: column; align-items: center; }
-            .section-container { padding: 0 1rem; }
-        }
-
         /* FAQ */
         .faq-item {
             background: #f5f5f5;
@@ -373,6 +375,60 @@
             max-height: 300px;
             padding: 1rem;
         }
+        
+        .btn {
+            display: inline-block;
+            background: #FFD700;
+            color: #1a1a1a;
+            padding: 0.75rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            background: #ffed4a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .h1-large {
+                font-size: 2rem;
+            }
+            .h2-large {
+                font-size: 1.8rem;
+            }
+            .h2-medium {
+                font-size: 1.5rem;
+            }
+            .h3-medium {
+                font-size: 1.2rem;
+            }
+            .compare-row {
+                grid-template-columns: 1fr 1.5fr 0.8fr 0.8fr;
+                font-size: 0.85rem;
+            }
+            .compare-cell {
+                padding: 0.75rem 0.5rem;
+            }
+            .banner-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .section-container {
+                padding: 0 1rem;
+            }
+            .marquee-track img {
+                height: 80px;
+            }
+            .hero-section {
+                padding-top: 70px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -409,6 +465,12 @@
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
                 <!-- Duplicate for seamless loop -->
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
@@ -422,11 +484,17 @@
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
             </div>
         </div>
     </div>
 
-    <!-- SECTION 2: PROVEN PERFORMANCE -->
+    <!-- SECTION 2: PROVEN PERFORMANCE (placeholder for later) -->
     <div class="section-container">
         <div class="proven-section">
             <h2 class="h2-large">5 years proven</h2>
@@ -485,7 +553,7 @@
         </div>
     </div>
 
-    <!-- SECTION 4: EQUIPMENT -->
+    <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
     <div class="section-container">
         <div class="equipment-section">
             <h2 class="h2-large">We can provide equipments<br>that fit your need.</h2>
@@ -597,7 +665,7 @@
         </div>
     </div>
 
-    <!-- BOTTOM HERO -->
+    <!-- SECTION 8: BOTTOM HERO -->
     <div class="bottom-hero">
         <h2 class="h2-large">Ready to outfit your studio ?</h2>
         <p>Skip the headaches,<br>Get the quality!</p>
