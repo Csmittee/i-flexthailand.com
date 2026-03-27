@@ -22,7 +22,7 @@
             align-items: start;
         }
         .left-column {
-            text-align: left;
+            text-align: center;
         }
         .left-column .tag {
             color: #FFD700;
@@ -144,6 +144,11 @@
 <body>
 
 <div class="case-study-page">
+    <h1 class="h2-large">Case Study</h1>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">
+        Real success stories from Pilates studio owners who trusted I-Flex equipment.
+    </p>
+    
     <div class="case-study-grid">
         <!-- Left Column: Content -->
         <div class="left-column">
@@ -182,26 +187,19 @@
     
     btn.addEventListener('click', function() {
         if (!wrapper.classList.contains('open')) {
-            // Open the wrapper
             wrapper.classList.add('open');
             btn.textContent = '📋 Hide Form';
             
-            // Load iframe only when first opened
             if (!formLoaded) {
-                // Show loading
                 loadingIndicator.classList.add('active');
-                
-                // Set iframe source and load it
                 iframe.src = iframe.getAttribute('data-src');
                 
-                // When iframe loads, hide loading and show iframe
                 iframe.onload = function() {
                     loadingIndicator.classList.remove('active');
                     iframe.classList.add('loaded');
                     formLoaded = true;
                 };
                 
-                // Timeout in case iframe takes too long
                 setTimeout(function() {
                     if (loadingIndicator.classList.contains('active')) {
                         loadingIndicator.innerHTML = 'Still loading... please wait';
