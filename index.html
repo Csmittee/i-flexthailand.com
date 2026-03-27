@@ -107,7 +107,8 @@
             margin-top: 0.5rem;
         }
         
-       /* Marquee section */
+      
+     /* Marquee section - mobile optimized */
         .marquee-section {
             max-width: 1280px;
             margin: 2rem auto;
@@ -119,15 +120,16 @@
         }
         
         .marquee-container {
-            width: 100%;
             overflow: hidden;
-            position: relative;
+            width: 100%;
+            will-change: transform;
         }
         
         .marquee-track {
             display: flex;
             width: fit-content;
-            animation: marquee 30s linear infinite;
+            animation: marquee 20s linear infinite;
+            will-change: transform;
         }
         
         .marquee-track img {
@@ -154,10 +156,15 @@
             }
         }
         
-        .marquee-section:hover .marquee-track {
+        .marquee-container:hover .marquee-track {
             animation-play-state: paused;
         }
-                
+        
+        @media (max-width: 768px) {
+            .marquee-track img {
+                height: 80px;
+            }
+        }
         /* Proven section */
         .proven-section {
             text-align: center;
