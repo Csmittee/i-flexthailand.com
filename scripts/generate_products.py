@@ -83,6 +83,28 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
             }}
         }}
     </style>
+
+              <script type="application/ld+json">
+        {{
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "{name}",
+            "description": "{description}",
+            "image": "{main_image}",
+            "sku": "{sku}",
+            "offers": {{
+                "@type": "Offer",
+                "price": {price},
+                "priceCurrency": "THB",
+                "availability": "https://schema.org/PreOrder",
+                "seller": {{
+                    "@type": "Organization",
+                    "name": "I-Flex Thailand"
+                }}
+            }}
+        }}
+        </script>
+
 </head>
 <body>
 
@@ -324,8 +346,9 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
         next_link=next_link,
         prev_disabled=prev_disabled,
         next_disabled=next_disabled,
-        back_link=back_link
-    )
+        back_link=back_link,
+        sku=product.get('id', '')
+  
     
     output_path = Path(prefix) / f'{slug}.html'
     output_path.parent.mkdir(parents=True, exist_ok=True)
