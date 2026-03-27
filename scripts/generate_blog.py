@@ -208,9 +208,9 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <title>Blog | I-Flex Pilates</title>
     <meta name="description" content="Practical advice for opening and growing your Pilates studio in Thailand. Equipment guides, space planning, and insider tips from experienced owners.">
     
-    <!-- INJECTORS -->
-    <script src="https://assets.janishammer.com/js/injector-core.js"></script>
-    <script src="https://assets.janishammer.com/js/injector-config.js"></script>
+   <!-- INJECTOR SCRIPTS -->
+<script src="/js/iflex-config.js"></script>
+<script src="/js/iflex-core.js"></script>
     
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -351,7 +351,13 @@ def generate_blog_card(post, lang):
     if lang == 'th' and post.get('slug_th'):
         slug = post['slug_th']
     return f'''
-    <a href="th/blog/{slug}.html" class="blog-card" data-category="{category}">
+    if lang == 'th':
+        link = f'/th/blog/{slug}.html'
+    else:
+        link = f'/blog/{slug}.html'
+    
+    return f'''
+<a href="{link}" class="blog-card" data-category="{category}">
         <img src="{featured_image}" alt="{title}">
         <div class="blog-card-info">
             <div class="blog-card-category">{category}</div>
