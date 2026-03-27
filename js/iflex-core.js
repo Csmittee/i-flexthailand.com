@@ -19,11 +19,24 @@
         fa.rel = 'stylesheet';
         fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
         document.head.appendChild(fa);
-    }
-
-    function getCurrentLang() {
-        return window.location.pathname.startsWith('/th/') ? 'th' : 'en';
-    }
+        }
+        // Google Analytics
+        const ga = document.createElement('script');
+        ga.async = true;
+        ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-X4ZXYX21PF';
+        document.head.appendChild(ga);
+        
+        const gaInit = document.createElement('script');
+        gaInit.textContent = `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-X4ZXYX21PF');
+        `;
+        document.head.appendChild(gaInit);
+        console.log('📊 Google Analytics loaded');    function getCurrentLang() {
+                return window.location.pathname.startsWith('/th/') ? 'th' : 'en';
+        }
 
     function buildNavbar() {
         const isThai = getCurrentLang() === 'th';
