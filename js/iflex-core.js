@@ -464,14 +464,15 @@
             }
 
             /* ==================== MOBILE ==================== */
+                       /* ==================== MOBILE ==================== */
             @media (max-width: 768px) {
                 .nav-menu-wrap { display: none; }
                 .hamburger { display: flex; }
                 .lang-sel-wrapper { display: none; }
                 .nav-container { min-height: 60px; }
                 .logo-img { max-height: 45px; }
+                /* NO padding-top on body anymore */
                 .footer-content { flex-direction: column; align-items: center; }
-                .footer-brand, .footer-links, .footer-contact { text-align: center; }
             }
         `;
         document.head.appendChild(style);
