@@ -349,9 +349,8 @@ def generate_blog_card(post, lang):
     # For Thai, use Thai slug if available, otherwise English slug
     if lang == 'th' and post.get('slug_th'):
         slug = post['slug_th']
-    
     return f'''
-    <a href="{slug}.html" class="blog-card" data-category="{category}">
+    <a href="th/blog/{slug}.html" class="blog-card" data-category="{category}">
         <img src="{featured_image}" alt="{title}">
         <div class="blog-card-info">
             <div class="blog-card-category">{category}</div>
