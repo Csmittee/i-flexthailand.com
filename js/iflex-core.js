@@ -213,12 +213,16 @@
                 box-sizing: border-box;
             }
             
-            /* Body - preserve your page background */
             body {
                 font-family: ${IFLEX_CONFIG.font};
                 min-height: 100vh;
                 position: relative;
-                background: white; /* Your page will override if needed */
+                background: ${IFLEX_CONFIG.bgColor || 'white'};
+                background-image: url('${IFLEX_CONFIG.bgImage}');
+                background-repeat: repeat;
+                background-position: center;
+                background-attachment: fixed;
+                background-size: cover;
             }
             
             /* Protect your custom content */
