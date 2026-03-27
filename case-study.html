@@ -19,7 +19,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
-            align-items: center;
+            align-items: start;
         }
         .left-column {
             text-align: left;
@@ -45,10 +45,6 @@
             border-radius: 12px;
             padding: 2rem;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 350px;
         }
         .form-container h3 {
             margin-bottom: 1rem;
@@ -66,11 +62,60 @@
             transition: all 0.3s ease;
             margin: 1rem auto;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
         }
         .cta-button:hover {
             transform: translateY(-2px);
             background: #ffed4a;
             box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        .form-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            margin-top: 0;
+        }
+        .form-wrapper.open {
+            max-height: 600px;
+            transition: max-height 0.5s ease-in;
+            margin-top: 1.5rem;
+        }
+        .form-loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        .form-loading.active {
+            display: block;
+        }
+        .form-loading::after {
+            content: "";
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-left: 10px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .airtable-embed {
+            background: transparent;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+            height: 533px;
+            display: none;
+        }
+        .airtable-embed.loaded {
+            display: block;
         }
         .h2-large {
             font-size: 2rem;
@@ -87,6 +132,12 @@
             .case-study-page {
                 padding: 2rem 1rem;
             }
+            .form-wrapper.open {
+                max-height: 650px;
+            }
+            .airtable-embed {
+                height: 600px;
+            }
         }
     </style>
 </head>
@@ -101,21 +152,67 @@
             <p>Floor plans · ROI calculator · Vendor comparison checklist — tools trusted by studios across Thailand.</p>
         </div>
         
-        <!-- Right Column: Fast Button Link -->
+        <!-- Right Column: Button + Expandable Form with Loading -->
         <div class="form-container">
             <h3>Request your free guide</h3>
-            <p>Click below to fill out our secure form — we'll email you the guide within 24 hours.</p>
-            <a href="https://airtable.com/appMBjlfYyVd8I7ML/pagaDtXYiM7eFzHG8/form" target="_blank" class="cta-button">
-                📚 Get the Studio Guide
-            </a>
-            <p style="font-size: 0.8rem; color: #888; margin-top: 1rem;">
-                Opens in new tab · Takes 2 minutes · No spam
-            </p>
+            <p>Fill out the questionnaire below — we'll email you the complete studio setup guide.</p>
+            <button id="showFormBtn" class="cta-button">📋 Get the Studio Guide</button>
+            <div id="formWrapper" class="form-wrapper">
+                <div id="loadingIndicator" class="form-loading">Loading form</div>
+                <iframe 
+                    id="airtableIframe"
+                    class="airtable-embed"
+                    data-src="https://airtable.com/embed/appMBjlfYyVd8I7ML/pagaDtXYiM7eFzHG8/form"
+                    frameborder="0"
+                    allow="camera; microphone; fullscreen">
+                </iframe>
+            </div>
         </div>
     </div>
 </div>
 
 <script src="/js/iflex-config.js"></script>
 <script src="/js/iflex-core.js"></script>
+<script>
+    const btn = document.getElementById('showFormBtn');
+    const wrapper = document.getElementById('formWrapper');
+    const iframe = document.getElementById('airtableIframe');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    let formLoaded = false;
+    
+    btn.addEventListener('click', function() {
+        if (!wrapper.classList.contains('open')) {
+            // Open the wrapper
+            wrapper.classList.add('open');
+            btn.textContent = '📋 Hide Form';
+            
+            // Load iframe only when first opened
+            if (!formLoaded) {
+                // Show loading
+                loadingIndicator.classList.add('active');
+                
+                // Set iframe source and load it
+                iframe.src = iframe.getAttribute('data-src');
+                
+                // When iframe loads, hide loading and show iframe
+                iframe.onload = function() {
+                    loadingIndicator.classList.remove('active');
+                    iframe.classList.add('loaded');
+                    formLoaded = true;
+                };
+                
+                // Timeout in case iframe takes too long
+                setTimeout(function() {
+                    if (loadingIndicator.classList.contains('active')) {
+                        loadingIndicator.innerHTML = 'Still loading... please wait';
+                    }
+                }, 5000);
+            }
+        } else {
+            wrapper.classList.remove('open');
+            btn.textContent = '📋 Get the Studio Guide';
+        }
+    });
+</script>
 </body>
 </html>
