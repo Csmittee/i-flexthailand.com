@@ -10,14 +10,28 @@
         /* Additional page-specific styles */
         body {
             background: white;
+            background-image: none;
+            padding-top: 0;
         }
-        body {
-            background: white !important;
-            background-image: none !important;
-            padding-top: 0 !important;
-        }        
+
+        /* NEW: Dynamic navbar height control */
+        :root {
+            --navbar-height: 80px;
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --navbar-height: 70px;
+            }
+        }
+
+        /* Spacer to push content below fixed navbar */
+        .navbar-spacer {
+            height: var(--navbar-height);
+            width: 100%;
+        }
         /* Hero section */
-       .hero-section {
+       hero-section {
             min-height: 70vh;
             background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774380814/Nok_studio.png');
             background-size: cover;
@@ -27,8 +41,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding-top: 90px;        /* increased a bit for safety */
-            box-sizing: border-box;
+            /* No padding or margin-top needed - spacer handles it */
         }
         
         @media (max-width: 768px) {
@@ -447,7 +460,11 @@
 <body>
 
     <!-- HERO SECTION -->
-    <section class="hero-section">
+            <!-- NAVBAR SPACER - pushes hero down dynamically -->
+        <div class="navbar-spacer"></div>
+
+        <!-- HERO SECTION -->
+        <section class="hero-section">
         <div class="hero-content">
             <h1 class="h1-large">5 years tested<br>used daily at Nok Yoga Pattaya</h1>
             <a href="/contact-us.html" class="btn">Get your Quote today</a>
