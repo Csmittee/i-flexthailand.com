@@ -11,7 +11,11 @@
         body {
             background: white;
         }
-        
+        body {
+            background: white !important;
+            background-image: none !important;
+            padding-top: 0 !important;
+        }        
         /* Hero section */
         .hero-section {
             min-height: 70vh;
@@ -23,8 +27,13 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding-top: 80px;   /* matches navbar height */
         }
-        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: 70px;
+            }
+        }       
         .hero-section::before {
             content: '';
             position: absolute;
@@ -128,8 +137,9 @@
         .marquee-track {
             display: flex;
             width: fit-content;
-            animation: marquee 20s linear infinite;
+            animation: marquee 25s linear infinite;   /* slower = smoother on all devices */
             will-change: transform;
+            transform: translate3d(0, 0, 0);          /* force GPU acceleration - prevents disappearing */
         }
         
         .marquee-track img {
