@@ -1,8 +1,8 @@
 // ============================================
-// I-FLEX STANDALONE CORE v1.3
-// - Grid-based navbar with fixed columns
-// - Language selector absolute on desktop, in mobile menu
-// - Buttons with depth, shadow, better hover
+// I-FLEX STANDALONE CORE v1.3 - STABLE VERSION
+// - No universal * reset
+// - Body background preserved
+// - Marquee protected
 // ============================================
 
 (function() {
@@ -176,25 +176,70 @@
 
     function injectStyles() {
         console.log('🎨 Injecting styles...');
+        
+        // Prevent duplicate injection
+        if (document.getElementById('iflex-core-styles')) {
+            console.log('✅ Styles already injected - skipping');
+            return;
+        }
+
         const style = document.createElement('style');
         style.id = 'iflex-core-styles';
         style.textContent = `
-            * { margin: 0; padding: 0; box-sizing: border-box; }
+            /* I-FLEX CORE STYLES - NO AGGRESSIVE RESET */
             
-            body {
-                font-family: ${IFLEX_CONFIG.font};
-                background-image: url('${IFLEX_CONFIG.bgImage}');
-                background-attachment: fixed;
-                background-size: cover;
-                background-position: center;
-                min-height: 100vh;
-                padding-top: 80px;
-                position: relative;
+            /* Only target injector elements */
+            .navbar-fixed-wrapper,
+            .navbar,
+            .nav-container,
+            .brand-wrapper,
+            .nav-menu-wrap,
+            .nav-menu,
+            .ham-wrapper,
+            .hamburger,
+            .lang-sel-wrapper,
+            .language-selector,
+            .mobile-menu,
+            .mobile-menu-list,
+            .footer,
+            .footer-container,
+            .footer-content,
+            .footer-brand,
+            .footer-links,
+            .footer-contact,
+            .footer-bottom {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
             
-          
+            /* Body - preserve your page background */
+            body {
+                font-family: ${IFLEX_CONFIG.font};
+                min-height: 100vh;
+                position: relative;
+                background: white; /* Your page will override if needed */
+            }
             
-            /* Fixed wrapper */
+            /* Protect your custom content */
+            .hero-section,
+            .marquee-section,
+            .proven-section,
+            .compare-table,
+            .equipment-section,
+            .cta-section,
+            .category-grid,
+            .bottom-hero {
+                position: relative;
+                z-index: 2;
+            }
+            
+            .marquee-section {
+                z-index: 5;
+                isolation: isolate;
+            }
+            
+            /* ==================== NAVBAR ==================== */
             .navbar-fixed-wrapper {
                 position: fixed;
                 top: 0;
@@ -206,7 +251,6 @@
                 border-bottom: 1px solid rgba(255,255,255,0.2);
             }
             
-            /* Navbar inner container */
             .navbar {
                 max-width: 1280px;
                 margin: 0 auto;
@@ -214,7 +258,6 @@
                 position: relative;
             }
             
-            /* Grid container for logo, nav, hamburger */
             .nav-container {
                 display: grid;
                 grid-template-columns: auto 1fr auto;
@@ -222,7 +265,6 @@
                 min-height: 70px;
             }
             
-            /* Logo wrapper */
             .brand-wrapper {
                 grid-column: 1;
                 display: flex;
@@ -247,7 +289,6 @@
                 transform: scale(1.05);
             }
             
-            /* Nav menu wrapper */
             .nav-menu-wrap {
                 grid-column: 2;
                 display: flex;
@@ -274,7 +315,6 @@
                 color: ${IFLEX_CONFIG.secondary};
             }
             
-            /* Hamburger wrapper */
             .ham-wrapper {
                 grid-column: 3;
                 display: flex;
@@ -296,7 +336,6 @@
                 transition: all 0.3s ease;
             }
             
-            /* Language selector - positioned absolutely on desktop */
             .lang-sel-wrapper {
                 position: absolute;
                 right: 2rem;
@@ -441,7 +480,6 @@
                 margin: 0;
             }
             
-            /* Footer headings */
             .footer-links h4,
             .footer-contact h4 {
                 font-size: 1.25rem;
@@ -450,20 +488,14 @@
                 color: #FFD700;
             }
             
-            /* Footer links spacing */
             .footer-links li {
                 margin-bottom: 0.75rem;
             }
             
-            /* Third column vertical center */
             .footer-contact {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-            }            
-            
-            .footer-links li {
-                margin-bottom: 0.5rem;
             }
             
             .footer-links a, .footer-contact p {
@@ -526,11 +558,6 @@
                 box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             }
             
-            .hero, .content, .footer {
-                position: relative;
-                z-index: 2;
-            }
-            
             /* Mobile Responsive */
             @media (max-width: 768px) {
                 .nav-menu-wrap {
@@ -545,38 +572,12 @@
                     display: none;
                 }
                 
-                body {
-                    padding-top: 70px;
-                }
-                
                 .nav-container {
                     min-height: 60px;
                 }
                 
                 .logo-img {
                     max-height: 45px;
-                }
-
-                /* Hero overlay with gradient fade */
-                .hero-section {
-                    position: relative;
-                }
-                
-                .hero-section::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 70%, transparent 100%);
-                    pointer-events: none;
-                    z-index: 1;
-                }
-                
-                .hero-content {
-                    position: relative;
-                    z-index: 2;
                 }
                 
                 .footer-content {
@@ -592,7 +593,6 @@
                 .footer-social {
                     justify-content: center;
                 }
-
             }
         `;
         document.head.appendChild(style);
@@ -629,7 +629,6 @@
                 if (!newPath.includes('.')) newPath += '.html';
             }
             
-            // Optional: check if page exists, fallback to home if not
             console.log(`🔄 Switching to ${lang}: ${newPath}`);
             window.location.href = newPath;
         }
@@ -670,8 +669,15 @@
         loadAssets();
         injectStyles();
         setFavicon();
-        document.body.insertAdjacentHTML('afterbegin', buildNavbar());
-        document.body.insertAdjacentHTML('beforeend', buildFooter());
+        
+        // Only inject if not already present
+        if (!document.querySelector('.navbar-fixed-wrapper')) {
+            document.body.insertAdjacentHTML('afterbegin', buildNavbar());
+        }
+        if (!document.querySelector('.footer')) {
+            document.body.insertAdjacentHTML('beforeend', buildFooter());
+        }
+        
         initMobileMenu();
         initLanguageSwitcher();
         
