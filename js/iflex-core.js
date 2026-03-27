@@ -1,8 +1,8 @@
 // ============================================
-// I-FLEX STANDALONE CORE v1.3
-// - Grid-based navbar with fixed columns
-// - Language selector absolute on desktop, in mobile menu
-// - Buttons with depth, shadow, better hover
+// I-FLEX STANDALONE CORE v1.3 - CLEANED VERSION
+// - No aggressive * reset
+// - Marquee protection
+// - Safe navbar/footer injection
 // ============================================
 
 (function() {
@@ -174,10 +174,10 @@
         `;
     }
 
-     function injectStyles() {
+    function injectStyles() {
         console.log('🎨 Injecting styles...');
 
-        // Prevent duplicate injection (important for Cloudflare + navigation)
+        // Prevent duplicate injection
         if (document.getElementById('iflex-core-styles')) {
             console.log('✅ Styles already injected - skipping');
             return;
@@ -186,11 +186,7 @@
         const style = document.createElement('style');
         style.id = 'iflex-core-styles';
         style.textContent = `
-            /* =============================================
-               I-FLEX CORE STYLES - RESPECTFUL VERSION
-               Only targets our injected elements
-               No universal * reset → your page stays clean
-               ============================================= */
+            /* I-FLEX CORE STYLES - RESPECTFUL VERSION */
 
             .navbar-fixed-wrapper,
             .navbar,
@@ -216,15 +212,13 @@
                 box-sizing: border-box;
             }
 
-            /* Body - minimal changes only */
             body {
                 font-family: ${IFLEX_CONFIG.font};
                 min-height: 100vh;
                 position: relative;
-                /* NO background-image or padding-top here → your page controls it */
             }
 
-            /* Protect your custom sections from being covered */
+            /* Protect your custom content */
             .hero-section,
             .marquee-section,
             .proven-section,
@@ -237,7 +231,6 @@
                 z-index: 2;
             }
 
-            /* Marquee specific protection (fixes disappearing issue) */
             .marquee-section {
                 z-index: 5;
                 isolation: isolate;
@@ -311,7 +304,6 @@
                 transition: all 0.3s ease;
             }
 
-            /* Language selector */
             .lang-sel-wrapper {
                 position: absolute;
                 right: 2rem;
@@ -471,7 +463,7 @@
                 background: #ffed4a;
             }
 
-            /* ==================== MOBILE RESPONSIVE ==================== */
+            /* ==================== MOBILE ==================== */
             @media (max-width: 768px) {
                 .nav-menu-wrap { display: none; }
                 .hamburger { display: flex; }
@@ -516,7 +508,6 @@
                 if (!newPath.includes('.')) newPath += '.html';
             }
             
-            // Optional: check if page exists, fallback to home if not
             console.log(`🔄 Switching to ${lang}: ${newPath}`);
             window.location.href = newPath;
         }
@@ -557,8 +548,15 @@
         loadAssets();
         injectStyles();
         setFavicon();
-        document.body.insertAdjacentHTML('afterbegin', buildNavbar());
-        document.body.insertAdjacentHTML('beforeend', buildFooter());
+        
+        // Safe injection - only add if not already present
+        if (!document.querySelector('.navbar-fixed-wrapper')) {
+            document.body.insertAdjacentHTML('afterbegin', buildNavbar());
+        }
+        if (!document.querySelector('.footer')) {
+            document.body.insertAdjacentHTML('beforeend', buildFooter());
+        }
+        
         initMobileMenu();
         initLanguageSwitcher();
         
