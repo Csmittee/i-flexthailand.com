@@ -3,42 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>กรณีศึกษา | I-Flex Thailand</title>
-    <meta name="description" content="ดาวน์โหลดคู่มือจัดตั้งสตูดิโอพิลาทิส แบบผังสตูดิโอ เครื่องคำนวณผลตอบแทน และตารางเปรียบเทียบซัพพลายเออร์">
+    <title>กรณีศึกษา | I-Flex Thailand | อุปกรณ์พิลาทิส</title>
+    <meta name="description" content="ดาวน์โหลดคู่มือการเปิดสตูดิโอพิลาทิส ผังพื้นที่ เครื่องมือคำนวณ ROI และ checklist การเลือกผู้ผลิต">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
     <style>
-        body { background: white; }
-        .case-study-page { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
-        .case-study-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-        .left-column { text-align: left; }
-        .left-column .tag { color: #FFD700; font-weight: 600; margin-bottom: 1rem; }
-        .left-column h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; color: #333; }
-        .left-column p { font-size: 1.1rem; line-height: 1.6; color: #666; }
-        .form-container { background: #f5f5f5; border-radius: 12px; padding: 2rem; text-align: center; }
-        .btn { display: inline-block; background: #FFD700; color: #1a1a1a; padding: 0.75rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; margin-top: 1rem; }
-        .btn:hover { transform: translateY(-2px); background: #ffed4a; }
-        .h2-medium { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #333; }
-        @media (max-width: 768px) { .case-study-grid { grid-template-columns: 1fr; gap: 2rem; } .case-study-page { padding: 2rem 1rem; } }
+        body {
+            background: white;
+        }
+        .case-study-page {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .left-column {
+            text-align: center;
+        }
+        .left-column .tag {
+            color: #FFD700;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .left-column h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .left-column p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+        }
+        .form-container {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .form-container h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #FFD700;
+            color: #1a1a1a;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin: 1rem auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: #ffed4a;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        .form-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            margin-top: 0;
+        }
+        .form-wrapper.open {
+            max-height: 600px;
+            transition: max-height 0.5s ease-in;
+            margin-top: 1.5rem;
+        }
+        .form-loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        .form-loading.active {
+            display: block;
+        }
+        .form-loading::after {
+            content: "";
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-left: 10px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .airtable-embed {
+            background: transparent;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+            height: 533px;
+            display: none;
+        }
+        .airtable-embed.loaded {
+            display: block;
+        }
+        .h2-large {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #FFD700;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .case-study-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .case-study-page {
+                padding: 2rem 1rem;
+            }
+            .form-wrapper.open {
+                max-height: 650px;
+            }
+            .airtable-embed {
+                height: 600px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="case-study-page">
+    <h1 class="h2-large">กรณีศึกษา</h1>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">
+        เรื่องราวความสำเร็จจากเจ้าของสตูดิโอพิลาทิสที่ไว้วางใจ I-Flex
+    </p>
+    
     <div class="case-study-grid">
+        <!-- Left Column: Content -->
         <div class="left-column">
-            <div class="tag">อุปกรณ์พิลาทิสคุณภาพพรีเมี่ยม สำหรับสตูดิโอชั้นนำในเอเชียตะวันออกเฉียงใต้</div>
-            <h1>ดาวน์โหลดคู่มือจัดตั้งสตูดิโอ</h1>
-            <p>แบบผังสตูดิโอ เครื่องคำนวณผลตอบแทน และตารางเปรียบเทียบซัพพลายเออร์ — เครื่องมือที่สตูดิโอทั่วไทยไว้วางใจ</p>
+            <div class="tag">อุปกรณ์พิลาทิสพรีเมียม สำหรับสตูดิโอชั้นนำในเอเชียตะวันออกเฉียงใต้</div>
+            <h1>รับคู่มือการเปิดสตูดิโอ</h1>
+            <p>ผังพื้นที่ · เครื่องมือคำนวณ ROI · checklist การเลือกผู้ผลิต — เครื่องมือที่สตูดิโอทั่วไทยไว้วางใจ</p>
         </div>
+        
+        <!-- Right Column: Button + Expandable Form -->
         <div class="form-container">
-            <h2 class="h2-medium">รับคู่มือจัดตั้งสตูดิโอ</h2>
-            <p style="margin-bottom: 1.5rem;">คลิกปุ่มด้านล่างเพื่อกรอกแบบฟอร์ม</p>
-            <a href="https://airtable.com/appMBjlfYyVd8I7ML/pagaDtXYiM7eFzHG8" target="_blank" class="btn">เปิดแบบฟอร์ม</a>
+            <h3>รับคู่มือฟรี</h3>
+            <p>กรอกแบบสอบถามด้านล่าง — เราจะส่งคู่มือการเปิดสตูดิโอฉบับสมบูรณ์ให้คุณทางอีเมล</p>
+            <button id="showFormBtn" class="cta-button">📋 รับคู่มือสตูดิโอ</button>
+            <div id="formWrapper" class="form-wrapper">
+                <div id="loadingIndicator" class="form-loading">กำลังโหลดแบบฟอร์ม</div>
+                <iframe 
+                    id="airtableIframe"
+                    class="airtable-embed"
+                    data-src="https://airtable.com/embed/appMBjlfYyVd8I7ML/pagaDtXYiM7eFzHG8/form"
+                    frameborder="0"
+                    allow="camera; microphone; fullscreen">
+                </iframe>
+            </div>
         </div>
     </div>
 </div>
 
 <script src="/js/iflex-config.js"></script>
 <script src="/js/iflex-core.js"></script>
+<script>
+    const btn = document.getElementById('showFormBtn');
+    const wrapper = document.getElementById('formWrapper');
+    const iframe = document.getElementById('airtableIframe');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    let formLoaded = false;
+    
+    btn.addEventListener('click', function() {
+        if (!wrapper.classList.contains('open')) {
+            wrapper.classList.add('open');
+            btn.textContent = '📋 ปิดแบบฟอร์ม';
+            
+            if (!formLoaded) {
+                loadingIndicator.classList.add('active');
+                iframe.src = iframe.getAttribute('data-src');
+                
+                iframe.onload = function() {
+                    loadingIndicator.classList.remove('active');
+                    iframe.classList.add('loaded');
+                    formLoaded = true;
+                };
+                
+                setTimeout(function() {
+                    if (loadingIndicator.classList.contains('active')) {
+                        loadingIndicator.innerHTML = 'กำลังโหลด... กรุณารอสักครู่';
+                    }
+                }, 5000);
+            }
+        } else {
+            wrapper.classList.remove('open');
+            btn.textContent = '📋 รับคู่มือสตูดิโอ';
+        }
+    });
+</script>
 </body>
 </html>
