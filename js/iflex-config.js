@@ -1,7 +1,5 @@
 // ============================================
 // I-FLEX STANDALONE CONFIG v1.0
-// - All brand colors, fonts, background
-// - No external dependencies
 // ============================================
 
 const IFLEX_CONFIG = {
@@ -12,19 +10,20 @@ const IFLEX_CONFIG = {
     contactEmail: "info@i-flexthailand.com",
     
     // Colors
-    primary: "#1A1A1A",      // Dark background
-    secondary: "#FFD700",    // Gold accents
-    accent: "#FFFFFF",       // White text highlights
+    primary: "#1A1A1A",
+    secondary: "#FFD700",
+    accent: "#FFFFFF",
+    bgColor: "white",
     
     // Typography
     font: "'Montserrat', sans-serif",
     
-    // Images (Cloudinary)
+    // Images
     bgImage: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773775103/I_flex_only.png",
     logo: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1774458871/Full_edge.png",
     favicon: "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768489/Original.png",
     
-    // Social Links (update later)
+    // Social Links
     social: {
         facebook: "https://www.facebook.com/profile.php?id=61586061685340",
         instagram: "#",
@@ -38,6 +37,3 @@ const IFLEX_CONFIG = {
         email: "info@i-flexthailand.com"
     }
 };
-
-// Dark overlay opacity
-const DARK_OVERLAY = "rgba(0, 0, 0, 0.4)";
