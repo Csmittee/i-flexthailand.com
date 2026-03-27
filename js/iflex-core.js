@@ -686,15 +686,37 @@
         loadAssets();
         injectStyles();
         setFavicon();
-        
-        // Only inject if not already present
-        if (!document.querySelector('.navbar-fixed-wrapper')) {
-            document.body.insertAdjacentHTML('afterbegin', buildNavbar());
-        }
-        if (!document.querySelector('.footer')) {
-            document.body.insertAdjacentHTML('beforeend', buildFooter());
-        }
-        
+        // Add LocalBusiness Schema
+        const schema = document.createElement('script');
+        schema.type = 'application/ld+json';
+        schema.textContent = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "I-Flex Thailand",
+            "image": IFLEX_CONFIG.logo,
+            "description": "Professional Pilates equipment supplier in Thailand. Reformers, Cadillacs, Wunda Chairs with 5+ years proven quality.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "TH"
+            },
+            "telephone": IFLEX_CONFIG.contact.phone,
+            "email": IFLEX_CONFIG.contact.email,
+            "url": "https://i-flexthailand.com",
+            "priceRange": "$$",
+            "sameAs": [
+                IFLEX_CONFIG.social.facebook,
+                IFLEX_CONFIG.social.instagram
+            ]
+        });
+        document.head.appendChild(schema);
+        console.log('🔍 LocalBusiness schema added');        // Only inject if not already present
+                if (!document.querySelector('.navbar-fixed-wrapper')) {
+                    document.body.insertAdjacentHTML('afterbegin', buildNavbar());
+                }
+                if (!document.querySelector('.footer')) {
+                    document.body.insertAdjacentHTML('beforeend', buildFooter());
+                }
+                
         initMobileMenu();
         initLanguageSwitcher();
         
