@@ -45,10 +45,6 @@
             padding: 2rem;
         }
         
-        .section-container h2.h2-large {
-            text-align: center;
-        }        
-        
         /* Header size classes */
         .h1-large {
             font-size: 3rem;
@@ -91,13 +87,83 @@
             padding: 0 2rem;
         }
         
+        /* Brand section below hero */
+        .brand-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #f8f8f8 0%, #fff 100%);
+            border-bottom: 1px solid #eee;
+        }
+        
+        .brand-section .h2-medium {
+            color: #FFD700;
+            text-shadow: none;
+            margin-bottom: 0.5rem;
+        }
+        
+        .brand-section p {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Marquee section */
+        .marquee-section {
+            max-width: 1280px;
+            margin: 2rem auto;
+            overflow: hidden;
+            position: relative;
+            background: #fafafa;
+            padding: 2rem 0;
+            border-radius: 16px;
+        }
+        
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .marquee-track {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+        
+        .marquee-track img {
+            height: 120px;
+            width: auto;
+            margin: 0 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            vertical-align: middle;
+            object-fit: cover;
+        }
+        
+        .marquee-track img:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .marquee-section:hover .marquee-track {
+            animation-play-state: paused;
+        }
+        
         /* Proven section */
         .proven-section {
             text-align: center;
             padding: 4rem 0;
         }
         
-       .compare-table {
+        .compare-table {
             background: #f5f5f5;
             border-radius: 12px;
             overflow-x: auto;
@@ -108,11 +174,11 @@
         
         .compare-row {
             display: grid;
-            grid-template-columns: 1fr 2fr 0.8fr 0.8fr;  /* Spec column gets more space */
+            grid-template-columns: 1fr 2fr 0.8fr 0.8fr;
             border-bottom: 1px solid #e0e0e0;
         }
         
-       .compare-header {
+        .compare-header {
             background: #2c2c2c;
             font-weight: 700;
             color: #FFD700;
@@ -136,6 +202,7 @@
         .compare-cell:nth-child(4) {
             text-align: center;
         }
+        
         .check-yes::before {
             content: "✓";
             color: #10b981;
@@ -351,6 +418,9 @@
             .section-container {
                 padding: 0 1rem;
             }
+            .marquee-track img {
+                height: 80px;
+            }
         }
     </style>
 </head>
@@ -360,16 +430,69 @@
     <section class="hero-section">
         <div class="hero-content">
             <h1 class="h1-large">5 years tested<br>used daily at Nok Yoga Pattaya</h1>
-            <h2 class="h2-medium">I-flex Thailand<br>Power by Adjusted body<br>China</h2>
             <a href="/contact-us.html" class="btn">Get your Quote today</a>
         </div>
     </section>
 
-    <!-- SECTION 2: PROVEN PERFORMANCE -->
+    <!-- BRAND SECTION (MOVED BELOW HERO) -->
+    <div class="brand-section">
+        <div class="section-container">
+            <h2 class="h2-medium">I-flex Thailand<br>Power by Adjusted body<br>China</h2>
+            <p>Adjust body found since 2013, over 100k reformers already produced and shipped to 180 countries worldwide</p>
+        </div>
+    </div>
+
+    <!-- MARQUEE SECTION -->
+    <div class="marquee-section">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
+                <!-- Duplicate for seamless loop -->
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: PROVEN PERFORMANCE (placeholder for later) -->
     <div class="section-container">
         <div class="proven-section">
             <h2 class="h2-large">5 years proven</h2>
             <h3 class="h3-medium">Track and spring are the top performance<br>of a good reformer</h3>
+            <!-- Photo will be added later -->
         </div>
     </div>
 
