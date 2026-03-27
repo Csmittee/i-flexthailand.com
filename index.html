@@ -1,573 +1,239 @@
-no problem , i have got the code from grok aleady, i think you will do it this way..
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-Flex Thailand | Professional Pilates Equipment</title>
+    <meta name="description" content="I-Flex imports reliable Pilates equipment proven 5+ years in Bangkok studios. Friendly support for new studio owners. Fast delivery Thailand.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    <style>
+        /* Basic body */
+        body {
+            background: white;
+            margin: 0;
+            padding: 0;
+        }
 
-// ============================================
-// I-FLEX STANDALONE CORE v1.3 - CLEANED VERSION
-// - No aggressive * reset
-// - Marquee protection
-// - Safe navbar/footer injection
-// ============================================
-
-(function() {
-    console.log('🔧 I-Flex Core: Initializing...');
-
-    function loadAssets() {
-        console.log('📦 Loading fonts and icons...');
-        const fonts = document.createElement('link');
-        fonts.rel = 'stylesheet';
-        fonts.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap';
-        document.head.appendChild(fonts);
+        /* Hero section - with simple padding to avoid navbar overlap */
+        .hero-section {
+            min-height: 70vh;
+            background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774380814/Nok_studio.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;           /* helps with navbar */
+        }
         
-        const fa = document.createElement('link');
-        fa.rel = 'stylesheet';
-        fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
-        document.head.appendChild(fa);
-    }
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: 70px;
+            }
+        }
 
-    function getCurrentLang() {
-        return window.location.pathname.startsWith('/th/') ? 'th' : 'en';
-    }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 70%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
 
-    function buildNavbar() {
-        const isThai = getCurrentLang() === 'th';
-        const prefix = isThai ? '/th/' : '/';
+        /* Header size classes */
+        .h1-large {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
         
-        const navLinks = isThai ? [
-            { href: prefix + 'about-us.html', text: 'เกี่ยวกับเรา' },
-            { href: prefix + 'case-study.html', text: 'กรณีศึกษา' },
-            { href: prefix + 'product-listing.html', text: 'สินค้า' },
-            { href: prefix + 'blog-listing.html', text: 'บล็อก' },
-            { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
-        ] : [
-            { href: prefix + 'about-us.html', text: 'About Us' },
-            { href: prefix + 'case-study.html', text: 'Case Study' },
-            { href: prefix + 'product-listing.html', text: 'Products' },
-            { href: prefix + 'blog-listing.html', text: 'Blog' },
-            { href: prefix + 'contact-us.html', text: 'Contact' }
-        ];
+        .h2-large {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
         
-        console.log(`🌐 Building navbar for language: ${isThai ? 'TH' : 'EN'}`);
+        .h2-medium {
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
         
-        return `
-            <div class="navbar-fixed-wrapper">
-                <div class="navbar">
-                    <div class="nav-container">
-                        <div class="brand-wrapper">
-                            <a href="${prefix}index.html" class="logo-link">
-                                <img src="${IFLEX_CONFIG.logo}" alt="${IFLEX_CONFIG.name}" class="logo-img">
-                            </a>
-                        </div>
-                        <div class="nav-menu-wrap">
-                            <ul class="nav-menu">
-                                ${navLinks.map(link => `
-                                    <li><a href="${link.href}" class="nav-link">${link.text}</a></li>
-                                `).join('')}
-                            </ul>
-                        </div>
-                        <div class="ham-wrapper">
-                            <div class="hamburger" id="iflexHamburger">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lang-sel-wrapper">
-                        <div class="language-selector">
-                            <span class="lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
-                            <span class="lang-sep">|</span>
-                            <span class="lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mobile-menu" id="iflexMobileMenu">
-                    <ul class="mobile-menu-list">
-                        ${navLinks.map(link => `
-                            <li><a href="${link.href}" class="mobile-menu-link">${link.text}</a></li>
-                        `).join('')}
-                        <li class="mobile-language-selector">
-                            <div class="mobile-language-options">
-                                <span class="mobile-lang-option ${!isThai ? 'active' : ''}" data-lang="en">EN</span>
-                                <span class="mobile-lang-sep">|</span>
-                                <span class="mobile-lang-option ${isThai ? 'active' : ''}" data-lang="th">TH</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+        .h3-medium {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Section container */
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Brand section */
+        .brand-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #f8f8f8 0%, #fff 100%);
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Marquee section - with fix */
+        .marquee-section {
+            max-width: 1280px;
+            margin: 2rem auto;
+            overflow: hidden;
+            position: relative;
+            background: #fafafa;
+            padding: 2rem 0;
+            border-radius: 16px;
+        }
+        
+        .marquee-container {
+            overflow: hidden;
+            width: 100%;
+            will-change: transform;
+        }
+        
+        .marquee-track {
+            display: flex;
+            width: fit-content;
+            animation: marquee 25s linear infinite;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+        }
+        
+        .marquee-track img {
+            height: 120px;
+            width: auto;
+            margin: 0 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        
+        .marquee-track img:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            .marquee-track img {
+                height: 80px;
+            }
+            .h1-large {
+                font-size: 2rem;
+            }
+        }
+
+        /* Keep all your other original styles below (proven, compare, equipment, cta, category, faq, bottom-hero, btn, etc.) */
+        /* Proven section */
+        .proven-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .compare-table {
+            background: #f5f5f5;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem auto;
+            max-width: 960px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* ... paste the rest of your original styles here (compare-row, equipment, banner, category-card, cta, bottom-hero, faq, btn, etc.) ... */
+
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="h1-large">5 years tested<br>used daily at Nok Yoga Pattaya</h1>
+            <a href="/contact-us.html" class="btn">Get your Quote today</a>
+        </div>
+    </section>
+
+    <!-- BRAND SECTION -->
+    <div class="brand-section">
+        <div class="section-container">
+            <h2 class="h2-medium">I-flex Thailand<br>Power by Adjusted body<br>China</h2>
+            <p>Adjust body found since 2013, over 100k reformers already produced and shipped to 180 countries worldwide</p>
+        </div>
+    </div>
+
+    <!-- MARQUEE SECTION -->
+    <div class="marquee-section">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <!-- your marquee images here - keep all of them -->
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
+                <!-- ... all other images and the duplicate set for seamless loop ... -->
             </div>
-        `;
-    }
+        </div>
+    </div>
 
-    function buildFooter() {
-        const isThai = getCurrentLang() === 'th';
-        const prefix = isThai ? '/th/' : '/';
-        const year = new Date().getFullYear();
-        
-        const footerLinks = isThai ? {
-            supports: [
-                { href: prefix + 'index.html#faq', text: 'FAQ' },
-                { href: prefix + 'index.html#faq', text: 'การรับประกัน' },
-                { href: prefix + 'index.html#faq', text: 'คู่มือ' },
-                { href: prefix + 'index.html#faq', text: 'การจัดส่ง' },
-                { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
-            ],
-            equipment: [
-                { href: prefix + 'product-listing.html', text: 'รีฟอร์มเมอร์' },
-                { href: prefix + 'product-listing.html', text: 'คาดิลแลค' },
-                { href: prefix + 'product-listing.html', text: 'บาร์เรล' },
-                { href: prefix + 'product-listing.html', text: 'วันด้าเชียร์' }
-            ],
-            contactText: `ติดต่อเราได้ที่นี่<br><br>${IFLEX_CONFIG.contact.name}<br>${IFLEX_CONFIG.contact.phone}<br>${IFLEX_CONFIG.contact.email}`,
-            rights: `© ${year} ${IFLEX_CONFIG.name}. All rights reserved.`
-        } : {
-            supports: [
-                { href: prefix + 'index.html#faq', text: 'FAQ' },
-                { href: prefix + 'index.html#faq', text: 'Warranty' },
-                { href: prefix + 'index.html#faq', text: 'Manual' },
-                { href: prefix + 'index.html#faq', text: 'Shipping' },
-                { href: prefix + 'contact-us.html', text: 'Contact' }
-            ],
-            equipment: [
-                { href: prefix + 'product-listing.html', text: 'Reformer' },
-                { href: prefix + 'product-listing.html', text: 'Cadillac' },
-                { href: prefix + 'product-listing.html', text: 'Barrel Ladder' },
-                { href: prefix + 'product-listing.html', text: 'Wunda Chair' }
-            ],
-            contactText: `Contact us at<br><br>${IFLEX_CONFIG.contact.name}<br>${IFLEX_CONFIG.contact.phone}<br>${IFLEX_CONFIG.contact.email}`,
-            rights: `© ${year} ${IFLEX_CONFIG.name}. All rights reserved.`
-        };
-        
-        console.log(`📋 Building footer for language: ${isThai ? 'TH' : 'EN'}`);
-        
-        return `
-            <footer class="footer">
-                <div class="footer-container">
-                    <div class="footer-content">
-                        <div class="footer-brand">
-                            <img src="${IFLEX_CONFIG.logo}" alt="${IFLEX_CONFIG.name}" class="footer-logo">
-                            <p>${IFLEX_CONFIG.tagline}</p>
-                            <p>✔️ Full 3-Year Warranty</p>
-                            <div class="footer-social">
-                                <a href="${IFLEX_CONFIG.social.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                <a href="${IFLEX_CONFIG.social.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a href="${IFLEX_CONFIG.social.line}" target="_blank"><i class="fab fa-line"></i></a>
-                            </div>
-                        </div>
-                        <div class="footer-links">
-                            <h4>Supports</h4>
-                            <ul>
-                                ${footerLinks.supports.map(link => `<li><a href="${link.href}">${link.text}</a></li>`).join('')}
-                            </ul>
-                            <h4>Equipment</h4>
-                            <ul>
-                                ${footerLinks.equipment.map(link => `<li><a href="${link.href}">${link.text}</a></li>`).join('')}
-                            </ul>
-                        </div>
-                        <div class="footer-contact">
-                            <h4>Get in touch</h4>
-                            <p>${footerLinks.contactText}</p>
-                        </div>
-                    </div>
-                    <div class="footer-bottom">
-                        <p>${footerLinks.rights}</p>
-                    </div>
-                </div>
-            </footer>
-        `;
-    }
+    <!-- The rest of your content (proven, compare, equipment, cta, products, faq, bottom-hero) -->
+    <!-- Copy and paste the remaining sections from your original document -->
 
-    function injectStyles() {
-        console.log('🎨 Injecting styles...');
-
-        // Prevent duplicate injection
-        if (document.getElementById('iflex-core-styles')) {
-            console.log('✅ Styles already injected - skipping');
-            return;
-        }
-
-        const style = document.createElement('style');
-        style.id = 'iflex-core-styles';
-        style.textContent = `
-            /* I-FLEX CORE STYLES - RESPECTFUL VERSION */
-
-            .navbar-fixed-wrapper,
-            .navbar,
-            .nav-container,
-            .brand-wrapper,
-            .nav-menu-wrap,
-            .nav-menu,
-            .ham-wrapper,
-            .hamburger,
-            .lang-sel-wrapper,
-            .language-selector,
-            .mobile-menu,
-            .mobile-menu-list,
-            .footer,
-            .footer-container,
-            .footer-content,
-            .footer-brand,
-            .footer-links,
-            .footer-contact,
-            .footer-bottom {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            body {
-                font-family: ${IFLEX_CONFIG.font};
-                min-height: 100vh;
-                position: relative;
-            }
-
-            /* Protect your custom content */
-            .hero-section,
-            .marquee-section,
-            .proven-section,
-            .compare-table,
-            .equipment-section,
-            .cta-section,
-            .category-grid,
-            .bottom-hero {
-                position: relative;
-                z-index: 2;
-            }
-
-            .marquee-section {
-                z-index: 5;
-                isolation: isolate;
-            }
-
-            /* ==================== NAVBAR ==================== */
-            .navbar-fixed-wrapper {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                z-index: 1000;
-                background: rgba(0, 0, 0, 0.6);
-                backdrop-filter: blur(12px);
-                border-bottom: 1px solid rgba(255,255,255,0.2);
-            }
-
-            .navbar {
-                max-width: 1280px;
-                margin: 0 auto;
-                padding: 0 2rem;
-                position: relative;
-            }
-
-            .nav-container {
-                display: grid;
-                grid-template-columns: auto 1fr auto;
-                align-items: center;
-                min-height: 70px;
-            }
-
-            .brand-wrapper { grid-column: 1; display: flex; align-items: center; height: 100%; }
-            .logo-link { display: block; line-height: 0; height: 100%; }
-            .logo-img {
-                height: 100%;
-                width: auto;
-                max-height: 60px;
-                transition: transform 0.3s ease;
-            }
-            .logo-img:hover { transform: scale(1.05); }
-
-            .nav-menu-wrap { grid-column: 2; display: flex; justify-content: center; }
-            .nav-menu {
-                display: flex;
-                list-style: none;
-                gap: 2rem;
-                margin: 0;
-                padding: 0;
-            }
-            .nav-link {
-                color: #ffffff;
-                text-decoration: none;
-                font-weight: 500;
-                transition: color 0.3s ease;
-                text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-            }
-            .nav-link:hover { color: ${IFLEX_CONFIG.secondary}; }
-
-            .ham-wrapper { grid-column: 3; display: flex; justify-content: flex-end; }
-            .hamburger {
-                display: none;
-                flex-direction: column;
-                gap: 6px;
-                cursor: pointer;
-                padding: 10px;
-            }
-            .hamburger span {
-                width: 28px;
-                height: 2px;
-                background: white;
-                transition: all 0.3s ease;
-            }
-
-            .lang-sel-wrapper {
-                position: absolute;
-                right: 2rem;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            .language-selector {
-                display: flex;
-                gap: 0.5rem;
-                color: #ffffff;
-            }
-            .lang-option {
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-            .lang-option.active {
-                background: ${IFLEX_CONFIG.secondary};
-                color: #000000;
-                padding: 0.25rem 0.5rem;
-                border-radius: 4px;
-                font-weight: 600;
-            }
-            .lang-option:hover:not(.active) {
-                transform: scale(1.1);
-                color: ${IFLEX_CONFIG.secondary};
-            }
-
-            /* Mobile Menu */
-            .mobile-menu {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(0, 0, 0, 0.95);
-                backdrop-filter: blur(15px);
-                z-index: 999;
-                padding: 5rem 2rem;
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-            }
-            .mobile-menu.active {
-                display: block !important;
-                opacity: 1;
-                visibility: visible;
-            }
-            .mobile-menu-list { list-style: none; }
-            .mobile-menu-link {
-                color: white;
-                text-decoration: none;
-                font-size: 1.5rem;
-                display: block;
-                padding: 0.75rem 0;
-            }
-            .mobile-language-selector {
-                margin-top: 2rem;
-                padding-top: 1rem;
-                border-top: 1px solid rgba(255,255,255,0.2);
-                text-align: center;
-            }
-            .mobile-language-options {
-                display: inline-flex;
-                gap: 1rem;
-                font-size: 1.2rem;
-                color: white;
-            }
-            .mobile-lang-option { cursor: pointer; }
-            .mobile-lang-option.active {
-                background: ${IFLEX_CONFIG.secondary};
-                color: #000;
-                padding: 0.25rem 0.5rem;
-                border-radius: 4px;
-            }
-
-            .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-            .hamburger.active span:nth-child(2) { opacity: 0; }
-            .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
-
-            /* ==================== FOOTER ==================== */
-            .footer {
-                background: rgba(0, 0, 0, 0.85);
-                backdrop-filter: blur(10px);
-                color: white;
-                padding: 3rem 2rem 1.5rem;
-                margin-top: 4rem;
-            }
-            .footer-container { max-width: 1280px; margin: 0 auto; }
-            .footer-content {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                gap: 2rem;
-                margin-bottom: 3rem;
-                text-align: center;
-            }
-            .footer-brand, .footer-links, .footer-contact {
-                flex: 1;
-                min-width: 200px;
-                text-align: center;
-            }
-            .footer-logo { width: 200px; height: auto; margin-bottom: 1rem; }
-            .footer-links ul { list-style: none; padding: 0; margin: 0; }
-            .footer-links h4,
-            .footer-contact h4 {
-                font-size: 1.25rem;
-                font-weight: 600;
-                margin-bottom: 1.25rem;
-                color: #FFD700;
-            }
-            .footer-links li { margin-bottom: 0.75rem; }
-            .footer-links a, .footer-contact p {
-                color: rgba(255,255,255,0.8);
-                text-decoration: none;
-                transition: color 0.3s ease;
-            }
-            .footer-links a:hover { color: ${IFLEX_CONFIG.secondary}; }
-            .footer-social {
-                display: flex;
-                gap: 1rem;
-                margin-top: 1rem;
-                justify-content: center;
-            }
-            .footer-social a {
-                color: rgba(255,255,255,0.8);
-                font-size: 1.2rem;
-                transition: all 0.3s ease;
-            }
-            .footer-social a:hover {
-                color: ${IFLEX_CONFIG.secondary};
-                transform: translateY(-2px);
-            }
-            .footer-bottom {
-                text-align: center;
-                padding-top: 2rem;
-                border-top: 1px solid rgba(255,255,255,0.2);
-            }
-
-            /* ==================== BUTTONS ==================== */
-            .btn, .common-button, a.common-button, button.common-button, [class*="btn"] {
-                display: inline-block;
-                background: ${IFLEX_CONFIG.secondary};
-                color: #1a1a1a;
-                padding: 0.75rem 2rem;
-                border-radius: 40px;
-                text-decoration: none;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                border: none;
-                cursor: pointer;
-            }
-            .btn:hover, .common-button:hover, [class*="btn"]:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-                background: #ffed4a;
-            }
-
-            /* ==================== MOBILE ==================== */
-            @media (max-width: 768px) {
-                .nav-menu-wrap { display: none; }
-                .hamburger { display: flex; }
-                .lang-sel-wrapper { display: none; }
-                .nav-container { min-height: 60px; }
-                .logo-img { max-height: 45px; }
-                .footer-content { flex-direction: column; align-items: center; }
-                .footer-brand, .footer-links, .footer-contact { text-align: center; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    function initMobileMenu() {
-        setTimeout(() => {
-            const hamburger = document.getElementById('iflexHamburger');
-            const mobileMenu = document.getElementById('iflexMobileMenu');
-            
-            if (hamburger && mobileMenu) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    mobileMenu.classList.toggle('active');
-                });
-                console.log('📱 Mobile menu initialized');
-            }
-        }, 100);
-    }
-
-    function initLanguageSwitcher() {
-        const currentPath = window.location.pathname;
-        const isThai = getCurrentLang() === 'th';
-        
-        function switchTo(lang) {
-            let newPath;
-            if (lang === 'en') {
-                newPath = currentPath.replace(/^\/th\//, '/');
-                if (newPath === '/') newPath = '/index.html';
-                if (!newPath.includes('.')) newPath += '.html';
-            } else {
-                newPath = '/th' + currentPath;
-                if (newPath === '/th') newPath = '/th/index.html';
-                if (!newPath.includes('.')) newPath += '.html';
-            }
-            
-            console.log(`🔄 Switching to ${lang}: ${newPath}`);
-            window.location.href = newPath;
-        }
-        
-        document.querySelectorAll('.lang-option, .mobile-lang-option').forEach(el => {
-            el.addEventListener('click', () => {
-                const lang = el.getAttribute('data-lang');
-                if (lang && lang !== (isThai ? 'th' : 'en')) {
-                    switchTo(lang);
+    <!-- INJECTOR SCRIPTS -->
+    <script src="/js/iflex-config.js"></script>
+    <script src="/js/iflex-core.js"></script>
+    
+    <!-- FAQ Accordion Script -->
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.remove('active'));
+                document.querySelectorAll('.faq-question').forEach(btn => btn.classList.remove('active'));
+                
+                if (!isActive) {
+                    answer.classList.add('active');
+                    button.classList.add('active');
                 }
             });
         });
-        console.log(`🌍 Language switcher initialized. Current: ${isThai ? 'TH' : 'EN'}`);
-    }
-
-    function setFavicon() {
-        const favicon = document.createElement('link');
-        favicon.rel = 'icon';
-        favicon.type = 'image/svg+xml';
-        favicon.href = IFLEX_CONFIG.logo;
-        document.head.appendChild(favicon);
-        
-        const appleIcon = document.createElement('link');
-        appleIcon.rel = 'apple-touch-icon';
-        appleIcon.href = IFLEX_CONFIG.logo;
-        document.head.appendChild(appleIcon);
-        console.log('⭐ Favicon set');
-    }
-
-    function init() {
-        if (typeof IFLEX_CONFIG === 'undefined') {
-            console.error('❌ I-Flex: Config not loaded! Check if iflex-config.js is loaded first.');
-            return;
-        }
-        
-        console.log('✅ Config loaded:', IFLEX_CONFIG.name);
-        
-        loadAssets();
-        injectStyles();
-        setFavicon();
-        
-        // Safe injection - only add if not already present
-        if (!document.querySelector('.navbar-fixed-wrapper')) {
-            document.body.insertAdjacentHTML('afterbegin', buildNavbar());
-        }
-        if (!document.querySelector('.footer')) {
-            document.body.insertAdjacentHTML('beforeend', buildFooter());
-        }
-        
-        initMobileMenu();
-        initLanguageSwitcher();
-        
-        console.log(`🎉 I-Flex Core v1.3 loaded successfully for ${IFLEX_CONFIG.name}`);
-    }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-})();
+    </script>
+</body>
+</html>
