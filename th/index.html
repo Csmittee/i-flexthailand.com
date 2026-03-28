@@ -6,6 +6,43 @@
     <title>I-Flex Thailand | อุปกรณ์พิลาทิสคุณภาพสูง</title>
     <meta name="description" content="I-Flex นำเข้าอุปกรณ์พิลาทิสคุณภาพสูงจากผู้ผลิตจีนที่ไว้ใจได้ รีฟอร์เมอร์ของเราผ่านการทดสอบจริงกว่า 5 ปีในสตูดิโอชั้นนำในพัทยา">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+
+<style>
+    /* Critical inline styles to prevent FOUC */
+    body {
+        visibility: hidden;
+    }
+    .hero-section, .brand-section, .marquee-section,
+    .proven-section, .compare-table, .equipment-section,
+    .cta-section, .category-grid, .bottom-hero, .faq-item {
+        visibility: visible;
+        background: white;
+    }
+    .styles-loaded body {
+        visibility: visible;
+    }
+</style>
+<script>
+        (function() {
+            // If already on Thai page, just mark styles loaded
+            if (window.location.pathname.startsWith('/th/')) {
+                document.documentElement.classList.add('styles-loaded');
+                return;
+            }
+            
+            // Redirect any Thai users to Thai version
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang && userLang.startsWith('th')) {
+                window.location.href = '/th/';
+                return;
+            }
+            
+            // For non-Thai users who land on /th/ page? This shouldn't happen
+            document.documentElement.classList.add('styles-loaded');
+        })();
+    </script>
+
+
 </head>
 <body>
     <div id="hero-spacer" style="height: 0;"></div>
