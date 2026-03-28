@@ -108,6 +108,31 @@
             margin: 0 auto;
             padding: 0 2rem;
         }
+
+        /* Base hidden state */
+        .brand-section h2,
+        .proven-section h2,
+        .equipment-section h2,
+        .cta-section h2,
+        .category-card h3,
+        .faq-question {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        /* Revealed state */
+        .brand-section h2.revealed,
+        .proven-section h2.revealed,
+        .equipment-section h2.revealed,
+        .cta-section h2.revealed,
+        .category-card h3.revealed,
+        .faq-question.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
         
         /* Brand section below hero */
         .brand-section {
@@ -730,24 +755,21 @@
                 }
             });
         });
-    </script>
-            <script>
-            const heroElements = document.querySelectorAll('.hero-content h1, .hero-content .btn');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Reset animation by removing and re-adding class
-                        entry.target.classList.remove('revealed');
-                        // Force reflow to restart animation
-                        void entry.target.offsetWidth;
-                        entry.target.classList.add('revealed');
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            heroElements.forEach(el => observer.observe(el));
         </script>
+                <script>
+        // Apply to all h1, h2, h3 that you want to animate
+        const animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        animateElements.forEach(el => observer.observe(el));
+    </script>
 
 
 </body>
