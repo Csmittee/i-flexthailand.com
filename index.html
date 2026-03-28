@@ -6,6 +6,42 @@
     <title>I-Flex Thailand | Professional Pilates Equipment</title>
     <meta name="description" content="I-Flex imports reliable Pilates equipment proven 5+ years in Bangkok studios. Friendly support for new studio owners. Fast delivery Thailand.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    
+    <!-- Critical inline styles to prevent FOUC -->
+    <style>
+        /* Prevent layout shift before full styles load */
+        body {
+            visibility: hidden;
+        }
+        .hero-section, .brand-section, .marquee-section,
+        .proven-section, .compare-table, .equipment-section,
+        .cta-section, .category-grid, .bottom-hero, .faq-item {
+            visibility: visible;
+            background: white;
+        }
+        /* Show content once styles are ready */
+        .styles-loaded body {
+            visibility: visible;
+        }
+    </style>
+    
+    <!-- Language redirect for Thai users -->
+    <script>
+        (function() {
+            // Don't redirect if already on Thai page
+            if (window.location.pathname.startsWith('/th/')) return;
+            
+            // Check if user prefers Thai
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang && userLang.startsWith('th')) {
+                window.location.href = '/th/';
+                return;
+            }
+            
+            // Mark styles as loaded
+            document.documentElement.classList.add('styles-loaded');
+        })();
+    </script>
 </head>
 <body>
     <div id="hero-spacer" style="height: 0;"></div>
@@ -42,7 +78,6 @@
     <div class="marquee-section">
         <div class="marquee-container">
             <div class="marquee-track">
-                <!-- 18 images - same as before -->
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
                 <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
