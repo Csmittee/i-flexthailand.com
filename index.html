@@ -471,10 +471,19 @@
             .marquee-track img {
                 height: 80px;
             }
+         
             .hero-section {
-                background-position: center 30px;
+                aspect-ratio: auto;      /* let image determine height */
+                padding: 1rem 1rem;      /* minimal padding */
+                background-size: cover;  /* keep image filling width */
+                background-position: center;
+            }
+            
+            .hero-content {
+                padding: 1rem;
             }
         }
+       
     </style>
 </head>
 <body>
