@@ -695,4 +695,8 @@
             });
         }, { threshold: 0.3 });
         
-        animateElements.forEach(el =>
+        animateElements.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
