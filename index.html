@@ -356,7 +356,7 @@
         .bottom-hero {
             background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
             background-size: cover;
-            background-position: center;
+            background-position: right center;
             background-repeat: no-repeat;
             width: 100%;
             aspect-ratio: 1600 / 667;
@@ -479,9 +479,12 @@
                 background-position: center;
             }
             
+            @media (max-width: 768px) {
             .hero-content {
+                margin-top: 20%;  /* or fixed px: 80px */
                 padding: 1rem;
             }
+        }
         }
        
     </style>
