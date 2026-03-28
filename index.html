@@ -731,23 +731,23 @@
             });
         });
     </script>
-            // Add this before closing </body>
-             <script>
-                function revealOnScroll() {
-                    const elements = document.querySelectorAll('.hero-content h1, .hero-content .btn');
-                    const windowHeight = window.innerHeight;
-                    
-                    elements.forEach(el => {
-                        const rect = el.getBoundingClientRect();
-                        if (rect.top < windowHeight - 100) {
-                            el.classList.add('revealed');
-                        }
-                    });
-                }
-                
-                window.addEventListener('load', revealOnScroll);
-                window.addEventListener('scroll', revealOnScroll);
-            </script>
+            <script>
+            const heroElements = document.querySelectorAll('.hero-content h1, .hero-content .btn');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Reset animation by removing and re-adding class
+                        entry.target.classList.remove('revealed');
+                        // Force reflow to restart animation
+                        void entry.target.offsetWidth;
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            heroElements.forEach(el => observer.observe(el));
+        </script>
 
 
 </body>
