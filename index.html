@@ -757,19 +757,20 @@
         });
         </script>
                 <script>
-        // Apply to all h1, h2, h3 that you want to animate
-        const animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        animateElements.forEach(el => observer.observe(el));
-    </script>
+                const animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                        } else {
+                            entry.target.classList.remove('revealed');
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                animateElements.forEach(el => observer.observe(el));
+            </script>
 
 
 </body>
