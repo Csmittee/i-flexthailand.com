@@ -43,6 +43,11 @@ const IFLEX_CONFIG = {
 
 // ===== INJECT ALL PAGE STYLES =====
 (function injectPageStyles() {
+    if (document.getElementById('iflex-page-styles')) {
+        console.log('✅ Page styles already present');
+        document.documentElement.classList.add('styles-loaded');
+        return;
+    }    
     // Prevent duplicate injection
     if (document.getElementById('iflex-page-styles')) return;
     
