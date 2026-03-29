@@ -631,36 +631,51 @@
     }
 
     function initLanguageSwitcher() {
-        const currentPath = window.location.pathname;
-        const isThai = getCurrentLang() === 'th';
+    const currentPath = window.location.pathname;
+    
+    function switchTo(lang) {
+        let path = currentPath;
         
-        function switchTo(lang) {
-            let newPath;
-            if (lang === 'en') {
-                newPath = currentPath.replace(/^\/th\//, '/');
-                if (newPath === '/') newPath = '/index.html';
-                if (!newPath.includes('.')) newPath += '.html';
-            } else {
-                newPath = '/th' + currentPath;
-                if (newPath === '/th') newPath = '/th/index.html';
-                if (!newPath.includes('.')) newPath += '.html';
-            }
-            
-            console.log(`🔄 Switching to ${lang}: ${newPath}`);
-            window.location.href = newPath;
+        // Remove existing /th/ prefix if present
+        path = path.replace(/^\/th\//, '/');
+        
+        // Normalize homepage (works for both root index.html and /th/index.html)
+        if (path === '/' || path === '/index.html' || path.endsWith('/index.html')) {
+            path = '/index.html';
         }
         
-        document.querySelectorAll('.lang-option, .mobile-lang-option').forEach(el => {
-            el.addEventListener('click', () => {
-                const lang = el.getAttribute('data-lang');
-                if (lang && lang !== (isThai ? 'th' : 'en')) {
-                    switchTo(lang);
-                }
-            });
-        });
-        console.log(`🌍 Language switcher initialized. Current: ${isThai ? 'TH' : 'EN'}`);
+        // Add Thai prefix when switching to TH
+        if (lang === 'th') {
+            if (path === '/index.html') {
+                path = '/th/index.html';
+            } else {
+                path = '/th' + path;
+            }
+        }
+        
+        // Ensure .html extension if missing
+        if (!path.includes('.')) {
+            path += '.html';
+        }
+        
+        console.log(`🔄 Switching language to ${lang} → ${path}`);
+        window.location.href = path;
     }
-
+    
+    // Attach click handlers to both desktop and mobile language options
+    document.querySelectorAll('.lang-option, .mobile-lang-option').forEach(el => {
+        el.addEventListener('click', () => {
+            const lang = el.getAttribute('data-lang');
+            const isCurrentlyThai = getCurrentLang() === 'th';
+            
+            if (lang && lang !== (isCurrentlyThai ? 'th' : 'en')) {
+                switchTo(lang);
+            }
+        });
+    });
+    
+    console.log(`🌍 Language switcher ready. Current: ${getCurrentLang().toUpperCase()}`);
+}
     function setFavicon() {
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
