@@ -697,7 +697,14 @@
         }
         
         console.log('✅ Config loaded:', IFLEX_CONFIG.name);
-        
+
+        // Prevent double initialization
+        if (window.IFLEX_CORE_INITIALIZED) {
+            console.log('✅ I-Flex Core already initialized');
+            return;
+        }
+        window.IFLEX_CORE_INITIALIZED = true;
+
         loadAssets();
         injectStyles();
         document.documentElement.classList.add('styles-loaded');
