@@ -700,6 +700,7 @@
         
         loadAssets();
         injectStyles();
+        document.documentElement.classList.add('styles-loaded');
         setFavicon();
         // Add LocalBusiness Schema
         const schema = document.createElement('script');
