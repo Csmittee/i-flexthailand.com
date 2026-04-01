@@ -28,9 +28,9 @@ const IFLEX_CONFIG = {
     
     // Social Links
     social: {
-        facebook: "https://www.facebook.com/profile.php?id=61586061685340",
-        instagram: "#",
-        line: "#"
+        facebook: "https://www.facebook.com/iflexthailand",
+        instagram: "https://www.instagram.com/i_flexthai/",
+        line: "https://line.me/R/ti/p/@iflexthailand"
     },
     
     // Contact Info
@@ -43,11 +43,6 @@ const IFLEX_CONFIG = {
 
 // ===== INJECT ALL PAGE STYLES =====
 (function injectPageStyles() {
-    if (document.getElementById('iflex-page-styles')) {
-        console.log('✅ Page styles already present');
-        document.documentElement.classList.add('styles-loaded');
-        return;
-    }    
     // Prevent duplicate injection
     if (document.getElementById('iflex-page-styles')) return;
     
@@ -476,7 +471,7 @@ const IFLEX_CONFIG = {
         /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
             body {
-                background-image: url('${IFLEX_CONFIG.bgImage}') !important;
+                background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1773775103/I_flex_only.png') !important;
                 background-size: cover !important;
                 background-position: center !important;
                 background-attachment: scroll !important;
