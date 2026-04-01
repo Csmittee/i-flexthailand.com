@@ -152,6 +152,89 @@
                 height: 600px;
             }
         }
+
+        /* ===== SOCIAL QR SECTION ===== */
+        .social-connect-section {
+            max-width: 900px;
+            margin: 3rem auto 1rem;
+            padding: 2rem;
+            text-align: center;
+            background: #f9f9f9;
+            border-radius: 20px;
+            border: 1px solid #eee;
+        }
+
+        .social-connect-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 0.4rem;
+        }
+
+        .social-connect-section .social-subheading {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1.75rem;
+        }
+
+        .social-qr-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-qr-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            min-width: 155px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .social-qr-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+        }
+
+        .social-qr-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            padding: 4px;
+            background: white;
+            display: block;
+        }
+
+        .social-qr-platform {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+        }
+
+        .social-qr-handle {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1A1A1A;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .social-qr-handle:hover { color: #FFD700; }
+        .social-qr-handle i { margin-right: 0.3rem; }
+
+        @media (max-width: 600px) {
+            .social-qr-card { min-width: 130px; padding: 1rem; }
+            .social-qr-card img { width: 100px; height: 100px; }
+        }
     </style>
 </head>
 <body>
@@ -168,12 +251,7 @@
             <h2 class="h2-medium">ช่องทางด่วน</h2>
             <div class="qr-grid">
                 <div class="qr-card">
-                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773563694/Whatsapp_QR.jpg" alt="WhatsApp QR">
-                    <h3>WhatsApp</h3>
-                    <p>ตอบกลับรวดเร็ว</p>
-                </div>
-                <div class="qr-card">
-                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773563719/Line_qR.jpg" alt="LINE QR">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774899870/I-flex_line_OA.png" alt="LINE QR">
                     <h3>LINE Official</h3>
                     <p>ตอบกลับรวดเร็ว</p>
                 </div>
@@ -194,6 +272,34 @@
                     frameborder="0"
                     allow="camera; microphone; fullscreen">
                 </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOCIAL QR SECTION -->
+    <div class="social-connect-section">
+        <h2>ติดตามและร่วมชุมชนของเรา</h2>
+        <p class="social-subheading">สแกน QR เพื่อเข้าร่วมชุมชนพิลาทิสหรือติดตามข่าวสาร</p>
+        <div class="social-qr-row">
+            <div class="social-qr-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064426/I-Flex_FB_group_qr-code.png" alt="I-Flex Facebook Group">
+                <span class="social-qr-platform">Facebook Group</span>
+                <a href="https://www.facebook.com/groups/iflexthailand" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-facebook-f"></i>I-Flex Thailand</a>
+            </div>
+            <div class="social-qr-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064425/I-Flex_FB_page_qr-code.png" alt="I-Flex Facebook Page">
+                <span class="social-qr-platform">Facebook Page</span>
+                <a href="https://www.facebook.com/iflexthailand" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-facebook-f"></i>iflexthailand</a>
+            </div>
+            <div class="social-qr-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064425/I-Flex_instagram_qr-code.png" alt="I-Flex Instagram">
+                <span class="social-qr-platform">Instagram</span>
+                <a href="https://www.instagram.com/i_flexthai/" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-instagram"></i>@i_flexthai</a>
+            </div>
+            <div class="social-qr-card">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774899870/I-flex_line_OA.png" alt="I-Flex LINE Official">
+                <span class="social-qr-platform">LINE Official</span>
+                <a href="https://line.me/R/ti/p/@iflexthailand" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-line"></i>@iflexthailand</a>
             </div>
         </div>
     </div>
