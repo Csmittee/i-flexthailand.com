@@ -676,18 +676,35 @@
     
     console.log(`🌍 Language switcher ready. Current: ${getCurrentLang().toUpperCase()}`);
 }
-    function setFavicon() {
+        function setFavicon() {
+        // Remove any existing favicon links first (this is the key to stop flashing)
+        document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')
+            .forEach(link => link.remove());
+    
+        // Use your small 40x40 brand icon
+        const iconUrl = IFLEX_CONFIG.favicon + '?v=20260405';   // cache buster
+    
+        // Main favicon
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
-        favicon.type = 'image/svg+xml';
-        favicon.href = IFLEX_CONFIG.logo;
+        favicon.type = 'image/png';
+        favicon.href = iconUrl;
         document.head.appendChild(favicon);
-        
+    
+        // Apple Touch Icon
         const appleIcon = document.createElement('link');
         appleIcon.rel = 'apple-touch-icon';
-        appleIcon.href = IFLEX_CONFIG.logo;
+        appleIcon.href = iconUrl;
         document.head.appendChild(appleIcon);
-        console.log('⭐ Favicon set');
+    
+        // Optional: also set shortcut icon for better compatibility
+        const shortcut = document.createElement('link');
+        shortcut.rel = 'shortcut icon';
+        shortcut.type = 'image/png';
+        shortcut.href = iconUrl;
+        document.head.appendChild(shortcut);
+    
+        console.log('⭐ I-Flex brand favicon set (40x40)');
     }
 
     function init() {
