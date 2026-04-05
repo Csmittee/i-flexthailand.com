@@ -44,8 +44,86 @@
             document.documentElement.classList.add('styles-loaded');
         })();
     </script>
-
-
+        <style>
+            /* === Modern Sleek Glassmorphism Fix for Comparison Table === */
+            .compare-table {
+                width: 100%;
+                max-width: 1000px;
+                margin: 40px auto;
+                background: rgba(255, 255, 255, 0.08);
+                backdrop-filter: blur(12px);
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+            }
+        
+            .compare-row.compare-header {
+                background: linear-gradient(135deg, #1e2937, #334155) !important;
+                color: #ffffff !important;
+            }
+        
+            .compare-row.compare-header .compare-cell {
+                background: transparent !important;
+                color: #ffffff !important;
+                font-weight: 700;
+                padding: 18px 12px !important;
+                text-align: center;
+                font-size: 15px;
+                letter-spacing: 0.4px;
+                border-bottom: 2px solid #22d3ee; /* energetic cyan line */
+            }
+        
+            .compare-row {
+                display: flex;
+                border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            }
+        
+            .compare-cell {
+                flex: 1;
+                padding: 16px 12px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #1e2937;
+                font-size: 14.5px;
+            }
+        
+            /* First column (Feature) - left aligned */
+            .compare-row .compare-cell:first-child {
+                justify-content: flex-start;
+                font-weight: 600;
+                color: #0f172a;
+            }
+        
+            /* Check icons */
+            .check-yes::before  { content: "✔"; color: #22c55e; font-size: 22px; }
+            .check-no::before   { content: "✘"; color: #ef4444; font-size: 22px; }
+            .check-maybe::before{ content: "?"; color: #eab308; font-size: 22px; font-weight: bold; }
+        
+            /* Hover effect */
+            .compare-row:not(.compare-header):hover {
+                background: rgba(241, 245, 255, 0.95) !important;
+            }
+        
+            /* Mobile friendly */
+            @media (max-width: 768px) {
+                .compare-row {
+                    flex-direction: column;
+                }
+                .compare-cell {
+                    padding: 12px 14px;
+                    text-align: left;
+                    border-bottom: 1px solid #e2e8f0;
+                }
+                .compare-row.compare-header .compare-cell {
+                    text-align: center;
+                    padding: 14px 10px;
+                    font-size: 14px;
+                }
+            }
+        </style>
 </head>
 <body>
     <div id="hero-spacer" style="height: 0;"></div>
