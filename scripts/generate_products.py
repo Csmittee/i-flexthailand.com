@@ -1,7 +1,67 @@
 import csv
 import json
 import shutil
+import os                          # ← ADD
 from pathlib import Path
+
+# ── Airtable fetch (dashboard trigger only) ───────────────────────────
+# If AIRTABLE_TOKEN env var is present, fetch Active products for BUS01
+# and write them to data/products.csv — then the rest of the script
+# runs exactly as before, reading that same CSV file unchanged.
+def _fetch_airtable_to_csv():
+    token   = os.environ.get('AIRTABLE_TOKEN', '')
+    base_id = os.environ.get('AIRTABLE_BASE_ID', '')
+    if not token or not base_id:
+        return  # env vars not set → skip, use existing CSV
+    try:
+        import urllib.request, urllib.parse
+        formula = urllib.parse.quote("AND({Status}='Active',{bus_id}='BUS01')")
+        url = (f'https://api.airtable.com/v0/{base_id}/Products'
+               f'?filterByFormula={formula}'
+               f'&sort%5B0%5D%5Bfield%5D=display_order'
+               f'&sort%5B0%5D%5Bdirection%5D=asc')
+        req = urllib.request.Request(url, headers={'Authorization': f'Bearer {token}'})
+        all_records, offset = [], None
+        while True:
+            page_url = url + (f'&offset={urllib.parse.quote(offset)}' if offset else '')
+            req2 = urllib.request.Request(page_url, headers={'Authorization': f'Bearer {token}'})
+            with urllib.request.urlopen(req2, timeout=30) as r:
+                import json as _json
+                data = _json.loads(r.read())
+            all_records.extend(data.get('records', []))
+            offset = data.get('offset')
+            if not offset:
+                break
+        if not all_records:
+            print('⚠️  Airtable returned 0 records — keeping existing CSV')
+            return
+        # Field names must match existing CSV columns exactly
+        FIELDS = ['id','name','brand','category','price','main_image','gallery_images',
+                  'colors','options','full_description','feature_details','stock_status',
+                  'name_th','full_description_th','feature_details_th','collection',
+                  'Slug','sub_category','material','material_th','Status','display_order',
+                  'SEO Title','SEO Description','OG image']
+        rows = []
+        for rec in all_records:
+            f = rec.get('fields', {})
+            row = {}
+            for col in FIELDS:
+                val = f.get(col, '')
+                if isinstance(val, list): val = '\n'.join(str(v) for v in val)
+                row[col] = str(val) if val != '' else ''
+            rows.append(row)
+        Path('data').mkdir(exist_ok=True)
+        import csv as _csv
+        with open('data/products.csv', 'w', encoding='utf-8', newline='') as f:
+            writer = _csv.DictWriter(f, fieldnames=FIELDS, extrasaction='ignore')
+            writer.writeheader()
+            writer.writerows(rows)
+        print(f'✅ Airtable fetch: wrote {len(rows)} products to data/products.csv')
+    except Exception as e:
+        print(f'⚠️  Airtable fetch failed ({e}) — keeping existing CSV as fallback')
+
+_fetch_airtable_to_csv()   # ← runs at import time, before main()
+# ── End Airtable fetch ────────────────────────────────────────────────
 
 # Configuration
 CSV_PATH = Path('data/products.csv')
