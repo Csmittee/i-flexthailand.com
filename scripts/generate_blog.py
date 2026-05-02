@@ -9,7 +9,9 @@ THAI_LISTING = Path('th/blog-listing.html')
 ENGLISH_POSTS_DIR = Path('blog')
 THAI_POSTS_DIR = Path('th/blog')
 
-# ===== POST TEMPLATE (same as both versions) =====
+SITE_URL = 'https://i-flexthailand.com'
+
+# ===== POST TEMPLATE =====
 POST_TEMPLATE = '''<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -17,11 +19,25 @@ POST_TEMPLATE = '''<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | I-Flex Pilates</title>
     <meta name="description" content="{excerpt}">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{canonical_url}">
+
+    <!-- OG Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="I-Flex Thailand">
     <meta property="og:title" content="{title}">
     <meta property="og:description" content="{excerpt}">
     <meta property="og:image" content="{featured_image}">
-    
-  <!-- INJECTOR SCRIPTS -->
+    <meta property="og:url" content="{canonical_url}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{title}">
+    <meta name="twitter:description" content="{excerpt}">
+    <meta name="twitter:image" content="{featured_image}">
+
+    <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
     <script src="/js/iflex-core.js"></script>
     
@@ -207,8 +223,18 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | I-Flex Pilates</title>
     <meta name="description" content="Practical advice for opening and growing your Pilates studio in Thailand. Equipment guides, space planning, and insider tips from experienced owners.">
-    
-   <!-- INJECTOR SCRIPTS -->
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{canonical_url}">
+
+    <!-- OG Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="I-Flex Thailand">
+    <meta property="og:title" content="Blog | I-Flex Pilates">
+    <meta property="og:description" content="Practical advice for opening and growing your Pilates studio in Thailand.">
+    <meta property="og:url" content="{canonical_url}">
+
+    <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
     <script src="/js/iflex-core.js"></script>
     
@@ -382,6 +408,12 @@ def generate_blog_page(post, all_posts, lang, posts_dir, back_link):
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
+    # Build canonical URL — EN: /blog/{slug}  TH: /th/blog/{slug_th}
+    if lang == 'th':
+        canonical_url = f'{SITE_URL}/th/blog/{slug}'
+    else:
+        canonical_url = f'{SITE_URL}/blog/{slug}'
+
     # Parse gallery
     gallery_html = parse_gallery(gallery_images)
     
@@ -411,6 +443,7 @@ def generate_blog_page(post, all_posts, lang, posts_dir, back_link):
         title=title,
         excerpt=excerpt[:160],
         featured_image=featured_image,
+        canonical_url=canonical_url,
         category=category,
         date=date,
         read_time=read_time,
@@ -435,6 +468,12 @@ def generate_listing_page(posts, lang, output_file):
     blog_cards = ''
     for post in posts:
         blog_cards += generate_blog_card(post, lang)
+
+    # Canonical URL for listing page
+    if lang == 'th':
+        canonical_url = f'{SITE_URL}/th/blog-listing.html'
+    else:
+        canonical_url = f'{SITE_URL}/blog-listing.html'
     
     # Filter buttons with correct category mapping
     if lang == 'th':
@@ -458,6 +497,7 @@ def generate_listing_page(posts, lang, output_file):
     
     html = LISTING_TEMPLATE.format(
         lang='th' if lang == 'th' else 'en',
+        canonical_url=canonical_url,
         page_title=page_title,
         page_subtitle=page_subtitle,
         filter_buttons=filter_buttons,

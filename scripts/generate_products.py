@@ -1,8 +1,10 @@
 import csv
 import json
 import shutil
-import os                          # ← ADD line 4a
+import os
 from pathlib import Path
+
+SITE_URL = 'https://i-flexthailand.com'
 
 # ── Airtable fetch (runs before main, overwrites CSV if token present) ─
 def _fetch_airtable_to_csv():
@@ -81,7 +83,26 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{name} | I-Flex Thailand</title>
     <meta name="description" content="{meta_description}">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{canonical_url}">
+
+    <!-- OG Tags -->
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="I-Flex Thailand">
+    <meta property="og:title" content="{name} | I-Flex Thailand">
+    <meta property="og:description" content="{meta_description}">
+    <meta property="og:image" content="{main_image}">
+    <meta property="og:url" content="{canonical_url}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{name} | I-Flex Thailand">
+    <meta name="twitter:description" content="{meta_description}">
+    <meta name="twitter:image" content="{main_image}">
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+
     <style>
         body {{ background: white; }}
         .product-detail-page {{ max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }}
@@ -149,26 +170,26 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         }}
     </style>
 
-              <script type="application/ld+json">
-        {{
-            "@context": "https://schema.org/",
-            "@type": "Product",
-            "name": "{name}",
-            "description": "{description}",
-            "image": "{main_image}",
-            "sku": "{sku}",
-            "offers": {{
-                "@type": "Offer",
-                "price": {price},
-                "priceCurrency": "THB",
-                "availability": "https://schema.org/PreOrder",
-                "seller": {{
-                    "@type": "Organization",
-                    "name": "I-Flex Thailand"
-                }}
+    <script type="application/ld+json">
+    {{
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "{name}",
+        "description": "{meta_description}",
+        "image": "{main_image}",
+        "sku": "{sku}",
+        "offers": {{
+            "@type": "Offer",
+            "price": {price},
+            "priceCurrency": "THB",
+            "availability": "https://schema.org/PreOrder",
+            "seller": {{
+                "@type": "Organization",
+                "name": "I-Flex Thailand"
             }}
         }}
-        </script>
+    }}
+    </script>
 
 </head>
 <body>
@@ -254,6 +275,17 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products | I-Flex Pilates Equipment</title>
     <meta name="description" content="Explore I-Flex Pilates equipment: Reformers, Cadillacs, Wunda Chairs, and Ladder Barrels. Proven 5+ years in studios.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{canonical_url}">
+
+    <!-- OG Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="I-Flex Thailand">
+    <meta property="og:title" content="Products | I-Flex Pilates Equipment">
+    <meta property="og:description" content="Explore I-Flex Pilates equipment: Reformers, Cadillacs, Wunda Chairs, and Ladder Barrels. Proven 5+ years in studios.">
+    <meta property="og:url" content="{canonical_url}">
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
     <style>
         body {{ background: white; }}
@@ -382,6 +414,12 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
     features = product['feature_details'] if lang == 'en' else product.get('feature_details_th', product['feature_details'])
     main_image = product['main_image']
     gallery_images = product.get('gallery_images', '')
+
+    # Canonical URL — EN: /product/{slug}  TH: /th/product/{slug}
+    if lang == 'th':
+        canonical_url = f'{SITE_URL}/th/product/{slug}'
+    else:
+        canonical_url = f'{SITE_URL}/product/{slug}'
     
     # Find current index for prev/next navigation
     current_idx = next((i for i, p in enumerate(all_products) if p['Slug'] == slug), 0)
@@ -401,6 +439,7 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
         name=name,
         meta_description=description[:160] if description else name,
         main_image=main_image,
+        canonical_url=canonical_url,
         price=price,
         material=material,
         sub_category=sub_category,
@@ -413,7 +452,6 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
         next_disabled=next_disabled,
         back_link=back_link,
         sku=product.get('id', '')
-  
     )
     output_path = Path(prefix) / f'{slug}.html'
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -426,8 +464,13 @@ def generate_listing_page(products, lang, prefix, output_file):
     product_cards = ''
     for product in products:
         product_cards += generate_product_card(product, lang, prefix)
+
+    # Canonical URL for listing page
+    if lang == 'th':
+        canonical_url = f'{SITE_URL}/th/product-listing.html'
+    else:
+        canonical_url = f'{SITE_URL}/product-listing.html'
     
-    # Add bilingual header text
     if lang == 'th':
         page_title = "อุปกรณ์พิลาทิสของเรา"
         page_subtitle = "ออกแบบมาเพื่อการเคลื่อนไหวด้วยวัสดุระดับโลกและคุณภาพชั้นเลิศ"
@@ -437,6 +480,7 @@ def generate_listing_page(products, lang, prefix, output_file):
     
     html = LISTING_TEMPLATE.format(
         lang=lang,
+        canonical_url=canonical_url,
         page_title=page_title,
         page_subtitle=page_subtitle,
         product_cards=product_cards
@@ -472,12 +516,10 @@ def generate_products_json(products):
 def main():
     print('📦 Reading products.csv...')
     
-    # Check if CSV exists
     if not CSV_PATH.exists():
         print(f'❌ Error: {CSV_PATH} not found!')
         return
     
-    # ===== CLEAN OLD FOLDERS =====
     product_dir = Path('product')
     th_product_dir = Path('th/product')
     
@@ -489,13 +531,10 @@ def main():
         shutil.rmtree(th_product_dir)
         print('🗑️ Deleted old Thai product folder')
     
-    # Create fresh folders
     product_dir.mkdir(exist_ok=True)
     th_product_dir.mkdir(parents=True, exist_ok=True)
     print('📁 Created fresh product folders')
-    # ===== END CLEAN =====
     
-    # Read CSV
     products = []
     with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
@@ -504,20 +543,15 @@ def main():
     
     print(f'✅ Found {len(products)} products')
     
-    # Sort by display_order
     products.sort(key=lambda x: int(x.get('display_order', 999)))
     
-    # ===== GENERATE products.json =====
     generate_products_json(products)
-    # ===== END GENERATE =====
     
-    # Generate English pages
     print('\n📄 Generating English product pages...')
     for product in products:
         generate_product_page(product, products, 'en', 'product/', '/')
     generate_listing_page(products, 'en', '/', LISTING_FILE)
     
-    # Generate Thai pages
     print('\n📄 Generating Thai product pages...')
     for product in products:
         generate_product_page(product, products, 'th', 'th/product/', '/th/')
