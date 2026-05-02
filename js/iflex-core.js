@@ -63,7 +63,7 @@
                 <div class="navbar">
                     <div class="nav-container">
                         <div class="brand-wrapper">
-                            <a href="${prefix}index.html" class="logo-link">
+                           <a href="${prefix === '/th/' ? '/th/' : '/'}" class="logo-link">
                                 <img src="${IFLEX_CONFIG.logo}" alt="${IFLEX_CONFIG.name}" class="logo-img">
                             </a>
                         </div>
