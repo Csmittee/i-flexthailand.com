@@ -31,11 +31,37 @@ POST_TEMPLATE = '''<!DOCTYPE html>
     <meta property="og:image" content="{featured_image}">
     <meta property="og:url" content="{canonical_url}">
 
-    <!-- Twitter Card -->
+   <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{title}">
     <meta name="twitter:description" content="{excerpt}">
     <meta name="twitter:image" content="{featured_image}">
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {{
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{title}",
+        "description": "{excerpt}",
+        "image": "{featured_image}",
+        "datePublished": "{date}",
+        "dateModified": "{date}",
+        "url": "{canonical_url}",
+        "author": {{
+            "@type": "Person",
+            "name": "{author}"
+        }},
+        "publisher": {{
+            "@type": "Organization",
+            "name": "I-Flex Thailand",
+            "logo": {{
+                "@type": "ImageObject",
+                "url": "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768378/I-Flex_main_no_bg.svg"
+            }}
+        }}
+    }}
+    </script>
 
     <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
