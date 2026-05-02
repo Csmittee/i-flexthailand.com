@@ -170,7 +170,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         }}
     </style>
 
-    <script type="application/ld+json">
+   <script type="application/ld+json">
     {{
         "@context": "https://schema.org/",
         "@type": "Product",
@@ -178,11 +178,16 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         "description": "{meta_description}",
         "image": "{main_image}",
         "sku": "{sku}",
+        "brand": {{
+            "@type": "Brand",
+            "name": "I-Flex Thailand"
+        }},
         "offers": {{
             "@type": "Offer",
             "price": {price},
             "priceCurrency": "THB",
             "availability": "https://schema.org/PreOrder",
+            "url": "{canonical_url}",
             "seller": {{
                 "@type": "Organization",
                 "name": "I-Flex Thailand"
