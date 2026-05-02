@@ -726,36 +726,61 @@
         injectStyles();
         document.documentElement.classList.add('styles-loaded');
         setFavicon();
-        // Add LocalBusiness Schema
+
+        // ── LocalBusiness Schema (CHAT 2 — updated) ──────────────────────
         const schema = document.createElement('script');
         schema.type = 'application/ld+json';
         schema.textContent = JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "I-Flex Thailand",
-            "image": IFLEX_CONFIG.logo,
-            "description": "Professional Pilates equipment supplier in Thailand. Reformers, Cadillacs, Wunda Chairs with 5+ years proven quality.",
+            "description": "Professional Pilates equipment supplier in Thailand. Reformers, Cadillacs, Wunda Chairs and Barrel Ladders with 5+ years proven quality and full 3-year warranty.",
+            "url": "https://i-flexthailand.com",
+            "telephone": "+66895412121",
+            "email": "info@i-flexthailand.com",
+            "priceRange": "฿฿฿",
+            "image": [
+                "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768378/I-Flex_main_no_bg.svg",
+                "https://res.cloudinary.com/dfiomi0lb/image/upload/v1774458871/Full_edge.png"
+            ],
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://res.cloudinary.com/dfiomi0lb/image/upload/v1773768378/I-Flex_main_no_bg.svg",
+                "caption": "I-Flex Thailand — playful black cat with yellow eyes"
+            },
             "address": {
                 "@type": "PostalAddress",
+                "addressLocality": "Banglamung",
+                "addressRegion": "Chonburi",
                 "addressCountry": "TH"
             },
-            "telephone": IFLEX_CONFIG.contact.phone,
-            "email": IFLEX_CONFIG.contact.email,
-            "url": "https://i-flexthailand.com",
-            "priceRange": "$$",
+            "openingHoursSpecification": [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": [
+                        "Monday","Tuesday","Wednesday","Thursday",
+                        "Friday","Saturday","Sunday"
+                    ],
+                    "opens": "10:00",
+                    "closes": "18:00"
+                }
+            ],
             "sameAs": [
-                IFLEX_CONFIG.social.facebook,
-                IFLEX_CONFIG.social.instagram
+                "https://www.facebook.com/iflexthailand",
+                "https://www.instagram.com/i_flexthai/",
+                "https://www.facebook.com/groups/iflexthailand"
             ]
         });
         document.head.appendChild(schema);
-        console.log('🔍 LocalBusiness schema added');        // Only inject if not already present
-                if (!document.querySelector('.navbar-fixed-wrapper')) {
-                    document.body.insertAdjacentHTML('afterbegin', buildNavbar());
-                }
-                if (!document.querySelector('.footer')) {
-                    document.body.insertAdjacentHTML('beforeend', buildFooter());
-                }
+        console.log('🔍 LocalBusiness schema added');
+
+        // Only inject if not already present
+        if (!document.querySelector('.navbar-fixed-wrapper')) {
+            document.body.insertAdjacentHTML('afterbegin', buildNavbar());
+        }
+        if (!document.querySelector('.footer')) {
+            document.body.insertAdjacentHTML('beforeend', buildFooter());
+        }
                 
         initMobileMenu();
         initLanguageSwitcher();
