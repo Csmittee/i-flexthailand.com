@@ -1,0 +1,31 @@
+# robots.txt for I-Flex Thailand
+# Last updated: May 2026
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://i-flexthailand.com/sitemap.xml
+
+# Allow social media and search engine crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Optional: Block AI crawlers if you want (you can remove this)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
