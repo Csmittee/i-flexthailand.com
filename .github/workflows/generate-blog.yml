@@ -43,6 +43,6 @@ jobs:
             exit 0
           fi
           
-          git commit -m "Auto-generate blog pages [skip ci]"
+          git commit -m "Auto-generate blog pages"
           git pull --rebase origin main || true
           git push origin main
