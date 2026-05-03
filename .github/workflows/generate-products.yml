@@ -44,6 +44,6 @@ jobs:
             exit 0
           fi
           
-          git commit -m "Auto-generate product pages [skip ci]"
+          git commit -m "Auto-generate product pages"
           git pull --rebase origin main || true
           git push origin main
