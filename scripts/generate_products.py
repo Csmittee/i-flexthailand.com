@@ -10,12 +10,14 @@ SITE_URL = 'https://i-flexthailand.com'
 def _fetch_airtable_to_csv():
     token   = os.environ.get('AIRTABLE_TOKEN', '')
     base_id = os.environ.get('AIRTABLE_BASE_ID', '')
+    bus_id  = os.environ.get('AIRTABLE_BUS_ID', 'BUS01')  # default fallback
     if not token or not base_id:
-        return  # no env vars → skip, use existing CSV unchanged
+        print('ℹ️  No Airtable credentials — using existing CSV')
+        return
     try:
         import urllib.request, urllib.parse, json as _json, csv as _csv
 
-        # Exact column order matching data/products.csv in this repo
+        # Exact column order matching data/products.csv
         FIELDS = [
             'id','name','name_th','Slug','category','category_th',
             'material','material_th','price','main_image',
@@ -25,11 +27,16 @@ def _fetch_airtable_to_csv():
             'display_order','Group'
         ]
 
-        formula = urllib.parse.quote("AND({Status}='Active',{bus_id}='BUS01')")
-        base_url = (f'https://api.airtable.com/v0/{base_id}/Products'
-                    f'?filterByFormula={formula}'
-                    f'&sort%5B0%5D%5Bfield%5D=display_order'
-                    f'&sort%5B0%5D%5Bdirection%5D=asc')
+        # Filter: correct business + web_published checkbox checked
+        formula = urllib.parse.quote(
+            f"AND({{bus_id}}='{bus_id}', {{web_published}}=1)"
+        )
+        base_url = (
+            f'https://api.airtable.com/v0/{base_id}/tblTBQodWDROXCJO4'
+            f'?filterByFormula={formula}'
+            f'&sort%5B0%5D%5Bfield%5D=display_order'
+            f'&sort%5B0%5D%5Bdirection%5D=asc'
+        )
 
         all_records, offset = [], None
         while True:
@@ -62,7 +69,7 @@ def _fetch_airtable_to_csv():
             writer = _csv.DictWriter(f, fieldnames=FIELDS, extrasaction='ignore')
             writer.writeheader()
             writer.writerows(rows)
-        print(f'✅ Airtable → CSV: {len(rows)} products written to data/products.csv')
+        print(f'✅ Airtable → CSV: {len(rows)} products written (bus_id={bus_id}, web_published only)')
 
     except Exception as e:
         print(f'⚠️  Airtable fetch failed ({e}) — existing CSV will be used as fallback')
