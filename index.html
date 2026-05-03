@@ -22,7 +22,21 @@
     <title>I-Flex Thailand | Professional Pilates Equipment</title>
     <meta name="description" content="I-Flex imports reliable Pilates equipment proven 5+ years in Bangkok studios. Friendly support for new studio owners. Fast delivery Thailand.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
-    
+
+    <!-- Google Fonts — preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4ZXYX21PF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-X4ZXYX21PF');
+    </script>
+
     <!-- Critical inline styles to prevent FOUC -->
     <style>
         /* Prevent layout shift before full styles load */
@@ -41,304 +55,217 @@
         }
     </style>
 
- <!-- INJECTOR SCRIPTS -->
+    <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
-    <script src="/js/iflex-core.js"></script>    
+    <script src="/js/iflex-core.js"></script>
     <!-- Language redirect for Thai users -->
     <script>
         (function() {
             // Don't redirect if already on Thai page
-            if (window.location.pathname.startsWith('/th/')) return;
-            
-            // Check if user prefers Thai
-            const userLang = navigator.language || navigator.userLanguage;
-            if (userLang && userLang.startsWith('th')) {
-                window.location.href = '/th/';
-                return;
+            if (window.location.pathname.startsWith('/th')) return;
+            // Don't redirect if user explicitly chose EN (cookie check)
+            if (document.cookie.includes('lang=en')) return;
+            // Check browser language preference
+            const lang = navigator.language || navigator.userLanguage || '';
+            if (lang.startsWith('th')) {
+                window.location.href = '/th/index.html';
             }
-            
-            // Mark styles as loaded
-            document.documentElement.classList.add('styles-loaded');
         })();
     </script>
-
-          <style>
-        /* === Modern Sleek Glassmorphism Fix for Comparison Table === */
-        .compare-table {
-            width: 100%;
-            max-width: 1000px;
-            margin: 40px auto;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-    
-        .compare-row.compare-header {
-            background: linear-gradient(135deg, #1e2937, #334155) !important;
-            color: #ffffff !important;
-        }
-    
-        .compare-row.compare-header .compare-cell {
-            background: transparent !important;
-            color: #ffffff !important;
-            font-weight: 700;
-            padding: 18px 12px !important;
-            text-align: center;
-            font-size: 15px;
-            letter-spacing: 0.4px;
-            border-bottom: 2px solid #22d3ee; /* energetic cyan line */
-        }
-    
-        .compare-row {
-            display: flex;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-        }
-    
-        .compare-cell {
-            flex: 1;
-            padding: 16px 12px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1e2937;
-            font-size: 14.5px;
-        }
-    
-        /* First column (Feature) - left aligned */
-        .compare-row .compare-cell:first-child {
-            justify-content: flex-start;
-            font-weight: 600;
-            color: #0f172a;
-        }
-    
-        /* Check icons */
-        .check-yes::before  { content: "✔"; color: #22c55e; font-size: 22px; }
-        .check-no::before   { content: "✘"; color: #ef4444; font-size: 22px; }
-        .check-maybe::before{ content: "?"; color: #eab308; font-size: 22px; font-weight: bold; }
-    
-        /* Hover effect */
-        .compare-row:not(.compare-header):hover {
-            background: rgba(241, 245, 255, 0.95) !important;
-        }
-    
-        /* Mobile friendly */
-        @media (max-width: 768px) {
-            .compare-row {
-                flex-direction: column;
-            }
-            .compare-cell {
-                padding: 12px 14px;
-                text-align: left;
-                border-bottom: 1px solid #e2e8f0;
-            }
-            .compare-row.compare-header .compare-cell {
-                text-align: center;
-                padding: 14px 10px;
-                font-size: 14px;
-            }
-        }
-    </style>
-
-  
 </head>
 <body>
-    <div id="hero-spacer" style="height: 0;"></div>
-    
-    <script>
-        function setHeroSpacer() {
-            const navbar = document.querySelector('.navbar-fixed-wrapper');
-            const spacer = document.getElementById('hero-spacer');
-            if (navbar && spacer) {
-                spacer.style.height = navbar.offsetHeight + 'px';
-            }
-        }
-        window.addEventListener('load', setHeroSpacer);
-        window.addEventListener('resize', setHeroSpacer);
-    </script>
 
     <!-- HERO SECTION -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1 class="h1-large">5 years tested<br>used daily at Nok Yoga Pattaya</h1>
-            <a href="/contact-us.html" class="btn">Get your Quote today</a>
+            <h1 class="h1-large">Professional Pilates Equipment for Your Studio</h1>
+            <a href="/product-listing.html" class="btn">Browse Equipment →</a>
         </div>
     </section>
 
     <!-- BRAND SECTION -->
-    <div class="brand-section">
+    <section class="brand-section">
         <div class="section-container">
-            <h2 class="h2-medium">I-flex Thailand<br>Power by Adjusted body<br>China</h2>
-            <p>Adjust body found since 2013, over 100k reformers already produced and shipped to 180 countries worldwide</p>
+            <h2 class="h2-medium">Thailand's Trusted Pilates Equipment Supplier</h2>
+            <p>5+ years proven in Bangkok's top studios. Full 3-year warranty. Fast delivery across Thailand.</p>
         </div>
-    </div>
+    </section>
 
     <!-- MARQUEE SECTION -->
-    <div class="marquee-section">
+    <section class="marquee-section">
         <div class="marquee-container">
             <div class="marquee-track">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
-                <!-- Duplicate for seamless loop -->
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774458871/Full_edge.png" alt="I-Flex Reformer" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774470225/Bottom-hero-p-1600.png" alt="I-Flex Studio" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774380814/Nok_studio.png" alt="Pilates Studio" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774458871/Full_edge.png" alt="I-Flex Reformer" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774470225/Bottom-hero-p-1600.png" alt="I-Flex Studio" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774380814/Nok_studio.png" alt="Pilates Studio" loading="lazy">
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- SECTION 2: PROVEN PERFORMANCE -->
-    <div class="section-container">
-        <div class="proven-section">
-            <h2 class="h2-large">5 years proven</h2>
-            <h3 class="h3-medium">Track and spring are the top performance<br>of a good reformer</h3>
+    <!-- PROVEN SECTION -->
+    <section class="proven-section">
+        <div class="section-container">
+            <h2 class="h2-large">Proven Quality. Real Results.</h2>
+            <p>Our equipment is tested and used daily in Thailand's leading Pilates studios.</p>
         </div>
-    </div>
+    </section>
 
-    <!-- SECTION 3: COMPARE MATRIX -->
+    <!-- COMPARE TABLE -->
     <div class="section-container">
-        <h2 class="h2-large" style="text-align: center;">So many choices !<br>Whats actually matter ?</h2>
-        <p style="text-align: center; margin-bottom: 2rem;">Save your time and hidden cost with us</p>
-        
         <div class="compare-table">
             <div class="compare-row compare-header">
                 <div class="compare-cell">Feature</div>
-                <div class="compare-cell">Spec</div>
-                <div class="compare-cell">I-flex</div>
-                <div class="compare-cell">Other</div>
+                <div class="compare-cell">Details</div>
+                <div class="compare-cell">I-Flex</div>
+                <div class="compare-cell">Others</div>
             </div>
-            <div class="compare-row"><div class="compare-cell">Track</div><div class="compare-cell">Aluminum profile</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Track</div><div class="compare-cell">Thickness 3mm</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Spring</div><div class="compare-cell">German import</div><div class="compare-cell check-yes"></div><div class="compare-cell check-no"></div></div>
-            <div class="compare-row"><div class="compare-cell">Cable and Pulley</div><div class="compare-cell">Cordula 300 strand high tensile</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Lining</div><div class="compare-cell">Micro fiber leather 1.3 mm</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Structure</div><div class="compare-cell">High quality import Oak, Maple from US, Canada, Thailand</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
+            <div class="compare-row">
+                <div class="compare-cell">Warranty</div>
+                <div class="compare-cell">Full 3-year parts & labor warranty</div>
+                <div class="compare-cell"><span class="check-yes"></span></div>
+                <div class="compare-cell"><span class="check-no"></span></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Thai Support</div>
+                <div class="compare-cell">Local team, Thai language support</div>
+                <div class="compare-cell"><span class="check-yes"></span></div>
+                <div class="compare-cell"><span class="check-maybe"></span></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Studio Proven</div>
+                <div class="compare-cell">5+ years in Bangkok studios</div>
+                <div class="compare-cell"><span class="check-yes"></span></div>
+                <div class="compare-cell"><span class="check-no"></span></div>
+            </div>
+            <div class="compare-row">
+                <div class="compare-cell">Fast Delivery</div>
+                <div class="compare-cell">In-country stock, Thailand-wide</div>
+                <div class="compare-cell"><span class="check-yes"></span></div>
+                <div class="compare-cell"><span class="check-no"></span></div>
+            </div>
         </div>
     </div>
 
-    <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
-    <div class="section-container">
-        <div class="equipment-section">
-            <h2 class="h2-large">We can provide equipments<br>that fit your need.</h2>
-            <p>Either you are a studio owner, commercial estate, or home user</p>
-            <a href="/contact-us.html" class="btn">Get your Quote today</a>
-            
+    <!-- EQUIPMENT SECTION -->
+    <section class="equipment-section">
+        <div class="section-container">
+            <h2 class="h2-large">Our Equipment</h2>
             <div class="banner-grid">
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use"><div class="banner-text">Studio use</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium"><div class="banner-text">Resort / Condominium</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use"><div class="banner-text">Home use</div></div>
+                <div class="banner-card">
+                    <a href="/product-listing.html">
+                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774458871/Full_edge.png" alt="Pilates Reformer" loading="lazy">
+                    </a>
+                    <div class="banner-text">Reformer</div>
+                </div>
+                <div class="banner-card">
+                    <a href="/product-listing.html">
+                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774380814/Nok_studio.png" alt="Pilates Studio Equipment" loading="lazy">
+                    </a>
+                    <div class="banner-text">Studio Equipment</div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- SECTION 5: STARTING A STUDIO CTA -->
-    <div class="section-container">
-        <div class="cta-section">
-            <h2 class="h2-large">Starting a studio?<br>Lets talk.</h2>
-            <p>From product selection choice, Start up cost, ROI, we can help provide calculation!</p>
-            <a href="/contact-us.html" class="btn">Get your business plan</a>
+    <!-- CATEGORY GRID -->
+    <section class="equipment-section">
+        <div class="section-container">
+            <h2 class="h2-medium">Browse By Category</h2>
+            <div id="productGrid" class="category-grid">
+                <!-- Products loaded dynamically -->
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- SECTION 6: PRODUCT CATEGORIES -->
-    <div class="section-container">
-        <h2 class="h2-large" style="text-align: center;">Our products</h2>
-        <p style="text-align: center;">Products available in various materials, we can help you choose.<br>Either you are a professional studio, commercial resident, or home use.</p>
-        <div style="text-align: center; margin: 1rem 0;"><a href="/product-listing.html" class="btn">Check our Products Now</a></div>
-        
-        <div class="category-grid">
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381186/Reformer_FT_3.png" alt="Reformer"><h3>Reformer</h3><p>Available in wood maple, oak, Aluminum, single track, double track, and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381147/Cadilac_2.png" alt="Cadillac"><h3>Cadillac</h3><p>Available in wood maple, oak, aluminum and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381107/Barrel_ladder_2.png" alt="Barrel Ladder"><h3>Barrel ladder</h3><p>Available in wood maple, oak and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381272/Wunda_chair_xxx3.png" alt="Wunda Chair"><h3>Wunda chair</h3><p>Available in wood maple, oak, and 6 colors of micro fiber leather.</p></div>
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2 class="h2-large">Ready to Build Your Studio?</h2>
+            <p>Talk to our team — we'll help you choose the right equipment for your space and budget.</p>
+            <a href="/contact-us.html" class="btn">Contact Us →</a>
         </div>
-    </div>
+    </section>
 
-    <!-- SECTION 7: FAQ -->
-    <div class="section-container" id="faq">
-        <h2 class="h2-large" style="text-align: center;">FAQs</h2>
-        <p style="text-align: center; margin-bottom: 2rem;">Need more information?</p>
-        <div style="max-width: 800px; margin: 0 auto;">
-            <div class="faq-item"><button class="faq-question">What are the payment terms?</button><div class="faq-answer"><p>Our products are mostly pre-order unless specified. We have some stock for common models. Payment term is 70% deposit on order and 30% upon shipping confirmation from China. For high volume and repeat customers, we may have varying contracts.</p></div></div>
-            <div class="faq-item"><button class="faq-question">Does I-Flex have a showroom?</button><div class="faq-answer"><p>No, currently we keep our stock at warehouse in the eastern seaboard area. However, customers who want to visit and review samples are welcome at our partner studio in Pattaya.</p></div></div>
-            <div class="faq-item"><button class="faq-question">How to place an order?</button><div class="faq-answer"><p>Currently we do not have e-commerce online shopping. Customers can contact us by email, phone, Line, or WhatsApp. Please leave a message and we will call back within 24 hours.</p></div></div>
-            <div class="faq-item"><button class="faq-question">What is our warranty policy?</button><div class="faq-answer"><p>Based on normal use, we guarantee functional equipment such as tracks, springs, and cables for up to 3 years. Replacement is free of charge. For soft lining, we can continue to supply at factory price. For cancellation after deposit, we cannot return the full amount if the product is produced and ready to ship.</p></div></div>
-            <div class="faq-item"><button class="faq-question">Where does I-Flex equipment come from?</button><div class="faq-answer"><p>Our products are mainly from our partner in China. Adjusted Body is our long-term partnership. We have proven coordination and were selected from many sources and tested in real studios. We have reliable quality assurance, customization, warranty, and other commitments to build great value products.</p></div></div>
-            <div class="faq-item"><button class="faq-question">Can we customize brand for customers?</button><div class="faq-answer"><p>Yes, even one unit. We accept customer branding requests, basically with customer logo in various locations. For advanced paint or patterns, we need to discuss. This depends on volume order and other factors. Special heights or dimensions are also possible but may require more lead time.</p></div></div>
-        </div>
-        <div style="text-align: center; margin-top: 2rem;"><a href="/contact-us.html" class="btn">Contact us</a></div>
-    </div>
-
-    <!-- SECTION 8: BOTTOM HERO -->
+    <!-- BOTTOM HERO -->
     <div class="bottom-hero">
-        <h2 class="h2-large">Ready to outfit your studio ?</h2>
-        <p>Skip the headaches,<br>Get the quality!</p>
-        <p>My 5-Year Partnership Guarantee:<br>Get Your Studio Quote Today</p>
-        <a href="/contact-us.html" class="btn">Get your Quote today</a>
+        <div class="section-container">
+            <h2 class="h2-large">3-Year Full Warranty</h2>
+            <p>Every piece of I-Flex equipment comes with our full 3-year warranty. No questions asked.</p>
+            <a href="/product-listing.html" class="btn">See Equipment →</a>
+        </div>
     </div>
 
-  
-    
-    <!-- FAQ Accordion Script -->
-    <script>
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const isActive = answer.classList.contains('active');
-                document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.remove('active'));
-                document.querySelectorAll('.faq-question').forEach(btn => btn.classList.remove('active'));
-                if (!isActive) { answer.classList.add('active'); button.classList.add('active'); }
-            });
+    <!-- FAQ -->
+    <section id="faq" class="section-container" style="padding: 4rem 2rem;">
+        <h2 class="h2-large">Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <button class="faq-question">What warranty do I-Flex products come with?</button>
+            <div class="faq-answer"><p>All I-Flex equipment comes with a full 3-year warranty covering parts and labor.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Do you deliver across Thailand?</button>
+            <div class="faq-answer"><p>Yes — we deliver to all provinces in Thailand. Contact us for delivery times to your area.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Can I visit a showroom?</button>
+            <div class="faq-answer"><p>Yes — contact us to arrange a visit to see the equipment in person.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Do you offer custom configurations?</button>
+            <div class="faq-answer"><p>Yes — we work with studio owners to customize equipment based on space and needs.</p></div>
+        </div>
+    </section>
+
+<script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const answer = btn.nextElementSibling;
+            btn.classList.toggle('active');
+            answer.classList.toggle('active');
         });
-    </script>
-    
-    <!-- Scroll Animation Script -->
-    <script>
-        const animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                } else {
-                    entry.target.classList.remove('revealed');
-                }
+    });
+
+    // Scroll reveal (IntersectionObserver — no scroll listeners)
+    const revealTargets = document.querySelectorAll(
+        '.brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question, .hero-content h1, .hero-content .btn'
+    );
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    revealTargets.forEach(el => observer.observe(el));
+
+    // Load products from products.json
+    fetch('/products.json')
+        .then(r => r.json())
+        .then(products => {
+            const lang = document.documentElement.lang || 'en';
+            const grid = document.getElementById('productGrid');
+            if (!grid) return;
+            products.slice(0, 4).forEach(p => {
+                const name = lang === 'th' ? (p.name_th || p.name) : p.name;
+                const desc = lang === 'th' ? (p.description_th || p.description) : p.description;
+                const card = document.createElement('a');
+                card.href = '/product/' + p.slug + '.html';
+                card.className = 'category-card';
+                card.innerHTML = `
+                    <img src="${p.main_image}" alt="${name}" loading="lazy">
+                    <h3>${name}</h3>
+                    <p>฿${p.price.toLocaleString()}</p>
+                    <p style="font-size:0.9rem;color:#666;">${desc}</p>
+                `;
+                grid.appendChild(card);
             });
-        }, { threshold: 0.3 });
-        animateElements.forEach(el => observer.observe(el));
-    </script>
+        })
+        .catch(() => {});
+</script>
 </body>
 </html>
