@@ -1,5 +1,6 @@
 import csv
 import shutil
+import os
 from pathlib import Path
 
 # Configuration
@@ -10,6 +11,73 @@ ENGLISH_POSTS_DIR = Path('blog')
 THAI_POSTS_DIR = Path('th/blog')
 
 SITE_URL = 'https://i-flexthailand.com'
+
+# ── Airtable fetch (runs before main, overwrites CSV if token present) ─
+def _fetch_airtable_blog_to_csv():
+    token   = os.environ.get('AIRTABLE_TOKEN', '')
+    base_id = os.environ.get('AIRTABLE_BASE_ID', '')
+    if not token or not base_id:
+        print('ℹ️  No Airtable credentials — using existing CSV')
+        return
+    try:
+        import urllib.request, urllib.parse, json as _json, csv as _csv
+
+        # Exact column order matching data/blog.csv
+        FIELDS = [
+            'Blog ID','title','title_th','slug','slug_th',
+            'excerpt','excerpt_th','content','content_th',
+            'featured_image','gallery_images','author',
+            'category','category_th','read_time','featured',
+            'date','display_order'
+        ]
+
+        # Filter: web_published checkbox checked only
+        formula = urllib.parse.quote("{web_published}=1")
+        base_url = (
+            f'https://api.airtable.com/v0/{base_id}/tblfgrMM66iv5HuME'
+            f'?filterByFormula={formula}'
+            f'&sort%5B0%5D%5Bfield%5D=display_order'
+            f'&sort%5B0%5D%5Bdirection%5D=asc'
+        )
+
+        all_records, offset = [], None
+        while True:
+            page_url = base_url + (f'&offset={urllib.parse.quote(str(offset))}' if offset else '')
+            req = urllib.request.Request(page_url, headers={'Authorization': f'Bearer {token}'})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                data = _json.loads(r.read())
+            all_records.extend(data.get('records', []))
+            offset = data.get('offset')
+            if not offset:
+                break
+
+        if not all_records:
+            print('⚠️  Airtable returned 0 blog records — keeping existing CSV')
+            return
+
+        rows = []
+        for rec in all_records:
+            f = rec.get('fields', {})
+            row = {}
+            for col in FIELDS:
+                val = f.get(col, '')
+                if isinstance(val, list):
+                    val = '\n'.join(str(v) for v in val)
+                row[col] = str(val) if val != '' else ''
+            rows.append(row)
+
+        Path('data').mkdir(exist_ok=True)
+        with open('data/blog.csv', 'w', encoding='utf-8', newline='') as f:
+            writer = _csv.DictWriter(f, fieldnames=FIELDS, extrasaction='ignore')
+            writer.writeheader()
+            writer.writerows(rows)
+        print(f'✅ Airtable → CSV: {len(rows)} blog posts written (web_published only)')
+
+    except Exception as e:
+        print(f'⚠️  Airtable blog fetch failed ({e}) — existing CSV will be used as fallback')
+
+_fetch_airtable_blog_to_csv()
+# ── End Airtable fetch ─────────────────────────────────────────────────
 
 # ===== POST TEMPLATE =====
 POST_TEMPLATE = '''<!DOCTYPE html>
@@ -399,7 +467,6 @@ def generate_blog_card(post, lang):
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
-    # Build correct link based on language
     if lang == 'th':
         link = f'/th/blog/{slug}.html'
     else:
@@ -434,16 +501,13 @@ def generate_blog_page(post, all_posts, lang, posts_dir, back_link):
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
-    # Build canonical URL — EN: /blog/{slug}  TH: /th/blog/{slug_th}
     if lang == 'th':
         canonical_url = f'{SITE_URL}/th/blog/{slug}'
     else:
         canonical_url = f'{SITE_URL}/blog/{slug}'
 
-    # Parse gallery
     gallery_html = parse_gallery(gallery_images)
     
-    # Find current index for navigation (using English slug for ordering)
     current_idx = next((i for i, p in enumerate(all_posts) if p.get('slug') == post.get('slug')), 0)
     prev_post = all_posts[current_idx - 1] if current_idx > 0 else None
     next_post = all_posts[current_idx + 1] if current_idx < len(all_posts) - 1 else None
@@ -495,13 +559,11 @@ def generate_listing_page(posts, lang, output_file):
     for post in posts:
         blog_cards += generate_blog_card(post, lang)
 
-    # Canonical URL for listing page
     if lang == 'th':
         canonical_url = f'{SITE_URL}/th/blog-listing.html'
     else:
         canonical_url = f'{SITE_URL}/blog-listing.html'
     
-    # Filter buttons with correct category mapping
     if lang == 'th':
         filter_buttons = '''
         <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
@@ -542,7 +604,6 @@ def main():
         print(f'❌ Error: {CSV_PATH} not found!')
         return
     
-    # Clean old folders
     if ENGLISH_POSTS_DIR.exists():
         shutil.rmtree(ENGLISH_POSTS_DIR)
         print('🗑️ Deleted old blog folder')
@@ -551,12 +612,10 @@ def main():
         shutil.rmtree(THAI_POSTS_DIR)
         print('🗑️ Deleted old Thai blog folder')
     
-    # Create fresh folders
     ENGLISH_POSTS_DIR.mkdir(exist_ok=True)
     THAI_POSTS_DIR.mkdir(parents=True, exist_ok=True)
     print('📁 Created fresh blog folders')
     
-    # Read CSV
     posts = []
     with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
@@ -565,16 +624,13 @@ def main():
     
     print(f'✅ Found {len(posts)} blog posts')
     
-    # Sort by display_order
     posts.sort(key=lambda x: int(x.get('display_order', 999)))
     
-    # Generate English pages
     print('\n📄 Generating English blog pages...')
     for post in posts:
         generate_blog_page(post, posts, 'en', ENGLISH_POSTS_DIR, '/blog-listing.html')
     generate_listing_page(posts, 'en', ENGLISH_LISTING)
     
-    # Generate Thai pages
     print('\n📄 Generating Thai blog pages...')
     for post in posts:
         generate_blog_page(post, posts, 'th', THAI_POSTS_DIR, '/th/blog-listing.html')
