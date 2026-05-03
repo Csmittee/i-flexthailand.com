@@ -15,6 +15,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+      AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,6 +43,6 @@ jobs:
             exit 0
           fi
           
-          git commit -m "Auto-generate product pages [skip ci]"   # ← ADD [skip ci]
+          git commit -m "Auto-generate blog pages [skip ci]"
           git pull --rebase origin main || true
           git push origin main
