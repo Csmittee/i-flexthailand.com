@@ -10,14 +10,12 @@ SITE_URL = 'https://i-flexthailand.com'
 def _fetch_airtable_to_csv():
     token   = os.environ.get('AIRTABLE_TOKEN', '')
     base_id = os.environ.get('AIRTABLE_BASE_ID', '')
-    bus_id  = os.environ.get('AIRTABLE_BUS_ID', 'BUS01')  # default fallback
     if not token or not base_id:
-        print('ℹ️  No Airtable credentials — using existing CSV')
-        return
+        return  # no env vars → skip, use existing CSV unchanged
     try:
         import urllib.request, urllib.parse, json as _json, csv as _csv
 
-        # Exact column order matching data/products.csv
+        # Exact column order matching data/products.csv in this repo
         FIELDS = [
             'id','name','name_th','Slug','category','category_th',
             'material','material_th','price','main_image',
@@ -27,16 +25,11 @@ def _fetch_airtable_to_csv():
             'display_order','Group'
         ]
 
-        # Filter: correct business + web_published checkbox checked
-        formula = urllib.parse.quote(
-            f"AND({{bus_id}}='{bus_id}', {{web_published}}=1)"
-        )
-        base_url = (
-            f'https://api.airtable.com/v0/{base_id}/tblTBQodWDROXCJO4'
-            f'?filterByFormula={formula}'
-            f'&sort%5B0%5D%5Bfield%5D=display_order'
-            f'&sort%5B0%5D%5Bdirection%5D=asc'
-        )
+        formula = urllib.parse.quote("AND({Status}='Active',{bus_id}='BUS01')")
+        base_url = (f'https://api.airtable.com/v0/{base_id}/Products'
+                    f'?filterByFormula={formula}'
+                    f'&sort%5B0%5D%5Bfield%5D=display_order'
+                    f'&sort%5B0%5D%5Bdirection%5D=asc')
 
         all_records, offset = [], None
         while True:
@@ -69,7 +62,7 @@ def _fetch_airtable_to_csv():
             writer = _csv.DictWriter(f, fieldnames=FIELDS, extrasaction='ignore')
             writer.writeheader()
             writer.writerows(rows)
-        print(f'✅ Airtable → CSV: {len(rows)} products written (bus_id={bus_id}, web_published only)')
+        print(f'✅ Airtable → CSV: {len(rows)} products written to data/products.csv')
 
     except Exception as e:
         print(f'⚠️  Airtable fetch failed ({e}) — existing CSV will be used as fallback')
@@ -108,7 +101,45 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
     <meta name="twitter:description" content="{meta_description}">
     <meta name="twitter:image" content="{main_image}">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+    <script type="application/ld+json">
+    {{
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "{name}",
+        "description": "{meta_description}",
+        "image": "{main_image}",
+        "sku": "{sku}",
+        "brand": {{
+            "@type": "Brand",
+            "name": "I-Flex Thailand"
+        }},
+        "offers": {{
+            "@type": "Offer",
+            "price": {price},
+            "priceCurrency": "THB",
+            "availability": "https://schema.org/PreOrder",
+            "url": "{canonical_url}",
+            "seller": {{
+                "@type": "Organization",
+                "name": "I-Flex Thailand"
+            }}
+        }}
+    }}
+    </script>
+
+    <!-- Google Fonts — preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4ZXYX21PF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag('js', new Date());
+      gtag('config', 'G-X4ZXYX21PF');
+    </script>
 
     <style>
         body {{ background: white; }}
@@ -177,39 +208,16 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         }}
     </style>
 
-   <script type="application/ld+json">
-    {{
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": "{name}",
-        "description": "{meta_description}",
-        "image": "{main_image}",
-        "sku": "{sku}",
-        "brand": {{
-            "@type": "Brand",
-            "name": "I-Flex Thailand"
-        }},
-        "offers": {{
-            "@type": "Offer",
-            "price": {price},
-            "priceCurrency": "THB",
-            "availability": "https://schema.org/PreOrder",
-            "url": "{canonical_url}",
-            "seller": {{
-                "@type": "Organization",
-                "name": "I-Flex Thailand"
-            }}
-        }}
-    }}
-    </script>
-
+    <!-- INJECTOR SCRIPTS -->
+    <script src="/js/iflex-config.js"></script>
+    <script src="/js/iflex-core.js"></script>
 </head>
 <body>
 
 <div class="product-detail-page">
     <div class="product-detail-grid">
         <div class="product-gallery">
-            <img src="{main_image}" alt="{name}" class="main-image" id="mainImage">
+            <img src="{main_image}" alt="{name}" class="main-image" id="mainImage" loading="lazy">
             <div class="thumbnail-grid" id="thumbnailGrid">
                 {thumbnails}
             </div>
@@ -245,8 +253,6 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
     <img src="" alt="Lightbox">
 </div>
 
-<script src="/js/iflex-config.js"></script>
-<script src="/js/iflex-core.js"></script>
 <script>
     const mainImage = document.getElementById('mainImage');
     const thumbnails = document.querySelectorAll('.thumbnail');
@@ -298,7 +304,26 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <meta property="og:description" content="Explore I-Flex Pilates equipment: Reformers, Cadillacs, Wunda Chairs, and Ladder Barrels. Proven 5+ years in studios.">
     <meta property="og:url" content="{canonical_url}">
 
+    <!-- Google Fonts — preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4ZXYX21PF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag('js', new Date());
+      gtag('config', 'G-X4ZXYX21PF');
+    </script>
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+
+    <!-- INJECTOR SCRIPTS -->
+    <script src="/js/iflex-config.js"></script>
+    <script src="/js/iflex-core.js"></script>
+
     <style>
         body {{ background: white; }}
         .products-page {{ max-width: 1280px; margin: 0 auto; padding: 2rem; }}
@@ -344,8 +369,6 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     </div>
 </div>
 
-<script src="/js/iflex-config.js"></script>
-<script src="/js/iflex-core.js"></script>
 <script>
     const filterBtns = document.querySelectorAll('.filter-btn');
     const productCards = document.querySelectorAll('.product-card');
@@ -376,10 +399,12 @@ def parse_gallery(gallery_str):
     if not gallery_str or gallery_str == 'nan':
         return ''
     urls = [line.strip() for line in str(gallery_str).split('\n') if line.strip() and line.strip() != 'nan']
+    if not urls:
+        return ''
     html = ''
     for i, url in enumerate(urls):
         active_class = 'active' if i == 0 else ''
-        html += f'<img src="{url}" class="thumbnail {active_class}" data-index="{i}">\n'
+        html += f'<img src="{url}" class="thumbnail {active_class}" data-index="{i}" loading="lazy">\n'
     return html
 
 def parse_features(features_str):
@@ -405,7 +430,7 @@ def generate_product_card(product, lang, prefix):
     
     return f'''
     <a href="{prefix}product/{slug}.html" class="product-card" data-category="{sub_category}">
-        <img src="{main_image}" alt="{name}">
+        <img src="{main_image}" alt="{name}" loading="lazy">
         <div class="product-card-info">
             <h3>{name}</h3>
             <div class="product-card-price">฿{price:,.0f}</div>
