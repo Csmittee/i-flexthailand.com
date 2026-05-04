@@ -629,22 +629,23 @@
             // Remove existing /th/ prefix if present
             path = path.replace(/^\/th\//, '/');
 
-            // Normalize homepage
+            // Normalize homepage — use trailing slash, not /index.html
+            // to avoid Cloudflare redirect rules intercepting /index.html
             if (path === '/' || path === '/index.html' || path.endsWith('/index.html')) {
-                path = '/index.html';
+                path = '/';
             }
 
             // Add Thai prefix when switching to TH
             if (lang === 'th') {
-                if (path === '/index.html') {
-                    path = '/th/index.html';
+                if (path === '/') {
+                    path = '/th/';
                 } else {
                     path = '/th' + path;
                 }
             }
 
-            // Ensure .html extension if missing
-            if (!path.includes('.')) {
+            // Ensure .html extension if missing (skip for trailing-slash homepage)
+            if (path !== '/' && path !== '/th/' && !path.includes('.')) {
                 path += '.html';
             }
 
