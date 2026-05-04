@@ -244,6 +244,24 @@
             .social-qr-card img { width: 100px; height: 100px; }
         }
     </style>
+
+    <!-- Google Fonts — preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4ZXYX21PF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-X4ZXYX21PF');
+    </script>
+
+    <!-- INJECTOR SCRIPTS -->
+    <script src="/js/iflex-config.js"></script>
+    <script src="/js/iflex-core.js"></script>
 </head>
 <body>
 
@@ -258,7 +276,7 @@
             <h2 class="h2-medium">ช่องทางด่วน</h2>
             <div class="qr-grid">
                 <div class="qr-card">
-                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774899870/I-flex_line_OA.png" alt="LINE QR">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774899870/I-flex_line_OA.png" alt="LINE QR" loading="lazy">
                     <h3>LINE Official</h3>
                     <p>ตอบกลับรวดเร็ว</p>
                 </div>
@@ -287,32 +305,28 @@
         <p class="social-subheading">สแกน QR เพื่อเข้าร่วมชุมชนพิลาทิสหรือติดตามข่าวสาร</p>
         <div class="social-qr-row">
             <div class="social-qr-card">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064426/I-Flex_FB_group_qr-code.png" alt="I-Flex Facebook Group">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064426/I-Flex_FB_group_qr-code.png" alt="I-Flex Facebook Group" loading="lazy">
                 <span class="social-qr-platform">Facebook Group</span>
                 <a href="https://www.facebook.com/groups/iflexthailand" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-facebook-f"></i>I-Flex Thailand</a>
             </div>
             <div class="social-qr-card">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064425/I-Flex_FB_page_qr-code.png" alt="I-Flex Facebook Page">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064425/I-Flex_FB_page_qr-code.png" alt="I-Flex Facebook Page" loading="lazy">
                 <span class="social-qr-platform">Facebook Page</span>
                 <a href="https://www.facebook.com/iflexthailand" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-facebook-f"></i>iflexthailand</a>
             </div>
             <div class="social-qr-card">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064425/I-Flex_instagram_qr-code.png" alt="I-Flex Instagram">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1775064425/I-Flex_instagram_qr-code.png" alt="I-Flex Instagram" loading="lazy">
                 <span class="social-qr-platform">Instagram</span>
                 <a href="https://www.instagram.com/i_flexthai/" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-instagram"></i>@i_flexthai</a>
             </div>
             <div class="social-qr-card">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774899870/I-flex_line_OA.png" alt="I-Flex LINE Official">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/q_auto/f_auto/v1774899870/I-flex_line_OA.png" alt="I-Flex LINE Official" loading="lazy">
                 <span class="social-qr-platform">LINE Official</span>
                 <a href="https://line.me/R/ti/p/@iflexthailand" target="_blank" rel="noopener" class="social-qr-handle"><i class="fab fa-line"></i>@iflexthailand</a>
             </div>
         </div>
     </div>
-</div>
-
-<script src="/js/iflex-config.js"></script>
-<script src="/js/iflex-core.js"></script>
-<script>
+</div><script>
     const btn = document.getElementById('showFormBtn');
     const wrapper = document.getElementById('formWrapper');
     const iframe = document.getElementById('airtableIframe');
