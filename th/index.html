@@ -210,6 +210,95 @@
         })();
     </script>
 
+<!-- NEWS SECTION — dynamic, loaded from news-data.json -->
+    <div class="news-section" id="news-section" style="display:none">
+        <div class="section-container">
+            <h2 class="h2-medium">ข่าวสารล่าสุด</h2>
+            <div class="news-list" id="news-list"></div>
+            <button class="news-expand-btn" id="news-expand-btn" style="display:none">
+                ดูข่าวทั้งหมด ▾
+            </button>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var MAX_VISIBLE = 5;
+        var isThai = window.location.pathname.startsWith('/th/');
+
+        function formatDate(str) {
+            if (!str) return '';
+            var d = new Date(str + 'T00:00:00');
+            return d.toLocaleDateString(isThai ? 'th-TH' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        fetch('/news-data.json')
+            .then(function(r) { return r.json(); })
+            .then(function(items) {
+                if (!items || !items.length) return;
+
+                var section   = document.getElementById('news-section');
+                var list      = document.getElementById('news-list');
+                var expandBtn = document.getElementById('news-expand-btn');
+
+                section.style.display = '';
+
+                var hidden = [];
+
+                items.forEach(function(item, idx) {
+                    var title    = isThai ? (item.title_th || item.title) : item.title;
+                    var body     = isThai ? (item.body_th  || item.body)  : item.body;
+                    var badgeLabel = isThai ? 'ใหม่' : 'NEW';
+
+                    var div = document.createElement('div');
+                    div.className = 'news-item';
+
+                    var badgeHtml = item.is_new
+                        ? '<span class="news-badge blink">' + badgeLabel + '</span>'
+                        : '';
+                    var thumbHtml = item.image_url
+                        ? '<img class="news-thumbnail" src="' + item.image_url + '" alt="" loading="lazy" width="48" height="48">'
+                        : '';
+                    var learnMore = item.link_url
+                        ? '<a href="' + item.link_url + '">อ่านเพิ่มเติม →</a>'
+                        : '';
+
+                    div.innerHTML =
+                        '<div class="news-item-header">' +
+                            badgeHtml +
+                            thumbHtml +
+                            '<span class="news-item-title">' + title + '</span>' +
+                            '<span class="news-item-date">' + formatDate(item.post_date) + '</span>' +
+                        '</div>' +
+                        '<div class="news-body">' + body + (learnMore ? '<br><br>' + learnMore : '') + '</div>';
+
+                    div.addEventListener('click', function() {
+                        var bodyEl = div.querySelector('.news-body');
+                        bodyEl.classList.toggle('open');
+                    });
+
+                    if (idx >= MAX_VISIBLE) {
+                        div.style.display = 'none';
+                        hidden.push(div);
+                    }
+
+                    list.appendChild(div);
+                });
+
+                if (hidden.length > 0) {
+                    expandBtn.style.display = '';
+                    expandBtn.addEventListener('click', function() {
+                        hidden.forEach(function(el) { el.style.display = ''; });
+                        expandBtn.style.display = 'none';
+                    });
+                }
+            })
+            .catch(function() {
+                // Silent fail — section stays hidden
+            });
+    })();
+    </script>
+
+        
     <!-- SECTION 2: PROVEN PERFORMANCE -->
     <div class="section-container">
         <div class="proven-section">
