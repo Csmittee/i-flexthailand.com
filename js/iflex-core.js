@@ -65,7 +65,7 @@
                             </ul>
                         </div>
                         <div class="ham-wrapper">
-                            <div class="hamburger" id="iflexHamburger">
+                          <div class="hamburger" id="iflexHamburger" role="button" aria-label="Open navigation menu" aria-expanded="false">
                                 <span></span>
                                 <span></span>
                                 <span></span>
@@ -149,9 +149,9 @@
                             <p>${IFLEX_CONFIG.tagline}</p>
                             <p>✔️ Full 3-Year Warranty</p>
                             <div class="footer-social">
-                                <a href="${IFLEX_CONFIG.social.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                <a href="${IFLEX_CONFIG.social.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a href="${IFLEX_CONFIG.social.line}" target="_blank"><i class="fab fa-line"></i></a>
+                                <a href="${IFLEX_CONFIG.social.facebook}" target="_blank" aria-label="I-Flex Thailand on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="${IFLEX_CONFIG.social.instagram}" target="_blank" aria-label="I-Flex Thailand on Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="${IFLEX_CONFIG.social.line}" target="_blank" aria-label="I-Flex Thailand on LINE"><i class="fab fa-line"></i></a>
                             </div>
                         </div>
                         <div class="footer-links">
