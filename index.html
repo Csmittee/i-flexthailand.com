@@ -271,6 +271,14 @@
                         ? '<a href="' + item.link_url + '">Learn more →</a>'
                         : '';
 
+                    var galleryHtml = '';
+                    if (item.gallery_images && item.gallery_images.length) {
+                        var imgs = item.gallery_images.map(function(url) {
+                            return '<img src="' + url + '" alt="" loading="lazy" height="80">';
+                        }).join('');
+                        galleryHtml = '<div class="news-gallery">' + imgs + '</div>';
+                    }
+
                     div.innerHTML =
                         '<div class="news-item-header">' +
                             badgeHtml +
@@ -278,7 +286,7 @@
                             '<span class="news-item-title">' + title + '</span>' +
                             '<span class="news-item-date">' + formatDate(item.post_date) + '</span>' +
                         '</div>' +
-                        '<div class="news-body">' + body + (learnMore ? '<br><br>' + learnMore : '') + '</div>';
+                        '<div class="news-body">' + body + galleryHtml + (learnMore ? '<br><br>' + learnMore : '') + '</div>';
 
                     div.addEventListener('click', function() {
                         var bodyEl = div.querySelector('.news-body');
