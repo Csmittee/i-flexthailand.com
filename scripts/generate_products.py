@@ -217,7 +217,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
 <div class="product-detail-page">
     <div class="product-detail-grid">
         <div class="product-gallery">
-            <img src="{main_image}" alt="{name}" class="main-image" id="mainImage" loading="lazy">
+            <img src="{main_image}" alt="{name}" class="main-image" id="mainImage" width="800" height="800" loading="lazy">
             <div class="thumbnail-grid" id="thumbnailGrid">
                 {thumbnails}
             </div>
