@@ -1,0 +1,37 @@
+name: Generate Gallery
+
+on:
+  push:
+    paths:
+      - 'data/gallery.csv'      # CSV fallback trigger (legacy)
+  workflow_dispatch:             # Manual trigger + dashboard worker trigger
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate gallery-data.json
+        run: python scripts/generate_gallery.py
+        env:
+          AIRTABLE_TOKEN:   ${{ secrets.AIRTABLE_TOKEN }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+
+      - name: Commit and push gallery-data.json
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add gallery-data.json
+          git diff --staged --quiet || git commit -m "chore: update gallery data from Airtable"
+          git push
