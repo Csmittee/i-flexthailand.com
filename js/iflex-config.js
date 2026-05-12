@@ -467,6 +467,89 @@ const IFLEX_CONFIG = {
             background: #ffed4a;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+
+/* ===== NEWS SECTION ===== */
+        .news-section {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+        }
+        .news-item {
+            border-left: 3px solid #FFD700;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            background: #fafafa;
+            border-radius: 0 8px 8px 0;
+            transition: background 0.2s;
+        }
+        .news-item:hover { background: #f0f0f0; }
+        .news-item-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .news-badge {
+            background: #FFD700;
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+        .news-badge.blink {
+            animation: newsBlink 1.2s step-start infinite;
+        }
+        @keyframes newsBlink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; }
+        }
+        .news-item-title {
+            font-weight: 600;
+            flex: 1;
+        }
+        .news-item-date {
+            color: #888;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .news-thumbnail {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        .news-body {
+            display: none;
+            padding: 0.75rem 0 0.25rem 0;
+            color: #444;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .news-body.open { display: block; }
+        .news-body a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .news-expand-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #666;
+            display: block;
+        }
+        .news-expand-btn:hover { border-color: #FFD700; color: #333; }
+
+
+
         
         /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
