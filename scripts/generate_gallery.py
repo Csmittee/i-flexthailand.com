@@ -42,7 +42,7 @@ def safe_int(val, default=9999):
 url     = f'https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}'
 headers = {'Authorization': f'Bearer {TOKEN}'}
 params  = {
-    'filterByFormula': f"AND({{active}}=TRUE(), {{bus_id}}='{BUS_ID}')",
+   'filterByFormula': f"{{bus_id}}='{BUS_ID}'",
     'sort[0][field]':     'display_order',
     'sort[0][direction]': 'asc',
 }
