@@ -50,9 +50,7 @@ const IFLEX_CONFIG = {
     style.id = 'iflex-page-styles';
     style.textContent = `
         /* ===== BASE ===== */
-        body {
-            background: white;
-        }
+        
         
         /* ===== HEADER CLASSES ===== */
         .h1-large {
