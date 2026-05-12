@@ -90,8 +90,6 @@ for rec in records:
         'title_th':       title_th,
         'body':           safe_str(f.get('body', '')),
         'body_th':        safe_str(f.get('body_th', '')),
-        'link_url':       safe_str(f.get('link_url', '')),
-        'image_url':      safe_str(f.get('image_url', '')),
         'gallery_images': gallery_list,
         'post_date':      post_date_str[:10] if post_date_str else '',
         'is_new':         is_new,
