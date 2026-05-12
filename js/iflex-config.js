@@ -468,9 +468,10 @@ const IFLEX_CONFIG = {
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-/* ===== NEWS SECTION ===== */
+
+     /* ===== NEWS SECTION ===== */
         .news-section {
-            max-width: 1280px;
+            max-width: 800px;
             margin: 2rem auto;
             padding: 1rem 2rem;
         }
@@ -490,8 +491,8 @@ const IFLEX_CONFIG = {
             gap: 0.75rem;
         }
         .news-badge {
-            background: #FFD700;
-            color: #000;
+            background: #e53e3e;
+            color: #fff;
             font-size: 0.65rem;
             font-weight: 700;
             padding: 2px 6px;
@@ -500,7 +501,7 @@ const IFLEX_CONFIG = {
             flex-shrink: 0;
         }
         .news-badge.blink {
-            animation: newsBlink 1.2s step-start infinite;
+            animation: newsBlink 1s step-start infinite;
         }
         @keyframes newsBlink {
             0%, 100% { opacity: 1; }
@@ -509,18 +510,12 @@ const IFLEX_CONFIG = {
         .news-item-title {
             font-weight: 600;
             flex: 1;
+            font-size: 0.95rem;
         }
         .news-item-date {
             color: #888;
             font-size: 0.8rem;
             white-space: nowrap;
-        }
-        .news-thumbnail {
-            width: 48px;
-            height: 48px;
-            object-fit: cover;
-            border-radius: 6px;
-            flex-shrink: 0;
         }
         .news-body {
             display: none;
@@ -531,10 +526,30 @@ const IFLEX_CONFIG = {
         }
         .news-body.open { display: block; }
         .news-body a {
-            color: #FFD700;
-            text-decoration: none;
-            font-weight: 600;
+            color: #1a73e8;
+            text-decoration: underline;
         }
+        .news-gallery {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.75rem 0 0.25rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: #FFD700 #f0f0f0;
+        }
+        .news-gallery::-webkit-scrollbar { height: 4px; }
+        .news-gallery::-webkit-scrollbar-track { background: #f0f0f0; }
+        .news-gallery::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 2px; }
+        .news-gallery img {
+            height: 80px;
+            width: auto;
+            border-radius: 6px;
+            flex-shrink: 0;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .news-gallery img:hover { transform: scale(1.05); }
         .news-expand-btn {
             background: none;
             border: 1px solid #ddd;
