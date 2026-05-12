@@ -517,14 +517,23 @@ const IFLEX_CONFIG = {
             font-size: 0.8rem;
             white-space: nowrap;
         }
-        .news-body {
-            display: none;
-            padding: 0.75rem 0 0.25rem 0;
+       .news-body {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            padding: 0;
             color: #444;
             font-size: 0.9rem;
             line-height: 1.6;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.5s ease 0.1s,
+                        padding 0.4s ease;
         }
-        .news-body.open { display: block; }
+        .news-body.open {
+            max-height: 600px;
+            opacity: 1;
+            padding: 0.75rem 0 0.25rem 0;
+        }
         .news-body a {
             color: #1a73e8;
             text-decoration: underline;
