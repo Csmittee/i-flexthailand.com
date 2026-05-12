@@ -91,17 +91,17 @@ const IFLEX_CONFIG = {
         }
         
       
-       /* ===== SECTION CONTAINER ===== */
+      /* ===== SECTION CONTAINER ===== */
         .section-container {
             max-width: 1280px;
             margin: 1.5rem auto;
             padding: 3rem 2rem;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
         
         /* ===== HERO SECTION ===== */
@@ -158,12 +158,15 @@ const IFLEX_CONFIG = {
             transition-delay: 0.3s;
         }
         
-        /* ===== BRAND SECTION ===== */
+       
+      /* ===== BRAND SECTION ===== */
         .brand-section {
             text-align: center;
             padding: 3rem 2rem;
-            background: linear-gradient(135deg, #f8f8f8 0%, #fff 100%);
-            border-bottom: 1px solid #eee;
+            background: rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
         
         .brand-section .h2-medium {
@@ -348,14 +351,14 @@ const IFLEX_CONFIG = {
             text-shadow: none;
         }
         
-       /* ===== CTA SECTION ===== */
+     /* ===== CTA SECTION ===== */
         .cta-section {
             text-align: center;
             padding: 3rem 2rem;
-            background: rgba(255, 255, 255, 0.10);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             margin: 2rem 0;
         }
