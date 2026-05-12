@@ -209,7 +209,7 @@ POST_TEMPLATE = '''<!DOCTYPE html>
         </div>
     </div>
     
-    <img src="{featured_image}" alt="{title}" class="blog-hero-image" loading="lazy">
+    <img src="{featured_image}" alt="{title}" class="blog-hero-image" width="1200" height="675" loading="lazy">
     
     <div class="blog-content">
         {content}
