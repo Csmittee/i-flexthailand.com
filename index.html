@@ -1,3 +1,4 @@
+<!-- FILE PATH: index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,9 +38,8 @@
       gtag('config', 'G-X4ZXYX21PF');
     </script>
 
-        <!-- Critical inline styles to prevent FOUC -->
+    <!-- Critical inline styles to prevent FOUC -->
     <style>
-        /* Prevent layout shift before full styles load */
         body {
             visibility: hidden;
         }
@@ -49,34 +49,28 @@
             visibility: visible;
             background: white;
         }
-        /* Show content once styles are ready */
         .styles-loaded body {
             visibility: visible;
         }
     </style>
 
- <!-- INJECTOR SCRIPTS -->
+    <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
-    <script src="/js/iflex-core.js"></script>    
+    <script src="/js/iflex-core.js"></script>
     <!-- Language redirect for Thai users -->
     <script>
         (function() {
-            // Don't redirect if already on Thai page
             if (window.location.pathname.startsWith('/th/')) return;
-            
-            // Check if user prefers Thai
             const userLang = navigator.language || navigator.userLanguage;
             if (userLang && userLang.startsWith('th')) {
                 window.location.href = '/th/';
                 return;
             }
-            
-            // Mark styles as loaded
             document.documentElement.classList.add('styles-loaded');
         })();
     </script>
 
-          <style>
+    <style>
         /* === Modern Sleek Glassmorphism Fix for Comparison Table === */
         .compare-table {
             width: 100%;
@@ -103,7 +97,7 @@
             text-align: center;
             font-size: 15px;
             letter-spacing: 0.4px;
-            border-bottom: 2px solid #22d3ee; /* energetic cyan line */
+            border-bottom: 2px solid #22d3ee;
         }
     
         .compare-row {
@@ -122,24 +116,20 @@
             font-size: 14.5px;
         }
     
-        /* First column (Feature) - left aligned */
         .compare-row .compare-cell:first-child {
             justify-content: flex-start;
             font-weight: 600;
             color: #0f172a;
         }
     
-        /* Check icons */
         .check-yes::before  { content: "✔"; color: #22c55e; font-size: 22px; }
         .check-no::before   { content: "✘"; color: #ef4444; font-size: 22px; }
         .check-maybe::before{ content: "?"; color: #eab308; font-size: 22px; font-weight: bold; }
     
-        /* Hover effect */
         .compare-row:not(.compare-header):hover {
             background: rgba(241, 245, 255, 0.95) !important;
         }
     
-        /* Mobile friendly */
         @media (max-width: 768px) {
             .compare-row {
                 flex-direction: column;
@@ -157,7 +147,6 @@
         }
     </style>
 
-  
 </head>
 <body>
     <div id="hero-spacer" style="height: 0;"></div>
@@ -173,6 +162,8 @@
         window.addEventListener('load', setHeroSpacer);
         window.addEventListener('resize', setHeroSpacer);
     </script>
+
+    <main>
 
     <!-- HERO SECTION -->
     <section class="hero-section">
@@ -194,43 +185,44 @@
     <div class="marquee-section">
         <div class="marquee-container">
             <div class="marquee-track">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
+                <!-- First image: fetchpriority high, explicit dimensions, no lazy -->
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image" width="160" height="120" fetchpriority="high">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image" width="160" height="120" loading="lazy">
                 <!-- Duplicate for seamless loop -->
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image">
-                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576735/Show_room_16.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576726/Show_room_7.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576710/Show_room_8.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576709/Show_room_1.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576687/Show_room_6.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_9.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576690/Show_room_5.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576699/Show_room_4.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576692/Show_room_3.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576685/Show_room_17.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576694/Show_room_15.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576719/Show_room_14.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576682/Show_room_13.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576703/Show_room_12.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774576684/Show_room_10.png" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280355/3f14f06910d2e42b7c637912e0d5eba7.jpg" alt="Showroom image" width="160" height="120" loading="lazy">
+                <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280397/1788cdbc0f7e06379927f1b3436c7188.jpg" alt="Showroom image" width="160" height="120" loading="lazy">
             </div>
         </div>
     </div>
@@ -272,9 +264,9 @@
             <a href="/contact-us.html" class="btn">Get your Quote today</a>
             
             <div class="banner-grid">
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use"><div class="banner-text">Studio use</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium"><div class="banner-text">Resort / Condominium</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use"><div class="banner-text">Home use</div></div>
+                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use" width="300" height="300" loading="lazy"><div class="banner-text">Studio use</div></div>
+                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium" width="300" height="300" loading="lazy"><div class="banner-text">Resort / Condominium</div></div>
+                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use" width="300" height="300" loading="lazy"><div class="banner-text">Home use</div></div>
             </div>
         </div>
     </div>
@@ -295,10 +287,10 @@
         <div style="text-align: center; margin: 1rem 0;"><a href="/product-listing.html" class="btn">Check our Products Now</a></div>
         
         <div class="category-grid">
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381186/Reformer_FT_3.png" alt="Reformer"><h3>Reformer</h3><p>Available in wood maple, oak, Aluminum, single track, double track, and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381147/Cadilac_2.png" alt="Cadillac"><h3>Cadillac</h3><p>Available in wood maple, oak, aluminum and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381107/Barrel_ladder_2.png" alt="Barrel Ladder"><h3>Barrel ladder</h3><p>Available in wood maple, oak and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381272/Wunda_chair_xxx3.png" alt="Wunda Chair"><h3>Wunda chair</h3><p>Available in wood maple, oak, and 6 colors of micro fiber leather.</p></div>
+            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381186/Reformer_FT_3.png" alt="Reformer" width="300" height="200" loading="lazy"><h3>Reformer</h3><p>Available in wood maple, oak, Aluminum, single track, double track, and 6 colors of micro fiber leather.</p></div>
+            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381147/Cadilac_2.png" alt="Cadillac" width="300" height="200" loading="lazy"><h3>Cadillac</h3><p>Available in wood maple, oak, aluminum and 6 colors of micro fiber leather.</p></div>
+            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381107/Barrel_ladder_2.png" alt="Barrel Ladder" width="300" height="200" loading="lazy"><h3>Barrel ladder</h3><p>Available in wood maple, oak and 6 colors of micro fiber leather.</p></div>
+            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381272/Wunda_chair_xxx3.png" alt="Wunda Chair" width="300" height="200" loading="lazy"><h3>Wunda chair</h3><p>Available in wood maple, oak, and 6 colors of micro fiber leather.</p></div>
         </div>
     </div>
 
@@ -325,8 +317,8 @@
         <a href="/contact-us.html" class="btn">Get your Quote today</a>
     </div>
 
-  
-    
+    </main>
+
     <!-- FAQ Accordion Script -->
     <script>
         document.querySelectorAll('.faq-question').forEach(button => {
