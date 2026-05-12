@@ -90,11 +90,18 @@ const IFLEX_CONFIG = {
             text-align: center;
         }
         
-        /* ===== SECTION CONTAINER ===== */
+      
+       /* ===== SECTION CONTAINER ===== */
         .section-container {
             max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            margin: 1.5rem auto;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
         
         /* ===== HERO SECTION ===== */
@@ -341,11 +348,14 @@ const IFLEX_CONFIG = {
             text-shadow: none;
         }
         
-        /* ===== CTA SECTION ===== */
+       /* ===== CTA SECTION ===== */
         .cta-section {
             text-align: center;
             padding: 3rem 2rem;
-            background: #f9f9f9;
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 16px;
             margin: 2rem 0;
         }
