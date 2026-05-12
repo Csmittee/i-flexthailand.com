@@ -229,7 +229,7 @@
             </button>
         </div>
     </div>
-    <script>
+   <script>
     (function() {
         var MAX_VISIBLE = 5;
         var isThai = window.location.pathname.startsWith('/th/');
@@ -245,30 +245,23 @@
             .then(function(items) {
                 if (!items || !items.length) return;
 
-                var section  = document.getElementById('news-section');
-                var list     = document.getElementById('news-list');
+                var section   = document.getElementById('news-section');
+                var list      = document.getElementById('news-list');
                 var expandBtn = document.getElementById('news-expand-btn');
 
                 section.style.display = '';
-
                 var hidden = [];
 
                 items.forEach(function(item, idx) {
-                    var title    = isThai ? (item.title_th || item.title) : item.title;
-                    var body     = isThai ? (item.body_th  || item.body)  : item.body;
+                    var title = isThai ? (item.title_th || item.title) : item.title;
+                    var body  = isThai ? (item.body_th  || item.body)  : item.body;
                     var badgeLabel = isThai ? 'ใหม่' : 'NEW';
 
                     var div = document.createElement('div');
                     div.className = 'news-item';
 
                     var badgeHtml = item.is_new
-                        ? '<span class="news-badge' + (item.is_new ? ' blink' : '') + '">' + badgeLabel + '</span>'
-                        : '';
-                    var thumbHtml = item.image_url
-                        ? '<img class="news-thumbnail" src="' + item.image_url + '" alt="" loading="lazy" width="48" height="48">'
-                        : '';
-                    var learnMore = item.link_url
-                        ? '<a href="' + item.link_url + '">Learn more →</a>'
+                        ? '<span class="news-badge blink">' + badgeLabel + '</span>'
                         : '';
 
                     var galleryHtml = '';
@@ -282,15 +275,13 @@
                     div.innerHTML =
                         '<div class="news-item-header">' +
                             badgeHtml +
-                            thumbHtml +
                             '<span class="news-item-title">' + title + '</span>' +
                             '<span class="news-item-date">' + formatDate(item.post_date) + '</span>' +
                         '</div>' +
-                        '<div class="news-body">' + body + galleryHtml + (learnMore ? '<br><br>' + learnMore : '') + '</div>';
+                        '<div class="news-body">' + body + galleryHtml + '</div>';
 
-                    div.addEventListener('click', function() {
-                        var bodyEl = div.querySelector('.news-body');
-                        bodyEl.classList.toggle('open');
+                    div.querySelector('.news-item-header').addEventListener('click', function() {
+                        div.querySelector('.news-body').classList.toggle('open');
                     });
 
                     if (idx >= MAX_VISIBLE) {
@@ -309,9 +300,7 @@
                     });
                 }
             })
-            .catch(function() {
-                // Silent fail — section stays hidden
-            });
+            .catch(function() {});
     })();
     </script>
 
