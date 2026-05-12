@@ -81,17 +81,21 @@ for rec in records:
         except ValueError:
             pass
 
-    news.append({
-        'title':      title,
-        'title_th':   title_th,
-        'body':       safe_str(f.get('body', '')),
-        'body_th':    safe_str(f.get('body_th', '')),
-        'link_url':   safe_str(f.get('link_url', '')),
-        'image_url':  safe_str(f.get('image_url', '')),
-        'post_date':  post_date_str[:10] if post_date_str else '',
-        'is_new':     is_new,
-    })
+    # Parse gallery_images — comma-separated URLs
+    raw_gallery = safe_str(f.get('gallery_images', ''))
+    gallery_list = [u.strip() for u in raw_gallery.split(',') if u.strip()] if raw_gallery else []
 
+    news.append({
+        'title':          title,
+        'title_th':       title_th,
+        'body':           safe_str(f.get('body', '')),
+        'body_th':        safe_str(f.get('body_th', '')),
+        'link_url':       safe_str(f.get('link_url', '')),
+        'image_url':      safe_str(f.get('image_url', '')),
+        'gallery_images': gallery_list,
+        'post_date':      post_date_str[:10] if post_date_str else '',
+        'is_new':         is_new,
+    })
 # ── Write JSON ────────────────────────────────────────────────────
 with open(OUTPUT, 'w', encoding='utf-8') as fh:
     json.dump(news, fh, ensure_ascii=False, indent=2)
