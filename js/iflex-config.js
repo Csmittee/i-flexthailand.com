@@ -548,7 +548,27 @@ const IFLEX_CONFIG = {
         }
         .news-expand-btn:hover { border-color: #FFD700; color: #333; }
 
-
+        .news-gallery {
+                    display: flex;
+                    gap: 0.5rem;
+                    overflow-x: auto;
+                    padding: 0.75rem 0 0.25rem 0;
+                    scrollbar-width: thin;
+                    scrollbar-color: #FFD700 #f0f0f0;
+                }
+                .news-gallery::-webkit-scrollbar { height: 4px; }
+                .news-gallery::-webkit-scrollbar-track { background: #f0f0f0; }
+                .news-gallery::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 2px; }
+                .news-gallery img {
+                    height: 80px;
+                    width: auto;
+                    border-radius: 6px;
+                    flex-shrink: 0;
+                    object-fit: cover;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                }
+                .news-gallery img:hover { transform: scale(1.05); }
 
         
         /* ===== MOBILE RESPONSIVE ===== */
