@@ -1,0 +1,34 @@
+name: Generate News JSON
+
+on:
+  workflow_dispatch:   # manual trigger from GitHub UI or Cloudflare Worker
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run generate_news.py
+        env:
+          AIRTABLE_TOKEN:   ${{ secrets.AIRTABLE_TOKEN }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+        run: python scripts/generate_news.py
+
+      - name: Commit and push news-data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add news-data.json
+          git diff --cached --quiet || git commit -m "chore: regenerate news-data.json [skip ci]"
+          git push
