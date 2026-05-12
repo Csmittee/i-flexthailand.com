@@ -267,15 +267,7 @@
                 padding: 3rem 2rem;
             }
 
-            .bottom-hero {
-                background: rgba(0, 0, 0, 0.45);
-                backdrop-filter: blur(14px);
-                -webkit-backdrop-filter: blur(14px);
-                border-top: 1px solid rgba(255, 255, 255, 0.15);
-                padding: 5rem 2rem;
-                text-align: center;
-                color: white;
-            }
+           
 
             .news-section {
                 background: rgba(255, 255, 255, 0.10);
