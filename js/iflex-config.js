@@ -739,47 +739,43 @@ const IFLEX_CONFIG = {
                 }
                 .news-gallery img:hover { transform: scale(1.05); }
 
-        
         /* ===== VIDEO CARD + LIGHTBOX ===== */
-        .brand-video-wrap {
+        .video-card-row {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 2.5rem;
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        .brand-text-col {
-            flex: 1;
-            text-align: left;
-        }
-        .brand-video-col {
+        .video-card {
             flex: 1;
             min-width: 0;
-        }
-        .video-thumb-wrap {
             position: relative;
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             background: #000;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
             border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-        .video-thumb-wrap video {
+        .video-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+        }
+        .video-card video {
             width: 100%;
-            display: block;
-            border-radius: 12px;
-            max-height: 320px;
+            aspect-ratio: 9/16;
             object-fit: cover;
+            display: block;
+            pointer-events: none;
         }
-        .video-play-overlay {
+        .video-card-overlay {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(255,215,0,0.85);
+            width: 52px;
+            height: 52px;
+            background: rgba(255,215,0,0.88);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -787,20 +783,24 @@ const IFLEX_CONFIG = {
             pointer-events: none;
             transition: opacity 0.3s;
         }
-        .video-play-overlay svg {
-            width: 24px;
-            height: 24px;
+        .video-card-overlay svg {
+            width: 20px;
+            height: 20px;
             fill: #1a1a1a;
             margin-left: 4px;
         }
-        .video-thumb-wrap.playing .video-play-overlay {
-            opacity: 0;
-        }
-        .video-expand-hint {
+        .video-card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-align: center;
-            font-size: 0.78rem;
-            color: rgba(255,255,255,0.5);
-            margin-top: 0.5rem;
+            padding: 1.5rem 0.5rem 0.6rem;
+            margin: 0;
         }
         /* Lightbox */
         .video-lightbox {
@@ -838,7 +838,7 @@ const IFLEX_CONFIG = {
             padding: 0;
         }
         .video-lightbox-close:hover { color: #FFD700; }
-
+        
         /* ===== FEATURE CARD GRID ===== */
         .feature-grid {
             display: grid;
@@ -932,9 +932,7 @@ const IFLEX_CONFIG = {
             .compare-cell { padding: 0.75rem 0.5rem; }
             .banner-grid { flex-direction: column; align-items: center; }
             .feature-grid { grid-template-columns: 1fr; }
-            .brand-video-wrap { flex-direction: column; }
-            .brand-text-col { text-align: center; }
-            .brand-text-col .h2-medium { text-align: center !important; }
+            .video-card-row { flex-direction: column; }
             .section-container { padding: 0 1rem; }
             .marquee-track img { height: 80px; }
             
