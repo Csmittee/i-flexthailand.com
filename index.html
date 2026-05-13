@@ -244,20 +244,18 @@
                 section.style.display = '';
                 items.forEach(function(t) {
                     var stars = '★'.repeat(t.rating) + '☆'.repeat(5 - t.rating);
-                    var photo = t.photo_url
-                        ? '<img src="' + t.photo_url + '" class="testimonial-photo" alt="' + t.customer_name + '" loading="lazy" width="64" height="64">'
-                        : '<div class="testimonial-photo-placeholder">🧘</div>';
+                    var photoHtml = t.photo_url
+                        ? '<div class="testimonial-photo-wrap"><img src="' + t.photo_url + '" class="testimonial-photo" alt="' + t.customer_name + '" loading="lazy"></div>'
+                        : '<div class="testimonial-photo-placeholder"></div>';
                     track.innerHTML +=
                         '<div class="testimonial-card">' +
-                            '<div class="testimonial-header">' +
-                                photo +
-                                '<div>' +
-                                    '<div class="testimonial-name">' + t.customer_name + '</div>' +
-                                    '<div class="testimonial-title-label">' + t.customer_title + '</div>' +
-                                '</div>' +
+                            photoHtml +
+                            '<div class="testimonial-content">' +
+                                '<div class="testimonial-name">' + t.customer_name + '</div>' +
+                                '<div class="testimonial-title-label">' + t.customer_title + '</div>' +
+                                '<div class="testimonial-stars">' + stars + '</div>' +
+                                '<div class="testimonial-quote">"' + t.quote + '"</div>' +
                             '</div>' +
-                            '<div class="testimonial-stars">' + stars + '</div>' +
-                            '<div class="testimonial-quote">"' + t.quote + '"</div>' +
                         '</div>';
                 });
             })
