@@ -32,13 +32,15 @@
         const isThai = getCurrentLang() === 'th';
         const prefix = isThai ? '/th/' : '/';
 
-        const navLinks = isThai ? [
+       const navLinks = isThai ? [
+            { href: isThai ? '/th/' : '/', text: 'หน้าแรก' },
             { href: prefix + 'about-us.html', text: 'เกี่ยวกับเรา' },
             { href: prefix + 'case-study.html', text: 'กรณีศึกษา' },
             { href: prefix + 'product-listing.html', text: 'สินค้า' },
             { href: prefix + 'blog-listing.html', text: 'บล็อก' },
             { href: prefix + 'contact-us.html', text: 'ติดต่อเรา' }
         ] : [
+            { href: '/', text: 'Home' },
             { href: prefix + 'about-us.html', text: 'About Us' },
             { href: prefix + 'case-study.html', text: 'Case Study' },
             { href: prefix + 'product-listing.html', text: 'Products' },
