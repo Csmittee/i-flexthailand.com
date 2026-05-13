@@ -267,7 +267,7 @@ const IFLEX_CONFIG = {
         /* Photo — left half, fades right */
         .testimonial-photo-wrap {
           position: relative;
-          width: 42%;
+          width: 55%;
           flex-shrink: 0;
           overflow: hidden;
         }
@@ -323,19 +323,21 @@ const IFLEX_CONFIG = {
           font-size: 0.75rem;
           color: rgba(255,255,255,0.6);
           font-style: italic;
-          margin-bottom: 0.6rem;
+          margin-bottom: 0.5rem;
         }
         .testimonial-stars {
           color: #FFD700;
           font-size: 0.85rem;
           letter-spacing: 2px;
-          margin-bottom: 0.75rem;
+          margin-bottom: 0.6rem;
+          display: block;
         }
         .testimonial-quote {
           color: rgba(255,255,255,0.88);
           font-size: 0.85rem;
           line-height: 1.7;
           font-style: italic;
+          margin-top: 0;
         }
         
         @media (max-width: 768px) {
