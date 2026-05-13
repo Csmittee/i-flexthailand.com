@@ -302,7 +302,7 @@ const IFLEX_CONFIG = {
           position: relative;
         }
         .testimonial-content::before {
-          content: '\201C';
+          content: '"';
           position: absolute;
           top: 0.5rem;
           right: 1rem;
