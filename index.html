@@ -97,13 +97,90 @@
         </div>
     </section>
 
-    <!-- BRAND SECTION -->
+  <!-- BRAND SECTION -->
     <div class="brand-section">
         <div class="section-container">
-            <h2 class="h2-medium">I-flex Thailand<br>Power by Adjusted body<br>China</h2>
-            <p>Adjust body found since 2013, over 100k reformers already produced and shipped to 180 countries worldwide</p>
+            <div class="brand-video-wrap">
+                <div class="brand-text-col">
+                    <h2 class="h2-medium" style="text-align:left;">I-flex Thailand<br>Power by Adjusted Body<br>China</h2>
+                    <p>Adjusted Body, founded 2013. Over 100,000 reformers produced and shipped to 180 countries worldwide. See inside the factory where your equipment is made.</p>
+                </div>
+                <div class="brand-video-col">
+                    <div class="video-thumb-wrap" id="brandVideoWrap">
+                        <video id="brandVideo" src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1776369750/AB_overall_1.mp4"
+                            muted playsinline preload="none" loop
+                            poster="https://res.cloudinary.com/dfiomi0lb/video/upload/so_2/AB_overall_1.jpg"
+                            style="width:100%;display:block;border-radius:12px;max-height:320px;object-fit:cover;">
+                        </video>
+                        <div class="video-play-overlay" id="brandVideoOverlay">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <p class="video-expand-hint">Tap to expand fullscreen</p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- VIDEO LIGHTBOX -->
+    <div class="video-lightbox" id="videoLightbox">
+        <div class="video-lightbox-inner">
+            <button class="video-lightbox-close" id="videoLightboxClose">&#x2715;</button>
+            <video id="lightboxVideo" src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1776369750/AB_overall_1.mp4"
+                controls playsinline preload="none"
+                style="width:100%;border-radius:12px;display:block;">
+            </video>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var thumbWrap  = document.getElementById('brandVideoWrap');
+        var thumbVid   = document.getElementById('brandVideo');
+        var overlay    = document.getElementById('brandVideoOverlay');
+        var lightbox   = document.getElementById('videoLightbox');
+        var lbVid      = document.getElementById('lightboxVideo');
+        var lbClose    = document.getElementById('videoLightboxClose');
+
+        // Autoplay muted when scrolled into view
+        var hasLoaded = false;
+        var ioOpts = { threshold: 0.4 };
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    if (!hasLoaded) { thumbVid.load(); hasLoaded = true; }
+                    thumbVid.play().catch(function(){});
+                    thumbWrap.classList.add('playing');
+                } else {
+                    thumbVid.pause();
+                    thumbWrap.classList.remove('playing');
+                }
+            });
+        }, ioOpts);
+        io.observe(thumbWrap);
+
+        // Click thumb → open lightbox with sound
+        thumbWrap.addEventListener('click', function() {
+            thumbVid.pause();
+            thumbWrap.classList.remove('playing');
+            lightbox.classList.add('open');
+            lbVid.load();
+            lbVid.play().catch(function(){});
+        });
+
+        // Close lightbox
+        lbClose.addEventListener('click', function() {
+            lbVid.pause();
+            lightbox.classList.remove('open');
+        });
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                lbVid.pause();
+                lightbox.classList.remove('open');
+            }
+        });
+    })();
+    </script>
 
     <!-- MARQUEE SECTION — images injected dynamically from gallery-data.json -->
     <div class="marquee-section">
@@ -263,32 +340,91 @@
     })();
     </script>
 
-    <!-- SECTION 2: PROVEN PERFORMANCE -->
+   <!-- SECTION 2: PROVEN PERFORMANCE — DISABLED: restore when photo/video ready -->
+    <!--
     <div class="section-container">
         <div class="proven-section">
             <h2 class="h2-large">5 years proven</h2>
             <h3 class="h3-medium">Track and spring are the top performance<br>of a good reformer</h3>
         </div>
     </div>
+    -->
 
-    <!-- SECTION 3: COMPARE MATRIX -->
+ <!-- SECTION 3: FEATURE CARD GRID -->
     <div class="section-container">
-        <h2 class="h2-large" style="text-align: center;">So many choices !<br>Whats actually matter ?</h2>
+        <h2 class="h2-large" style="text-align: center;">So many choices —<br>what actually matters?</h2>
         <p style="text-align: center; margin-bottom: 2rem;">Save your time and hidden cost with us</p>
-        
-        <div class="compare-table">
-            <div class="compare-row compare-header">
-                <div class="compare-cell">Feature</div>
-                <div class="compare-cell">Spec</div>
-                <div class="compare-cell">I-flex</div>
-                <div class="compare-cell">Other</div>
+
+        <div class="feature-grid">
+
+            <!-- Track -->
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618666/3_psoq8d.jpg" alt="Aluminum track" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">Track</p>
+                    <p class="feature-card-spec">Aluminum profile · 3mm thick — smoother, quieter, longer lasting than plastic or thin metal tracks.</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? Others vary</span>
+                    </div>
+                </div>
             </div>
-            <div class="compare-row"><div class="compare-cell">Track</div><div class="compare-cell">Aluminum profile</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Track</div><div class="compare-cell">Thickness 3mm</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Spring</div><div class="compare-cell">German import</div><div class="compare-cell check-yes"></div><div class="compare-cell check-no"></div></div>
-            <div class="compare-row"><div class="compare-cell">Cable and Pulley</div><div class="compare-cell">Cordula 300 strand high tensile</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Lining</div><div class="compare-cell">Micro fiber leather 1.3 mm</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">Structure</div><div class="compare-cell">High quality import Oak, Maple from US, Canada, Thailand</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
+
+            <!-- Spring -->
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618675/7_ilbctp.jpg" alt="German import spring" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">Spring</p>
+                    <p class="feature-card-spec">German imported spring steel — consistent resistance, no stretch fatigue after years of daily studio use.</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">✘ Most others</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cable & Pulley -->
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618667/4_cmu013.jpg" alt="Cable and pulley" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">Cable &amp; Pulley</p>
+                    <p class="feature-card-spec">Cordula 300-strand high-tensile cable — engineered for load, not just looks.</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? Others vary</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lining -->
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618666/2_ugaf4i.jpg" alt="Micro fiber leather lining" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">Lining</p>
+                    <p class="feature-card-spec">1.3mm micro fiber leather — soft, durable, easy to clean. Available in 6 colors.</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? Others vary</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Structure -->
+            <div class="feature-card">
+                <div class="feature-card-img-pair">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770567358/Pil_wood_block_jqvqgj.jpg" alt="Wood structure" loading="lazy" width="200" height="150">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618618/%E7%BB%86%E8%8A%82%E5%9B%BE_t1cqrj.jpg" alt="Structure detail" loading="lazy" width="200" height="150">
+                </div>
+                <div class="feature-card-body">
+                    <p class="feature-card-title">Structure</p>
+                    <p class="feature-card-spec">Premium Oak &amp; Maple imported from US, Canada, and Thailand. Joints built for commercial daily load.</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? Others vary</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
