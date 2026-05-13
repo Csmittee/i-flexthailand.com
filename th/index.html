@@ -164,13 +164,86 @@
         </div>
     </section>
 
-    <!-- BRAND SECTION -->
+  <!-- BRAND SECTION -->
     <div class="brand-section">
         <div class="section-container">
-            <h2 class="h2-medium">I-flex Thailand<br>ขับเคลื่อนโดย Adjusted Body<br>จีน</h2>
-            <p>Adjusted Body ก่อตั้งปี 2013 ผลิตรีฟอร์เมอร์มากกว่า 100,000 เครื่อง ส่งออกไปแล้ว 180 ประเทศทั่วโลก</p>
+            <div class="brand-video-wrap">
+                <div class="brand-text-col">
+                    <h2 class="h2-medium" style="text-align:left;">I-flex Thailand<br>ขับเคลื่อนโดย Adjusted Body<br>จีน</h2>
+                    <p>Adjusted Body ก่อตั้งปี 2013 ผลิตรีฟอร์เมอร์มากกว่า 100,000 เครื่อง ส่งออกไปแล้ว 180 ประเทศทั่วโลก มาดูโรงงานที่ผลิตอุปกรณ์ของคุณ</p>
+                </div>
+                <div class="brand-video-col">
+                    <div class="video-thumb-wrap" id="brandVideoWrap">
+                        <video id="brandVideo" src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1776369750/AB_overall_1.mp4"
+                            muted playsinline preload="none" loop
+                            poster="https://res.cloudinary.com/dfiomi0lb/video/upload/so_2/AB_overall_1.jpg"
+                            style="width:100%;display:block;border-radius:12px;max-height:320px;object-fit:cover;">
+                        </video>
+                        <div class="video-play-overlay" id="brandVideoOverlay">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <p class="video-expand-hint">แตะเพื่อขยายเต็มหน้าจอ</p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- VIDEO LIGHTBOX -->
+    <div class="video-lightbox" id="videoLightbox">
+        <div class="video-lightbox-inner">
+            <button class="video-lightbox-close" id="videoLightboxClose">&#x2715;</button>
+            <video id="lightboxVideo" src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1776369750/AB_overall_1.mp4"
+                controls playsinline preload="none"
+                style="width:100%;border-radius:12px;display:block;">
+            </video>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var thumbWrap  = document.getElementById('brandVideoWrap');
+        var thumbVid   = document.getElementById('brandVideo');
+        var overlay    = document.getElementById('brandVideoOverlay');
+        var lightbox   = document.getElementById('videoLightbox');
+        var lbVid      = document.getElementById('lightboxVideo');
+        var lbClose    = document.getElementById('videoLightboxClose');
+
+        var hasLoaded = false;
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    if (!hasLoaded) { thumbVid.load(); hasLoaded = true; }
+                    thumbVid.play().catch(function(){});
+                    thumbWrap.classList.add('playing');
+                } else {
+                    thumbVid.pause();
+                    thumbWrap.classList.remove('playing');
+                }
+            });
+        }, { threshold: 0.4 });
+        io.observe(thumbWrap);
+
+        thumbWrap.addEventListener('click', function() {
+            thumbVid.pause();
+            thumbWrap.classList.remove('playing');
+            lightbox.classList.add('open');
+            lbVid.load();
+            lbVid.play().catch(function(){});
+        });
+
+        lbClose.addEventListener('click', function() {
+            lbVid.pause();
+            lightbox.classList.remove('open');
+        });
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                lbVid.pause();
+                lightbox.classList.remove('open');
+            }
+        });
+    })();
+    </script>
 
     <!-- MARQUEE SECTION -->
     <!-- MARQUEE SECTION — images injected dynamically from gallery-data.json -->
@@ -331,34 +404,90 @@
     })();
     </script>
 
-    <!-- SECTION 2: PROVEN PERFORMANCE -->
+  <!-- SECTION 2: PROVEN PERFORMANCE — DISABLED: restore when photo/video ready -->
+    <!--
     <div class="section-container">
         <div class="proven-section">
             <h2 class="h2-large">ประสิทธิภาพที่ไว้ใจได้<br>ผ่านการพิสูจน์มา 5 ปี</h2>
             <h3 class="h3-medium">รางและสปริงคือหัวใจของรีฟอร์เมอร์ที่ดี</h3>
         </div>
     </div>
+    -->
 
-    <!-- SECTION 3: COMPARE MATRIX -->
+    <!-- SECTION 3: FEATURE CARD GRID -->
     <div class="section-container">
-        <h2 class="h2-large">มีตัวเลือกเยอะไปหมด!<br>อะไรคือสิ่งที่สำคัญจริงๆ?</h2>
+        <h2 class="h2-large" style="text-align: center;">มีตัวเลือกเยอะไปหมด —<br>อะไรคือสิ่งที่สำคัญจริงๆ?</h2>
         <p style="text-align: center; margin-bottom: 2rem;">ประหยัดเวลาและค่าใช้จ่ายแอบแฝงกับเรา</p>
-        
-        <div class="compare-table">
-            <div class="compare-row compare-header">
-                <div class="compare-cell">จุดมอง</div>
-                <div class="compare-cell">คุณสมบัติ</div>
-                <div class="compare-cell">I-flex</div>
-                <div class="compare-cell">คนอื่น</div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618666/3_psoq8d.jpg" alt="รางอลูมิเนียม" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">ราง</p>
+                    <p class="feature-card-spec">อลูมิเนียมโปรไฟล์ หนา 3 มม — เรียบกว่า เงียบกว่า ทนกว่าราคลาสติกหรือโลหะบาง</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? คนอื่นแล้วแต่</span>
+                    </div>
+                </div>
             </div>
-            <div class="compare-row"><div class="compare-cell">ราง</div><div class="compare-cell">Aluminum profile</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">ราง</div><div class="compare-cell">Thickness 3mm</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">สปริง</div><div class="compare-cell">German import</div><div class="compare-cell check-yes"></div><div class="compare-cell check-no"></div></div>
-            <div class="compare-row"><div class="compare-cell">สายนุ่ม และรอก</div><div class="compare-cell">Cordula 300 strand high tensile</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">วัสดุห่อหุ้ม</div><div class="compare-cell">Micro fiber leather 1.3 mm</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
-            <div class="compare-row"><div class="compare-cell">โครงสร้าง</div><div class="compare-cell">High quality import Oak, Maple from US, Canada, Thailand</div><div class="compare-cell check-yes"></div><div class="compare-cell check-maybe"></div></div>
+
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618675/7_ilbctp.jpg" alt="สปริงนำเข้าจากเยอรมัน" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">สปริง</p>
+                    <p class="feature-card-spec">เหล็กสปริงนำเข้าจากเยอรมัน แรงต้านสม่ำเสมอ ไม่ยืดหย่อนหลังใช้งานหนักปีแล้วปีเล่า</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">✘ ส่วนใหญ่ไม่ใช่</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618667/4_cmu013.jpg" alt="สายเคเบิลและรอก" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">สายเคเบิล &amp; รอก</p>
+                    <p class="feature-card-spec">สายแรงดึงสูง Cordula 300 เส้น — ออกแบบมาเพื่อรับโหลด ไม่ใช่แค่ดูดี</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? คนอื่นแล้วแต่</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img class="feature-card-img" src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618666/2_ugaf4i.jpg" alt="วัสดุบุผิวไมโครไฟเบอร์" loading="lazy" width="400" height="300">
+                <div class="feature-card-body">
+                    <p class="feature-card-title">วัสดุบุผิว</p>
+                    <p class="feature-card-spec">หนังไมโครไฟเบอร์ 1.3 มม — นุ่ม ทนทาน ทำความสะอาดง่าย มีให้เลือก 6 สี</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? คนอื่นแล้วแต่</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-card-img-pair">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770567358/Pil_wood_block_jqvqgj.jpg" alt="โครงไม้" loading="lazy" width="200" height="150">
+                    <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1770618618/%E7%BB%86%E8%8A%82%E5%9B%BE_t1cqrj.jpg" alt="รายละเอียดโครงสร้าง" loading="lazy" width="200" height="150">
+                </div>
+                <div class="feature-card-body">
+                    <p class="feature-card-title">โครงสร้าง</p>
+                    <p class="feature-card-spec">โอ๊คและเมเปิ้ลชั้นดี นำเข้าจากสหรัฐฯ แคนาดา และไทย รับน้ำหนักเชิงพาณิชย์ได้ทุกวัน</p>
+                    <div class="feature-card-compare">
+                        <span class="feature-compare-us">✔ I-Flex</span>
+                        <span class="feature-compare-other">? คนอื่นแล้วแต่</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
 
     <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
     <div class="section-container">
