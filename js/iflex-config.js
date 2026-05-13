@@ -880,7 +880,7 @@ const IFLEX_CONFIG = {
         }
         .feature-card-spec {
             font-size: 0.85rem;
-            color: rgba(255,255,255,0.7);
+            color: #333333;
             margin: 0;
             line-height: 1.4;
         }
@@ -895,7 +895,7 @@ const IFLEX_CONFIG = {
             color: #22c55e;
         }
         .feature-compare-other {
-            color: rgba(255,255,255,0.4);
+            color: #888888;
         }
         /* Structure card — 2 images side by side */
         .feature-card-img-pair {
