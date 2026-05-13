@@ -97,37 +97,53 @@
         </div>
     </section>
 
-  <!-- BRAND SECTION -->
+<!-- BRAND SECTION -->
     <div class="brand-section">
         <div class="section-container">
-            <div class="brand-video-wrap">
-                <div class="brand-text-col">
-                    <h2 class="h2-medium" style="text-align:left;">I-flex Thailand<br>Power by Adjusted Body<br>China</h2>
-                    <p>Adjusted Body, founded 2013. Over 100,000 reformers produced and shipped to 180 countries worldwide. See inside the factory where your equipment is made.</p>
-                </div>
-                <div class="brand-video-col">
-                    <div class="video-thumb-wrap" id="brandVideoWrap">
-                        <video id="brandVideo" src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1776369750/AB_overall_1.mp4"
-                            muted playsinline preload="none" loop
-                            poster="https://res.cloudinary.com/dfiomi0lb/video/upload/so_2/AB_overall_1.jpg"
-                            style="width:100%;display:block;border-radius:12px;max-height:320px;object-fit:cover;">
-                        </video>
-                        <div class="video-play-overlay" id="brandVideoOverlay">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
+            <h2 class="h2-medium">I-flex Thailand<br>Power by Adjusted Body<br>China</h2>
+            <p style="text-align:center;">Adjusted Body, founded 2013. Over 100,000 reformers produced and shipped to 180 countries worldwide. See inside the factory where your equipment is made.</p>
+
+            <div class="video-card-row">
+
+                <div class="video-card" data-src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707813/Business/I-Flex%20Pilates/Video/Handbreak%20version/AB_overall_1_ready_hlvnrj.mp4">
+                    <video muted playsinline preload="none" loop
+                        src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707813/Business/I-Flex%20Pilates/Video/Handbreak%20version/AB_overall_1_ready_hlvnrj.mp4">
+                    </video>
+                    <div class="video-card-overlay">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
                     </div>
-                    <p class="video-expand-hint">Tap to expand fullscreen</p>
+                    <p class="video-card-label">Factory Overview</p>
                 </div>
+
+                <div class="video-card" data-src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707731/Business/I-Flex%20Pilates/Video/Handbreak%20version/Adjustbodyfactory1-ready_uyufsw.mp4">
+                    <video muted playsinline preload="none" loop
+                        src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707731/Business/I-Flex%20Pilates/Video/Handbreak%20version/Adjustbodyfactory1-ready_uyufsw.mp4">
+                    </video>
+                    <div class="video-card-overlay">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                    </div>
+                    <p class="video-card-label">Production Line</p>
+                </div>
+
+                <div class="video-card" data-src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707733/Business/I-Flex%20Pilates/Video/Handbreak%20version/Half_tower_ready_brpxy7.mp4">
+                    <video muted playsinline preload="none" loop
+                        src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707733/Business/I-Flex%20Pilates/Video/Handbreak%20version/Half_tower_ready_brpxy7.mp4">
+                    </video>
+                    <div class="video-card-overlay">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                    </div>
+                    <p class="video-card-label">Half Tower</p>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <!-- VIDEO LIGHTBOX -->
+    <!-- SHARED VIDEO LIGHTBOX -->
     <div class="video-lightbox" id="videoLightbox">
         <div class="video-lightbox-inner">
             <button class="video-lightbox-close" id="videoLightboxClose">&#x2715;</button>
-            <video id="lightboxVideo" src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1776369750/AB_overall_1.mp4"
-                controls playsinline preload="none"
+            <video id="lightboxVideo" controls playsinline preload="none"
                 style="width:100%;border-radius:12px;display:block;">
             </video>
         </div>
@@ -135,47 +151,46 @@
 
     <script>
     (function() {
-        var thumbWrap  = document.getElementById('brandVideoWrap');
-        var thumbVid   = document.getElementById('brandVideo');
-        var overlay    = document.getElementById('brandVideoOverlay');
-        var lightbox   = document.getElementById('videoLightbox');
-        var lbVid      = document.getElementById('lightboxVideo');
-        var lbClose    = document.getElementById('videoLightboxClose');
+        var lightbox = document.getElementById('videoLightbox');
+        var lbVid    = document.getElementById('lightboxVideo');
+        var lbClose  = document.getElementById('videoLightboxClose');
 
-        // Autoplay muted when scrolled into view
-        var hasLoaded = false;
-        var ioOpts = { threshold: 0.4 };
+        // Autoplay muted on scroll for each card
+        var cards = document.querySelectorAll('.video-card');
         var io = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
+                var vid = entry.target.querySelector('video');
                 if (entry.isIntersecting) {
-                    if (!hasLoaded) { thumbVid.load(); hasLoaded = true; }
-                    thumbVid.play().catch(function(){});
-                    thumbWrap.classList.add('playing');
+                    if (!vid.src) vid.load();
+                    vid.play().catch(function(){});
                 } else {
-                    thumbVid.pause();
-                    thumbWrap.classList.remove('playing');
+                    vid.pause();
                 }
             });
-        }, ioOpts);
-        io.observe(thumbWrap);
+        }, { threshold: 0.4 });
 
-        // Click thumb → open lightbox with sound
-        thumbWrap.addEventListener('click', function() {
-            thumbVid.pause();
-            thumbWrap.classList.remove('playing');
-            lightbox.classList.add('open');
-            lbVid.load();
-            lbVid.play().catch(function(){});
+        cards.forEach(function(card) {
+            io.observe(card);
+            card.addEventListener('click', function() {
+                var src = card.getAttribute('data-src');
+                // Pause all thumbs
+                cards.forEach(function(c) { c.querySelector('video').pause(); });
+                lbVid.src = src;
+                lbVid.load();
+                lbVid.play().catch(function(){});
+                lightbox.classList.add('open');
+            });
         });
 
-        // Close lightbox
         lbClose.addEventListener('click', function() {
             lbVid.pause();
+            lbVid.src = '';
             lightbox.classList.remove('open');
         });
         lightbox.addEventListener('click', function(e) {
             if (e.target === lightbox) {
                 lbVid.pause();
+                lbVid.src = '';
                 lightbox.classList.remove('open');
             }
         });
