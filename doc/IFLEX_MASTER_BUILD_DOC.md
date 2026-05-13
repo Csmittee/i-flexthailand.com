@@ -77,14 +77,7 @@ Every HTML page loads exactly two scripts in `<head>`, in this order:
 <script src="/js/iflex-core.js"></script>     <!-- navbar + footer + schema + favicon -->
 ```
 
-### Glass Design System (added May 2026)
-- Body background: fixed Cloudinary image via iflex-core.js
-- All .section-container: rgba(255,255,255,0.12) + backdrop-filter: blur(14px)
-- brand-section: rgba(255,255,255,0.10) + blur
-- bottom-hero: rgba(0,0,0,0.45) + blur (dark for contrast)
-- news-section: rgba(255,255,255,0.10) + blur
-- RULE: Never set background on sections in FOUC blocks in <head> — this kills glass
-- RULE: backdrop-filter requires a semi-transparent background to work — rgba, not solid
+
 
 **Why two scripts, not one:**
 - `iflex-config.js` holds brand identity — colors, fonts, contact info, CSS. Changes per brand.
@@ -418,3 +411,50 @@ The system is designed. It just needs to be stamped onto a new brand.
 | GA broken on central-injector sites (other brands) | janishammer-central | Low (not i-flex) |
 | Customer self-submission testimonials | Future (when customer base grows) | Future |
 | Dashboard: photo picker → Airtable URL → auto-deploy | Dashboard team | Future |
+
+
+---
+
+## PART 12 — GLASS DESIGN SYSTEM (locked May 13, 2026)
+
+This section is the design contract for i-flexthailand.com.
+No chat, no agent, no developer may change these rules without explicit owner decision.
+
+### How the design works
+- Body: fixed cat watermark background image tiling behind everything
+- All content sections scroll as glass panels floating over the background
+- The cat peeks out at the edges between sections — this is intentional design
+- Bottom hero: full-width photo with transparent PNG layered over body background
+
+### Section background rules
+
+| Class | Background | Reason |
+|---|---|---|
+| .section-container | rgba(0,0,0,0.08) + blur(16px) | Dark glass panel |
+| .brand-section | rgba(0,0,0,0.08) + blur(16px) | Dark glass panel |
+| .cta-section | rgba(0,0,0,0.08) + blur(16px) | Dark glass panel |
+| .proven-section | transparent | Inside glass container |
+| .equipment-section | transparent | Inside glass container |
+| .compare-table | transparent | Inside glass container |
+| .faq-item | transparent | Inside glass container |
+| .faq-question | transparent | Inside glass container |
+| .faq-answer | transparent | Inside glass container |
+| .news-item | transparent | Inside glass container |
+| .hero-section | background-image (Nok studio photo) | Intentional photo |
+| .bottom-hero | background-image (bottom hero PNG) | Intentional photo |
+| .marquee-section | #fafafa | Photo strip needs contrast |
+| .category-card | rgba(255,255,255,0.9) | Image cards need contrast |
+| .navbar-fixed-wrapper | rgba(0,0,0,0.6) | Must be readable |
+| .footer | rgba(0,0,0,0.85) | Must be readable |
+
+### What future chats MUST NOT do
+1. Add `background` to the FOUC style block in any HTML page
+2. Add section CSS to `iflex-core.js` — config owns all section styles
+3. Use `aspect-ratio` on `.bottom-hero` — use `min-height` instead
+4. Set `bgColor: "white"` in iflex-config.js — must stay `"transparent"`
+5. Add solid colour (`#fff`, `#f5f5f5`, `white`) to any section inside a container
+6. Duplicate any class that already exists in iflex-config.js into iflex-core.js
+
+### Testing rule
+Always verify design in incognito window after any CSS change.
+Browser cache will hide real state and cause false confidence.
