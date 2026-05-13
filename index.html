@@ -45,9 +45,9 @@
         }
         .hero-section, .brand-section, .marquee-section,
         .proven-section, .compare-table, .equipment-section,
-        .cta-section, .category-grid, .bottom-hero, .faq-item {
+        .cta-section, .category-grid, .bottom-hero, .faq-item,
+        .testimonials-section {
             visibility: visible;
-            
         }
         .styles-loaded body {
             visibility: visible;
@@ -228,7 +228,43 @@
     })();
     </script>
 
-        
+    <!-- TESTIMONIALS SECTION — dynamic, loaded from testimonials-data.json -->
+    <div class="section-container testimonials-section" id="testimonials-section" style="display:none">
+        <h2 class="h2-medium" style="text-align:center">What studio owners say</h2>
+        <div class="testimonials-track" id="testimonials-track"></div>
+    </div>
+    <script>
+    (function() {
+        fetch('/testimonials-data.json')
+            .then(function(r) { return r.json(); })
+            .then(function(items) {
+                if (!items || !items.length) return;
+                var track   = document.getElementById('testimonials-track');
+                var section = document.getElementById('testimonials-section');
+                section.style.display = '';
+                items.forEach(function(t) {
+                    var stars = '★'.repeat(t.rating) + '☆'.repeat(5 - t.rating);
+                    var photo = t.photo_url
+                        ? '<img src="' + t.photo_url + '" class="testimonial-photo" alt="' + t.customer_name + '" loading="lazy" width="64" height="64">'
+                        : '<div class="testimonial-photo-placeholder">🧘</div>';
+                    track.innerHTML +=
+                        '<div class="testimonial-card">' +
+                            '<div class="testimonial-header">' +
+                                photo +
+                                '<div>' +
+                                    '<div class="testimonial-name">' + t.customer_name + '</div>' +
+                                    '<div class="testimonial-title-label">' + t.customer_title + '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="testimonial-stars">' + stars + '</div>' +
+                            '<div class="testimonial-quote">"' + t.quote + '"</div>' +
+                        '</div>';
+                });
+            })
+            .catch(function() {});
+    })();
+    </script>
+
     <!-- SECTION 2: PROVEN PERFORMANCE -->
     <div class="section-container">
         <div class="proven-section">
