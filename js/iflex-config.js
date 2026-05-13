@@ -16,7 +16,7 @@ const IFLEX_CONFIG = {
     primary: "#1A1A1A",
     secondary: "#FFD700",
     accent: "#FFFFFF",
-    bgColor: "white",
+    bgColor: "transparent",
     
     // Typography
     font: "'Montserrat', sans-serif",
@@ -110,7 +110,7 @@ const IFLEX_CONFIG = {
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            background-color: white;
+            background-color: transparent;
             position: relative;
             display: flex;
             align-items: center;
@@ -238,12 +238,12 @@ const IFLEX_CONFIG = {
         
         /* ===== COMPARE TABLE ===== */
         .compare-table {
-            background: #f5f5f5;
+            background: transparent;
             border-radius: 12px;
             overflow-x: auto;
             margin: 2rem auto;
             max-width: 960px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: none;
         }
         
         .compare-row {
@@ -391,20 +391,21 @@ const IFLEX_CONFIG = {
             text-shadow: none;
         }
         
-        /* ===== FAQ ===== */
-        .faq-item {
-            background: #f5f5f5;
+       .faq-item {
+            background: transparent;
             margin-bottom: 1rem;
             border-radius: 8px;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .faq-question {
             width: 100%;
             text-align: left;
             padding: 1rem;
-            background: #fff;
-            border: 1px solid #e0e0e0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
             color: #333;
             font-size: 1rem;
             font-weight: 600;
@@ -424,12 +425,12 @@ const IFLEX_CONFIG = {
             content: "-";
         }
         
-        .faq-answer {
+       .faq-answer {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
             padding: 0 1rem;
-            background: #fff;
+            background: transparent;
         }
         
         .faq-answer.active {
@@ -486,16 +487,16 @@ const IFLEX_CONFIG = {
             margin: 2rem auto;
             padding: 1rem 2rem;
         }
-        .news-item {
+       .news-item {
             border-left: 3px solid #FFD700;
             padding: 0.75rem 1rem;
             margin-bottom: 0.5rem;
             cursor: pointer;
-            background: #fafafa;
+            background: transparent;
             border-radius: 0 8px 8px 0;
             transition: background 0.2s;
         }
-        .news-item:hover { background: #f0f0f0; }
+        .news-item:hover { background: rgba(255,255,255,0.08); }
         .news-item-header {
             display: flex;
             align-items: center;
