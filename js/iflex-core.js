@@ -246,18 +246,7 @@
                 isolation: isolate;
             }
 
-            /* === GLASS SECTIONS — see-through scroll effect === */
-            .section-container {
-                background: rgba(255, 255, 255, 0.12);
-                backdrop-filter: blur(14px);
-                -webkit-backdrop-filter: blur(14px);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 16px;
-                padding: 3rem 2rem;
-                margin: 1.5rem auto;
-                max-width: 1280px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            }
+           
 
             
             
