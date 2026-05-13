@@ -931,6 +931,10 @@ const IFLEX_CONFIG = {
             }
             .compare-cell { padding: 0.75rem 0.5rem; }
             .banner-grid { flex-direction: column; align-items: center; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .brand-video-wrap { flex-direction: column; }
+            .brand-text-col { text-align: center; }
+            .brand-text-col .h2-medium { text-align: center !important; }
             .section-container { padding: 0 1rem; }
             .marquee-track img { height: 80px; }
             
