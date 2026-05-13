@@ -40,7 +40,6 @@
       gtag('config', 'G-X4ZXYX21PF');
     </script>
 
-    <!-- Critical inline styles to prevent FOUC -->
     <style>
         body {
             visibility: hidden;
@@ -50,6 +49,7 @@
         .cta-section, .category-grid, .bottom-hero, .faq-item,
         .testimonials-section {
             visibility: visible;
+            
         }
         .styles-loaded body {
             visibility: visible;
@@ -88,10 +88,12 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
             border: 1px solid rgba(255, 255, 255, 0.12);
         }
+    
         .compare-row.compare-header {
             background: linear-gradient(135deg, #1e2937, #334155) !important;
             color: #ffffff !important;
         }
+    
         .compare-row.compare-header .compare-cell {
             background: transparent !important;
             color: #ffffff !important;
@@ -102,10 +104,12 @@
             letter-spacing: 0.4px;
             border-bottom: 2px solid #22d3ee;
         }
+    
         .compare-row {
             display: flex;
             border-bottom: 1px solid rgba(148, 163, 184, 0.2);
         }
+    
         .compare-cell {
             flex: 1;
             padding: 16px 12px;
@@ -116,21 +120,35 @@
             color: #1e2937;
             font-size: 14.5px;
         }
+    
         .compare-row .compare-cell:first-child {
             justify-content: flex-start;
             font-weight: 600;
             color: #0f172a;
         }
+    
         .check-yes::before  { content: "✔"; color: #22c55e; font-size: 22px; }
         .check-no::before   { content: "✘"; color: #ef4444; font-size: 22px; }
         .check-maybe::before{ content: "?"; color: #eab308; font-size: 22px; font-weight: bold; }
+    
         .compare-row:not(.compare-header):hover {
             background: rgba(241, 245, 255, 0.95) !important;
         }
+    
         @media (max-width: 768px) {
-            .compare-row { flex-direction: column; }
-            .compare-cell { padding: 12px 14px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-            .compare-row.compare-header .compare-cell { text-align: center; padding: 14px 10px; font-size: 14px; }
+            .compare-row {
+                flex-direction: column;
+            }
+            .compare-cell {
+                padding: 12px 14px;
+                text-align: left;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .compare-row.compare-header .compare-cell {
+                text-align: center;
+                padding: 14px 10px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -154,6 +172,7 @@
         </div>
     </div>
 
+    <!-- MARQUEE SECTION -->
     <!-- MARQUEE SECTION — images injected dynamically from gallery-data.json -->
     <div class="marquee-section">
         <div class="marquee-container">
@@ -170,6 +189,7 @@
                     if (!images || !images.length) return;
                     var track = document.getElementById('marquee-track');
                     if (!track) return;
+                    // Double the images for seamless infinite loop
                     var doubled = images.concat(images);
                     doubled.forEach(function(img, i) {
                         var el = document.createElement('img');
@@ -185,11 +205,13 @@
                         track.appendChild(el);
                     });
                 })
-                .catch(function() {});
+                .catch(function() {
+                    // Silent fail — marquee section stays empty, page is unaffected
+                });
         })();
     </script>
 
-    <!-- NEWS SECTION — dynamic, loaded from news-data.json -->
+<!-- NEWS SECTION — dynamic, loaded from news-data.json -->
     <div class="news-section" id="news-section" style="display:none">
         <div class="section-container">
             <h2 class="h2-medium">ข่าวสารล่าสุด</h2>
@@ -214,20 +236,26 @@
             .then(function(r) { return r.json(); })
             .then(function(items) {
                 if (!items || !items.length) return;
+
                 var section   = document.getElementById('news-section');
                 var list      = document.getElementById('news-list');
                 var expandBtn = document.getElementById('news-expand-btn');
+
                 section.style.display = '';
                 var hidden = [];
+
                 items.forEach(function(item, idx) {
                     var title = isThai ? (item.title_th || item.title) : item.title;
                     var body  = isThai ? (item.body_th  || item.body)  : item.body;
                     var badgeLabel = isThai ? 'ใหม่' : 'NEW';
+
                     var div = document.createElement('div');
                     div.className = 'news-item';
+
                     var badgeHtml = item.is_new
                         ? '<span class="news-badge blink">' + badgeLabel + '</span>'
                         : '';
+
                     var galleryHtml = '';
                     if (item.gallery_images && item.gallery_images.length) {
                         var imgs = item.gallery_images.map(function(url) {
@@ -235,6 +263,7 @@
                         }).join('');
                         galleryHtml = '<div class="news-gallery">' + imgs + '</div>';
                     }
+
                     div.innerHTML =
                         '<div class="news-item-header">' +
                             badgeHtml +
@@ -242,15 +271,19 @@
                             '<span class="news-item-date">' + formatDate(item.post_date) + '</span>' +
                         '</div>' +
                         '<div class="news-body">' + body + galleryHtml + '</div>';
+
                     div.querySelector('.news-item-header').addEventListener('click', function() {
                         div.querySelector('.news-body').classList.toggle('open');
                     });
+
                     if (idx >= MAX_VISIBLE) {
                         div.style.display = 'none';
                         hidden.push(div);
                     }
+
                     list.appendChild(div);
                 });
+
                 if (hidden.length > 0) {
                     expandBtn.style.display = '';
                     expandBtn.addEventListener('click', function() {
@@ -265,41 +298,42 @@
 
     <!-- TESTIMONIALS SECTION — dynamic, loaded from testimonials-data.json -->
     <div class="section-container testimonials-section" id="testimonials-section" style="display:none">
-        <h2 class="h2-medium" id="testimonials-heading" style="text-align:center">เสียงจากลูกค้าของเรา</h2>
+        <h2 class="h2-medium" style="text-align:center">เสียงจากลูกค้าของเรา</h2>
         <div class="testimonials-track" id="testimonials-track"></div>
     </div>
     <script>
+    (function() {
         fetch('/testimonials-data.json')
-          .then(function(r) { return r.json(); })
-          .then(function(items) {
-            if (!items.length) return;
-            var track   = document.getElementById('testimonials-track');
-            var section = document.getElementById('testimonials-section');
-            section.style.display = '';
-            items.forEach(function(t) {
-                var stars = '★'.repeat(t.rating) + '☆'.repeat(5 - t.rating);
-                var quote = t.quote_th || t.quote;
-                var photo = t.photo_url
-                    ? '<img src="' + t.photo_url + '" class="testimonial-photo" alt="' + t.customer_name + '" loading="lazy" width="64" height="64">'
-                    : '<div class="testimonial-photo-placeholder">🧘</div>';
-                track.innerHTML +=
-                    '<div class="testimonial-card">' +
-                        '<div class="testimonial-header">' +
-                            photo +
-                            '<div>' +
-                                '<div class="testimonial-name">' + t.customer_name + '</div>' +
-                                '<div class="testimonial-title-label">' + t.customer_title + '</div>' +
+            .then(function(r) { return r.json(); })
+            .then(function(items) {
+                if (!items || !items.length) return;
+                var track   = document.getElementById('testimonials-track');
+                var section = document.getElementById('testimonials-section');
+                section.style.display = '';
+                items.forEach(function(t) {
+                    var stars = '★'.repeat(t.rating) + '☆'.repeat(5 - t.rating);
+                    var photo = t.photo_url
+                        ? '<img src="' + t.photo_url + '" class="testimonial-photo" alt="' + t.customer_name + '" loading="lazy" width="64" height="64">'
+                        : '<div class="testimonial-photo-placeholder">🧘</div>';
+                    track.innerHTML +=
+                        '<div class="testimonial-card">' +
+                            '<div class="testimonial-header">' +
+                                photo +
+                                '<div>' +
+                                    '<div class="testimonial-name">' + t.customer_name + '</div>' +
+                                    '<div class="testimonial-title-label">' + t.customer_title + '</div>' +
+                                '</div>' +
                             '</div>' +
-                        '</div>' +
-                        '<div class="testimonial-stars">' + stars + '</div>' +
-                        '<div class="testimonial-quote">"' + quote + '"</div>' +
-                    '</div>';
-            });
-          })
-          .catch(function() {});
+                            '<div class="testimonial-stars">' + stars + '</div>' +
+                            '<div class="testimonial-quote">"' + (t.quote_th || t.quote) + '"</div>' +
+                        '</div>';
+                });
+            })
+            .catch(function() {});
+    })();
     </script>
 
-   <!-- SECTION: PROVEN PERFORMANCE -->
+    <!-- SECTION 2: PROVEN PERFORMANCE -->
     <div class="section-container">
         <div class="proven-section">
             <h2 class="h2-large">ประสิทธิภาพที่ไว้ใจได้<br>ผ่านการพิสูจน์มา 5 ปี</h2>
@@ -307,7 +341,7 @@
         </div>
     </div>
 
-    <!-- SECTION: COMPARE MATRIX -->
+    <!-- SECTION 3: COMPARE MATRIX -->
     <div class="section-container">
         <h2 class="h2-large">มีตัวเลือกเยอะไปหมด!<br>อะไรคือสิ่งที่สำคัญจริงๆ?</h2>
         <p style="text-align: center; margin-bottom: 2rem;">ประหยัดเวลาและค่าใช้จ่ายแอบแฝงกับเรา</p>
@@ -328,7 +362,31 @@
         </div>
     </div>
 
-    <!-- SECTION: PRODUCT CATEGORIES -->
+    <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
+    <div class="section-container">
+        <div class="equipment-section">
+            <h2 class="h2-large">เราจัดหาอุปกรณ์<br>ที่เหมาะกับคุณ</h2>
+            <p>ไม่ว่าคุณจะเป็นเจ้าของสตูดิโอ โรงแรม หรือใช้งานที่บ้าน</p>
+            <a href="/th/contact-us.html" class="btn">ขอใบเสนอราคา</a>
+            
+            <div class="banner-grid">
+                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use" width="300" height="300" loading="lazy"><div class="banner-text">Studio use</div></div>
+                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium" width="300" height="300" loading="lazy"><div class="banner-text">Resort / Condominium</div></div>
+                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use" width="300" height="300" loading="lazy"><div class="banner-text">Home use</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: STARTING A STUDIO CTA -->
+    <div class="section-container">
+        <div class="cta-section">
+            <h2 class="h2-large">ต้องการคำแนะนำ<br>ในการเริ่มธุรกิจ?</h2>
+            <p>เลือกผลิตภัณฑ์อย่างไร ค่าใช้จ่ายเริ่มต้น ผลตอบแทน เราช่วยคำนวณให้!</p>
+            <a href="/th/contact-us.html" class="btn">ขอคำแนะนำธุรกิจ</a>
+        </div>
+    </div>
+
+    <!-- SECTION 6: PRODUCT CATEGORIES -->
     <div class="section-container">
         <h2 class="h2-large">ผลิตภัณฑ์ของเรา</h2>
         <p style="text-align: center;">ผลิตภัณฑ์มีให้เลือกหลายวัสดุ เราช่วยคุณเลือกได้<br>ไม่ว่าคุณจะเป็นสตูดิโอมืออาชีพ โรงแรม หรือใช้ที่บ้าน</p>
@@ -342,30 +400,7 @@
         </div>
     </div>
 
-    <!-- SECTION: EQUIPMENT THAT FITS YOUR NEED -->
-    <div class="section-container">
-        <div class="equipment-section">
-            <h2 class="h2-large">เราจัดหาอุปกรณ์<br>ที่เหมาะกับคุณ</h2>
-            <p>ไม่ว่าคุณจะเป็นเจ้าของสตูดิโอ โรงแรม หรือใช้งานที่บ้าน</p>
-            <a href="/th/contact-us.html" class="btn">ขอใบเสนอราคา</a>
-            <div class="banner-grid">
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use" width="300" height="300" loading="lazy"><div class="banner-text">Studio use</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium" width="300" height="300" loading="lazy"><div class="banner-text">Resort / Condominium</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use" width="300" height="300" loading="lazy"><div class="banner-text">Home use</div></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION: STARTING A STUDIO CTA -->
-    <div class="section-container">
-        <div class="cta-section">
-            <h2 class="h2-large">ต้องการคำแนะนำ<br>ในการเริ่มธุรกิจ?</h2>
-            <p>เลือกผลิตภัณฑ์อย่างไร ค่าใช้จ่ายเริ่มต้น ผลตอบแทน เราช่วยคำนวณให้!</p>
-            <a href="/th/contact-us.html" class="btn">ขอคำแนะนำธุรกิจ</a>
-        </div>
-    </div>
-
-    <!-- SECTION: FAQ -->
+    <!-- SECTION 7: FAQ -->
     <div class="section-container" id="faq">
         <h2 class="h2-large">คำถามที่พบบ่อย</h2>
         <p style="text-align: center; margin-bottom: 2rem;">ต้องการข้อมูลเพิ่มเติม?</p>
@@ -380,7 +415,7 @@
         <div style="text-align: center; margin-top: 2rem;"><a href="/th/contact-us.html" class="btn">ติดต่อเรา</a></div>
     </div>
 
-    <!-- SECTION: BOTTOM HERO -->
+    <!-- SECTION 8: BOTTOM HERO -->
     <div class="bottom-hero">
         <h2 class="h2-large">พร้อมจะเริ่มเติมสตูดิโอ<br>ของท่านหรือยัง?</h2>
         <p>เลี่ยงความปวดหัว รับคุณภาพ</p>
@@ -392,22 +427,22 @@
 
     <!-- FAQ Accordion Script -->
     <script>
-        document.querySelectorAll('.faq-question').forEach(function(button) {
-            button.addEventListener('click', function() {
-                var answer = button.nextElementSibling;
-                var isActive = answer.classList.contains('active');
-                document.querySelectorAll('.faq-answer').forEach(function(ans) { ans.classList.remove('active'); });
-                document.querySelectorAll('.faq-question').forEach(function(btn) { btn.classList.remove('active'); });
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.remove('active'));
+                document.querySelectorAll('.faq-question').forEach(btn => btn.classList.remove('active'));
                 if (!isActive) { answer.classList.add('active'); button.classList.add('active'); }
             });
         });
     </script>
-
+    
     <!-- Scroll Animation Script -->
     <script>
-        var animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question');
-        var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
+        const animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('revealed');
                 } else {
@@ -415,7 +450,7 @@
                 }
             });
         }, { threshold: 0.3 });
-        animateElements.forEach(function(el) { observer.observe(el); });
+        animateElements.forEach(el => observer.observe(el));
     </script>
 </body>
-</html>     
+</html>
