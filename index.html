@@ -57,7 +57,7 @@
     <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
     <script src="/js/iflex-core.js"></script>
-    <!-- Language redirect for Thai users -->
+   <!-- Language redirect for Thai users -->
     <script>
         (function() {
             var lang = navigator.language || navigator.userLanguage || '';
@@ -65,7 +65,9 @@
             if (isFirstVisit && lang.startsWith('th') && window.location.pathname === '/') {
                 sessionStorage.setItem('lang-chosen', '1');
                 window.location.replace('/th/');
+                return;
             }
+            document.documentElement.classList.add('styles-loaded');
         })();
     </script>
 </head>
