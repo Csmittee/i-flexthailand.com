@@ -363,22 +363,27 @@ const IFLEX_CONFIG = {
             margin: 2rem 0;
         }
         
-        /* ===== BOTTOM HERO ===== */
+    
+       /* ===== BOTTOM HERO ===== */
         .bottom-hero {
             background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1774470225/Bottom-hero-p-1600.png');
             background-size: cover;
-            background-position: right center;
+            background-position: center center;
             background-repeat: no-repeat;
             width: 100%;
-            aspect-ratio: 1600 / 667;
+            min-height: 400px;
+            max-width: 100vw;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             margin: 0;
+            padding: 4rem 2rem;
             border-radius: 0;
             color: white;
+            box-sizing: border-box;
         }
         
         .bottom-hero .h2-large {
