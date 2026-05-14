@@ -535,13 +535,22 @@ const IFLEX_CONFIG = {
         .equipment-split-cards .banner-text {
             flex: 1;
             margin-top: 0;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #FFD700;
             padding: 0 1.5rem;
             text-align: left;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+        .banner-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #FFD700;
+        }
+        .banner-sub {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.4;
         }
 
         @media (max-width: 768px) {
