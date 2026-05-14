@@ -150,12 +150,12 @@
     </div>
 
     <script>
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var lightbox = document.getElementById('videoLightbox');
         var lbVid    = document.getElementById('lightboxVideo');
         var lbClose  = document.getElementById('videoLightboxClose');
 
-        // Autoplay muted on scroll for each card
+        // Autoplay muted on scroll — picks up ALL .video-card elements on page
         var cards = document.querySelectorAll('.video-card');
         var io = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
@@ -173,7 +173,6 @@
             io.observe(card);
             card.addEventListener('click', function() {
                 var src = card.getAttribute('data-src');
-                // Pause all thumbs
                 cards.forEach(function(c) { c.querySelector('video').pause(); });
                 lbVid.src = src;
                 lbVid.load();
@@ -194,7 +193,7 @@
                 lightbox.classList.remove('open');
             }
         });
-    })();
+    });
     </script>
 
     <!-- MARQUEE SECTION — images injected dynamically from gallery-data.json -->
