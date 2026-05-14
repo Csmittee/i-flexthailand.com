@@ -646,38 +646,64 @@ const IFLEX_CONFIG = {
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             margin: 2rem 0;
         }
         
         .category-card {
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
+            position: relative;
+            border-radius: 16px;
             overflow: hidden;
+            aspect-ratio: 3 / 4;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                rgba(0,0,0,0.85) 0%,
+                rgba(0,0,0,0.45) 50%,
+                rgba(0,0,0,0.10) 100%);
+            z-index: 1;
         }
         
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 14px 36px rgba(0,0,0,0.45);
         }
         
-        .category-card img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: contain;
-            margin-bottom: 1rem;
+        .category-card-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            padding: 1.4rem 1.4rem 1.6rem;
         }
         
         .category-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            margin: 0 0 0.4rem;
             color: #FFD700;
-            text-shadow: none;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+            line-height: 1.2;
+        }
+        
+        .category-card p {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.88);
+            margin: 0;
+            line-height: 1.45;
         }
         
      /* ===== CTA SECTION ===== */
@@ -726,11 +752,13 @@ const IFLEX_CONFIG = {
         }
         
        .faq-item {
-            background: transparent;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             margin-bottom: 1rem;
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.18);
         }
         
         .faq-question {
@@ -740,7 +768,7 @@ const IFLEX_CONFIG = {
             background: transparent;
             border: none;
             border-bottom: 1px solid rgba(255,255,255,0.15);
-            color: #333;
+            color: #FFD700;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -767,6 +795,10 @@ const IFLEX_CONFIG = {
             background: transparent;
         }
         
+        .faq-answer p {
+            color: rgba(255,255,255,0.90);
+        }
+        
         .faq-answer.active {
             max-height: 300px;
             padding: 1rem;
@@ -777,7 +809,6 @@ const IFLEX_CONFIG = {
         .proven-section h2,
         .equipment-section h2,
         .cta-section h2,
-        .category-card h3,
         .faq-question {
             opacity: 0;
             transform: translateY(20px);
@@ -788,7 +819,6 @@ const IFLEX_CONFIG = {
         .proven-section h2.revealed,
         .equipment-section h2.revealed,
         .cta-section h2.revealed,
-        .category-card h3.revealed,
         .faq-question.revealed {
             opacity: 1;
             transform: translateY(0);
