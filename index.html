@@ -504,17 +504,39 @@
         <div style="text-align: center; margin: 1rem 0;"><a href="/product-listing.html" class="btn">Check our Products Now</a></div>
         
         <div class="category-grid">
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381186/Reformer_FT_3.png" alt="Reformer" width="300" height="200" loading="lazy"><h3>Reformer</h3><p>Available in wood maple, oak, Aluminum, single track, double track, and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381147/Cadilac_2.png" alt="Cadillac" width="300" height="200" loading="lazy"><h3>Cadillac</h3><p>Available in wood maple, oak, aluminum and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381107/Barrel_ladder_2.png" alt="Barrel Ladder" width="300" height="200" loading="lazy"><h3>Barrel ladder</h3><p>Available in wood maple, oak and 6 colors of micro fiber leather.</p></div>
-            <div class="category-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774381272/Wunda_chair_xxx3.png" alt="Wunda Chair" width="300" height="200" loading="lazy"><h3>Wunda chair</h3><p>Available in wood maple, oak, and 6 colors of micro fiber leather.</p></div>
+            <a href="/product-listing.html?filter=Reformers" class="category-card" style="background-image:url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778795604/Business/I-Flex%20Pilates/AI%20gen%20images/fulltower_reformer_card_with_logo_bjvuni.png')">
+                <div class="category-card-text">
+                    <h3>Reformer</h3>
+                    <p>Available in wood maple, oak, Aluminum, single track, double track, and 6 colors of micro fiber leather.</p>
+                </div>
+            </a>
+            <a href="/product-listing.html?filter=Cadillac" class="category-card" style="background-image:url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778795604/Business/I-Flex%20Pilates/AI%20gen%20images/cadillac_card_ktyfw3.png')">
+                <div class="category-card-text">
+                    <h3>Cadillac</h3>
+                    <p>Available in wood maple, oak, aluminum and 6 colors of micro fiber leather.</p>
+                </div>
+            </a>
+            <a href="/product-listing.html?filter=Wunda+chair" class="category-card" style="background-image:url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778795602/Business/I-Flex%20Pilates/AI%20gen%20images/wundachair_card_with_logo_a4m1yb.png')">
+                <div class="category-card-text">
+                    <h3>Wunda Chair</h3>
+                    <p>Available in wood maple, oak, and 6 colors of micro fiber leather.</p>
+                </div>
+            </a>
+            <a href="/product-listing.html?filter=Barrel+ladder" class="category-card" style="background-image:url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778795601/Business/I-Flex%20Pilates/AI%20gen%20images/barrel_ladder_card_uwidtl.png')">
+                <div class="category-card-text">
+                    <h3>Barrel Ladder</h3>
+                    <p>Available in wood maple, oak and 6 colors of micro fiber leather.</p>
+                </div>
+            </a>
         </div>
     </div>
 
     <!-- SECTION 7: FAQ -->
-    <div class="section-container" id="faq">
-        <h2 class="h2-large" style="text-align: center;">FAQs</h2>
-        <p style="text-align: center; margin-bottom: 2rem;">Need more information?</p>
+    <div class="section-container" id="faq" style="background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1776181066/Ai_reformer_full.jpg'); background-size: cover; background-position: center center; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.72); z-index: 0;"></div>
+        <div style="position: relative; z-index: 1;">
+        <h2 class="h2-large" style="text-align: center; color: #FFD700;">FAQs</h2>
+        <p style="text-align: center; margin-bottom: 2rem; color: rgba(255,255,255,0.85);">Need more information?</p>
         <div style="max-width: 800px; margin: 0 auto;">
             <div class="faq-item"><button class="faq-question">What are the payment terms?</button><div class="faq-answer"><p>Our products are mostly pre-order unless specified. We have some stock for common models. Payment term is 70% deposit on order and 30% upon shipping confirmation from China. For high volume and repeat customers, we may have varying contracts.</p></div></div>
             <div class="faq-item"><button class="faq-question">Does I-Flex have a showroom?</button><div class="faq-answer"><p>No, currently we keep our stock at warehouse in the eastern seaboard area. However, customers who want to visit and review samples are welcome at our partner studio in Pattaya.</p></div></div>
@@ -524,6 +546,7 @@
             <div class="faq-item"><button class="faq-question">Can we customize brand for customers?</button><div class="faq-answer"><p>Yes, even one unit. We accept customer branding requests, basically with customer logo in various locations. For advanced paint or patterns, we need to discuss. This depends on volume order and other factors. Special heights or dimensions are also possible but may require more lead time.</p></div></div>
         </div>
         <div style="text-align: center; margin-top: 2rem;"><a href="/contact-us.html" class="btn">Contact us</a></div>
+        </div><!-- end z-index wrapper -->
     </div>
 
     <!-- SECTION 8: BOTTOM HERO -->
@@ -551,7 +574,7 @@
     
     <!-- Scroll Animation Script -->
     <script>
-        const animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .category-card h3, .faq-question');
+        const animateElements = document.querySelectorAll('.hero-content h1, .hero-content .btn, .brand-section h2, .proven-section h2, .equipment-section h2, .cta-section h2, .faq-question');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
