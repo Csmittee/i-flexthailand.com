@@ -247,6 +247,31 @@
             });
         });
 
+        // Equipment split video — scroll autoplay + lightbox click
+        var equipCard = document.getElementById('equipVideoCard');
+        var equipVid  = document.getElementById('equipVideo');
+        if (equipCard && equipVid) {
+            var equipIo = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        equipVid.play().catch(function(){});
+                    } else {
+                        equipVid.pause();
+                    }
+                });
+            }, { threshold: 0.4 });
+            equipIo.observe(equipCard);
+            equipCard.addEventListener('click', function() {
+                var src = equipCard.getAttribute('data-src');
+                equipVid.pause();
+                cards.forEach(function(c) { c.querySelector('video').pause(); });
+                lbVid.src = src;
+                lbVid.load();
+                lbVid.play().catch(function(){});
+                lightbox.classList.add('open');
+            });
+        }
+
         lbClose.addEventListener('click', function() {
             lbVid.pause();
             lbVid.src = '';
@@ -503,28 +528,55 @@
     </div>
 
     <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
-
-    <!-- SECTION 4: EQUIPMENT THAT FIT YOUR NEED -->
     <div class="section-container">
         <div class="equipment-section">
             <h2 class="h2-large">เราจัดหาอุปกรณ์<br>ที่เหมาะกับคุณ</h2>
             <p>ไม่ว่าคุณจะเป็นเจ้าของสตูดิโอ โรงแรม หรือใช้งานที่บ้าน</p>
             <a href="/th/contact-us.html" class="btn">ขอใบเสนอราคา</a>
-            
-            <div class="banner-grid">
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use" width="300" height="300" loading="lazy"><div class="banner-text">Studio use</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium" width="300" height="300" loading="lazy"><div class="banner-text">Resort / Condominium</div></div>
-                <div class="banner-card"><img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use" width="300" height="300" loading="lazy"><div class="banner-text">Home use</div></div>
+
+            <div class="equipment-split">
+                <!-- Left: feature video -->
+                <div class="equipment-split-video" id="equipVideoCard"
+                     data-src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707976/Business/I-Flex%20Pilates/Video/Handbreak%20version/I_flex_FB_post_1_ready_ygaiuh.mp4">
+                    <video muted playsinline preload="none" loop id="equipVideo"
+                        src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707976/Business/I-Flex%20Pilates/Video/Handbreak%20version/I_flex_FB_post_1_ready_ygaiuh.mp4">
+                    </video>
+                    <div class="video-card-overlay">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                    </div>
+                </div>
+
+                <!-- Right: 3 stacked customer group cards -->
+                <div class="equipment-split-cards">
+                    <div class="banner-card">
+                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use" width="100" height="100" loading="lazy">
+                        <div class="banner-text">Studio use</div>
+                    </div>
+                    <div class="banner-card">
+                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium" width="100" height="100" loading="lazy">
+                        <div class="banner-text">Resort / Condominium</div>
+                    </div>
+                    <div class="banner-card">
+                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use" width="100" height="100" loading="lazy">
+                        <div class="banner-text">Home use</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- SECTION 5: STARTING A STUDIO CTA -->
     <div class="section-container">
-        <div class="cta-section">
-            <h2 class="h2-large">ต้องการคำแนะนำ<br>ในการเริ่มธุรกิจ?</h2>
-            <p>เลือกผลิตภัณฑ์อย่างไร ค่าใช้จ่ายเริ่มต้น ผลตอบแทน เราช่วยคำนวณให้!</p>
-            <a href="/th/contact-us.html" class="btn">ขอคำแนะนำธุรกิจ</a>
+        <div class="cta-image-section">
+            <img class="cta-image-bg"
+                src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1778716975/Business/I-Flex%20Pilates/AI%20gen%20images/open_new_pilates_terfpj.png"
+                alt="เริ่มต้นสตูดิโอพิลาทิสของคุณ" loading="lazy" width="1200" height="600">
+            <div class="cta-image-overlay"></div>
+            <div class="cta-image-content">
+                <h2 class="h2-large">ต้องการคำแนะนำ<br>ในการเริ่มธุรกิจ?</h2>
+                <p>เลือกผลิตภัณฑ์อย่างไร ค่าใช้จ่ายเริ่มต้น ผลตอบแทน เราช่วยคำนวณให้!</p>
+                <a href="/th/contact-us.html" class="btn">ขอคำแนะนำธุรกิจ</a>
+            </div>
         </div>
     </div>
 
