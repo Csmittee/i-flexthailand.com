@@ -217,11 +217,10 @@
     </div>
 
     <script>
-    (function() {
+   document.addEventListener('DOMContentLoaded', function() {
         var lightbox = document.getElementById('videoLightbox');
         var lbVid    = document.getElementById('lightboxVideo');
         var lbClose  = document.getElementById('videoLightboxClose');
-
         var cards = document.querySelectorAll('.video-card');
         var io = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
@@ -234,7 +233,7 @@
                 }
             });
         }, { threshold: 0.4 });
-
+       
         cards.forEach(function(card) {
             io.observe(card);
             card.addEventListener('click', function() {
@@ -259,7 +258,7 @@
                 lightbox.classList.remove('open');
             }
         });
-    })();
+  });
     </script>
     <!-- MARQUEE SECTION — images injected dynamically from gallery-data.json -->
     <div class="marquee-section">
