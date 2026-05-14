@@ -247,35 +247,6 @@
             });
         });
 
-        // Equipment split video — scroll autoplay + lightbox click
-        var equipCard = document.getElementById('equipVideoCard');
-        var equipVid  = document.getElementById('equipVideo');
-        if (equipCard && equipVid) {
-            var equipIo = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        if (!equipVid.getAttribute('data-loaded')) {
-                            equipVid.load();
-                            equipVid.setAttribute('data-loaded', '1');
-                        }
-                        equipVid.play().catch(function(){});
-                    } else {
-                        equipVid.pause();
-                    }
-                });
-            }, { threshold: 0.4 });
-            equipIo.observe(equipCard);
-            equipCard.addEventListener('click', function() {
-                var src = equipCard.getAttribute('data-src');
-                equipVid.pause();
-                cards.forEach(function(c) { c.querySelector('video').pause(); });
-                lbVid.src = src;
-                lbVid.load();
-                lbVid.play().catch(function(){});
-                lightbox.classList.add('open');
-            });
-        }
-
         lbClose.addEventListener('click', function() {
             lbVid.pause();
             lbVid.src = '';
@@ -539,10 +510,10 @@
             <a href="/th/contact-us.html" class="btn">ขอใบเสนอราคา</a>
 
             <div class="equipment-split">
-                <!-- Left: feature video -->
-                <div class="equipment-split-video" id="equipVideoCard"
+                <!-- Left: feature video — video-card class hooks into existing scroll-play observer -->
+                <div class="equipment-split-video video-card"
                      data-src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707976/Business/I-Flex%20Pilates/Video/Handbreak%20version/I_flex_FB_post_1_ready_ygaiuh.mp4">
-                    <video muted playsinline preload="none" loop id="equipVideo"
+                    <video muted playsinline preload="none" loop
                         src="https://res.cloudinary.com/dfiomi0lb/video/upload/v1778707976/Business/I-Flex%20Pilates/Video/Handbreak%20version/I_flex_FB_post_1_ready_ygaiuh.mp4">
                     </video>
                     <div class="video-card-overlay">
@@ -552,17 +523,23 @@
 
                 <!-- Right: 3 stacked customer group cards -->
                 <div class="equipment-split-cards">
-                    <div class="banner-card">
-                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469890/Studio.png" alt="Studio use" width="100" height="100" loading="lazy">
-                        <div class="banner-text">Studio use</div>
+                    <div class="banner-card" style="background-image:url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778722823/Business/I-Flex%20Pilates/AI%20gen%20images/studio_use_yvhjm1.png')">
+                        <div class="banner-text">
+                            <span class="banner-title">Studio use</span>
+                            <span class="banner-sub">ลูกค้าของคุณสมควรได้สิ่งที่ดีที่สุด<br>อุปกรณ์ระดับสตูดิโอ พิสูจน์มาแล้วทุกวัน</span>
+                        </div>
                     </div>
-                    <div class="banner-card">
-                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469854/Commercial.png" alt="Resort / Condominium" width="100" height="100" loading="lazy">
-                        <div class="banner-text">Resort / Condominium</div>
+                    <div class="banner-card" style="background-image:url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778722823/Business/I-Flex%20Pilates/AI%20gen%20images/commercial_use_pzn76q.png')">
+                        <div class="banner-text">
+                            <span class="banner-title">Resort / Condominium</span>
+                            <span class="banner-sub">ยกระดับสิ่งอำนวยความสะดวกของคุณ<br>อุปกรณ์พรีเมียม ที่แขกจดจำ</span>
+                        </div>
                     </div>
-                    <div class="banner-card">
-                        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774469855/home-use.png" alt="Home use" width="100" height="100" loading="lazy">
-                        <div class="banner-text">Home use</div>
+                    <div class="banner-card" style="background-image:url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778722823/Business/I-Flex%20Pilates/AI%20gen%20images/home_use_itn2fl.png')">
+                        <div class="banner-text">
+                            <span class="banner-title">Home use</span>
+                            <span class="banner-sub">สตูดิโอของคุณ ตารางของคุณ<br>คุณภาพระดับมืออาชีพ ในบ้านคุณ</span>
+                        </div>
                     </div>
                 </div>
             </div>
