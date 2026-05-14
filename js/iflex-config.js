@@ -505,51 +505,52 @@ const IFLEX_CONFIG = {
         .equipment-split-cards .banner-card {
             flex: 1 1 0;
             min-height: 0;
-            min-width: unset;
-            display: flex;
-            flex-direction: row;
-            align-items: stretch;
-            gap: 0;
+            position: relative;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.15);
             box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            background: transparent;
-            padding: 0;
-            text-align: left;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .equipment-split-cards .banner-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                rgba(0,0,0,0.82) 0%,
+                rgba(0,0,0,0.45) 45%,
+                rgba(0,0,0,0.08) 100%);
+            z-index: 1;
         }
         .equipment-split-cards .banner-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-        }
-        .equipment-split-cards .banner-card img {
-            width: 42%;
-            height: 100%;
-            object-fit: cover;
-            flex-shrink: 0;
-            border-radius: 0;
-            max-width: unset;
-            display: block;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.4);
         }
         .equipment-split-cards .banner-text {
-            flex: 1;
-            margin-top: 0;
-            padding: 0 1.5rem;
-            text-align: left;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            padding: 1rem 1.2rem 1.1rem;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            gap: 0.3rem;
+            gap: 0.25rem;
         }
         .banner-title {
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: #FFD700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            line-height: 1.2;
         }
         .banner-sub {
-            font-size: 0.82rem;
-            color: rgba(255,255,255,0.7);
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.88);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             line-height: 1.4;
         }
 
