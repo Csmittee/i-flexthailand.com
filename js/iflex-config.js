@@ -706,6 +706,10 @@ const IFLEX_CONFIG = {
             color: rgba(255,255,255,0.88);
             margin: 0;
             line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
      /* ===== CTA SECTION ===== */
