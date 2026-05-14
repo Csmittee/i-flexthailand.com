@@ -654,7 +654,8 @@ const IFLEX_CONFIG = {
             position: relative;
             border-radius: 16px;
             overflow: hidden;
-            aspect-ratio: 3 / 4;
+            width: 100%;
+            height: 320px;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -663,6 +664,7 @@ const IFLEX_CONFIG = {
             cursor: pointer;
             display: block;
             text-decoration: none;
+            color: inherit;
         }
         
         .category-card::before {
@@ -808,8 +810,7 @@ const IFLEX_CONFIG = {
         .brand-section h2,
         .proven-section h2,
         .equipment-section h2,
-        .cta-section h2,
-        .faq-question {
+        .cta-section h2 {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -818,8 +819,7 @@ const IFLEX_CONFIG = {
         .brand-section h2.revealed,
         .proven-section h2.revealed,
         .equipment-section h2.revealed,
-        .cta-section h2.revealed,
-        .faq-question.revealed {
+        .cta-section h2.revealed {
             opacity: 1;
             transform: translateY(0);
         }
