@@ -254,6 +254,10 @@
             var equipIo = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
+                        if (!equipVid.getAttribute('data-loaded')) {
+                            equipVid.load();
+                            equipVid.setAttribute('data-loaded', '1');
+                        }
                         equipVid.play().catch(function(){});
                     } else {
                         equipVid.pause();
