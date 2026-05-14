@@ -389,6 +389,16 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
             }});
         }});
     }});
+
+    // Auto-apply filter from URL param e.g. ?filter=Reformers
+    (function() {{
+        const params = new URLSearchParams(window.location.search);
+        const requested = params.get('filter');
+        if (requested) {{
+            const target = document.querySelector('.filter-btn[data-filter="' + requested + '"]');
+            if (target) target.click();
+        }}
+    }})();
 </script>
 </body>
 </html>
