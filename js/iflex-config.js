@@ -493,20 +493,22 @@ const IFLEX_CONFIG = {
             fill: #1a1a1a;
             margin-left: 4px;
         }
-        /* Cards column: fills remaining width, stretches to match video height */
+        /* Cards column: fills remaining width, 3 cards stretch equally to fill video height */
         .equipment-split-cards {
             flex: 1 1 0;
             display: flex;
             flex-direction: column;
             gap: 1rem;
             min-width: 0;
+            align-self: stretch;
         }
         .equipment-split-cards .banner-card {
-            flex: 1;
+            flex: 1 1 0;
+            min-height: 0;
             min-width: unset;
             display: flex;
             flex-direction: row;
-            align-items: center;
+            align-items: stretch;
             gap: 0;
             border-radius: 12px;
             overflow: hidden;
@@ -522,8 +524,8 @@ const IFLEX_CONFIG = {
             box-shadow: 0 8px 24px rgba(0,0,0,0.35);
         }
         .equipment-split-cards .banner-card img {
-            width: 40%;
-            height: 120px;
+            width: 42%;
+            height: 100%;
             object-fit: cover;
             flex-shrink: 0;
             border-radius: 0;
@@ -534,10 +536,12 @@ const IFLEX_CONFIG = {
             flex: 1;
             margin-top: 0;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #FFD700;
-            padding: 0 1.25rem;
+            padding: 0 1.5rem;
             text-align: left;
+            display: flex;
+            align-items: center;
         }
 
         @media (max-width: 768px) {
@@ -546,14 +550,19 @@ const IFLEX_CONFIG = {
                 align-items: center;
             }
             .equipment-split-video {
-                width: 70%;
-                max-width: 320px;
+                width: 72%;
+                max-width: 300px;
             }
             .equipment-split-cards {
                 width: 100%;
+                align-self: auto;
+            }
+            .equipment-split-cards .banner-card {
+                min-height: 100px;
             }
             .equipment-split-cards .banner-card img {
-                height: 90px;
+                width: 38%;
+                height: 100%;
             }
         }
 
