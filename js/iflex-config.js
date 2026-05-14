@@ -441,22 +441,26 @@ const IFLEX_CONFIG = {
             font-size: 1.1rem;
         }
 
-        /* ===== EQUIPMENT SPLIT LAYOUT (video left + stacked cards right) ===== */
+        /* ===== EQUIPMENT SPLIT LAYOUT (video left TikTok ratio + stacked cards right) ===== */
         .equipment-split {
             display: flex;
+            flex-direction: row;
             gap: 2rem;
-            align-items: stretch;
+            align-items: flex-start;
             margin-top: 2rem;
         }
+        /* Video column: fixed TikTok 9/16 ratio — same approach as .video-card video above */
         .equipment-split-video {
-            flex: 1 1 50%;
-            min-width: 0;
+            flex: 0 0 auto;
+            width: 38%;
+            aspect-ratio: 9 / 16;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
             background: #000;
             border: 1px solid rgba(255,255,255,0.15);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            cursor: pointer;
         }
         .equipment-split-video video {
             width: 100%;
@@ -478,6 +482,10 @@ const IFLEX_CONFIG = {
             align-items: center;
             justify-content: center;
             pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .equipment-split-video:hover .video-card-overlay {
+            opacity: 0.7;
         }
         .equipment-split-video .video-card-overlay svg {
             width: 20px;
@@ -485,8 +493,9 @@ const IFLEX_CONFIG = {
             fill: #1a1a1a;
             margin-left: 4px;
         }
+        /* Cards column: fills remaining width, stretches to match video height */
         .equipment-split-cards {
-            flex: 1 1 50%;
+            flex: 1 1 0;
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -496,107 +505,117 @@ const IFLEX_CONFIG = {
             flex: 1;
             min-width: unset;
             display: flex;
+            flex-direction: row;
             align-items: center;
-            gap: 1rem;
+            gap: 0;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.15);
             box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            text-align: left;
             background: transparent;
             padding: 0;
+            text-align: left;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .equipment-split-cards .banner-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
         }
         .equipment-split-cards .banner-card img {
-            width: 100px;
-            height: 100px;
+            width: 40%;
+            height: 120px;
             object-fit: cover;
             flex-shrink: 0;
             border-radius: 0;
             max-width: unset;
+            display: block;
         }
         .equipment-split-cards .banner-text {
+            flex: 1;
             margin-top: 0;
             font-weight: 700;
             font-size: 1rem;
             color: #FFD700;
-            padding: 0 1rem;
+            padding: 0 1.25rem;
+            text-align: left;
         }
 
         @media (max-width: 768px) {
             .equipment-split {
                 flex-direction: column;
+                align-items: center;
             }
             .equipment-split-video {
-                min-height: 260px;
+                width: 70%;
+                max-width: 320px;
+            }
+            .equipment-split-cards {
+                width: 100%;
             }
             .equipment-split-cards .banner-card img {
-                width: 80px;
-                height: 80px;
+                height: 90px;
             }
         }
 
         /* ===== CTA IMAGE SECTION (Starting a studio) ===== */
+        /* Uses background-image pattern — same as .hero-section and .bottom-hero */
         .cta-image-section {
+            background-image: url('https://res.cloudinary.com/dfiomi0lb/image/upload/v1778716975/Business/I-Flex%20Pilates/AI%20gen%20images/open_new_pilates_terfpj.png');
+            background-size: cover;
+            background-position: 60% center;
             position: relative;
             border-radius: 16px;
             overflow: hidden;
-            min-height: 340px;
+            min-height: 400px;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
         }
-        .cta-image-bg {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-            /* Crop 20% left and right — achieved by scaling and centering */
-            transform: scaleX(1.4);
-            transform-origin: center center;
-            display: block;
-            z-index: 0;
-        }
-        .cta-image-overlay {
+        /* Dark gradient left to right — text readable on left, photo visible on right */
+        .cta-image-section::before {
+            content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(to right,
-                rgba(0,0,0,0.75) 0%,
-                rgba(0,0,0,0.55) 40%,
-                rgba(0,0,0,0.15) 70%,
-                rgba(0,0,0,0.05) 100%);
+                rgba(0,0,0,0.78) 0%,
+                rgba(0,0,0,0.55) 38%,
+                rgba(0,0,0,0.18) 65%,
+                rgba(0,0,0,0.0) 100%);
+            border-radius: inherit;
             z-index: 1;
+            pointer-events: none;
         }
         .cta-image-content {
             position: relative;
             z-index: 2;
             padding: 3rem 2.5rem;
-            max-width: 520px;
+            max-width: 480px;
             text-align: left;
         }
         .cta-image-content h2 {
             text-align: left !important;
             color: #FFD700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
             margin-bottom: 0.75rem;
         }
         .cta-image-content p {
-            color: rgba(255,255,255,0.9);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            color: rgba(255,255,255,0.92);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
             margin-bottom: 0.5rem;
             font-size: 1rem;
             line-height: 1.6;
         }
         @media (max-width: 768px) {
             .cta-image-section {
-                min-height: 300px;
+                min-height: 340px;
+                background-position: 70% center;
             }
             .cta-image-content {
                 padding: 2rem 1.5rem;
-                max-width: 100%;
+                max-width: 85%;
             }
             .cta-image-content h2 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
         }
         
