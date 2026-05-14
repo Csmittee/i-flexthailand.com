@@ -440,6 +440,165 @@ const IFLEX_CONFIG = {
             font-weight: 600;
             font-size: 1.1rem;
         }
+
+        /* ===== EQUIPMENT SPLIT LAYOUT (video left + stacked cards right) ===== */
+        .equipment-split {
+            display: flex;
+            gap: 2rem;
+            align-items: stretch;
+            margin-top: 2rem;
+        }
+        .equipment-split-video {
+            flex: 1 1 50%;
+            min-width: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .equipment-split-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+        .equipment-split-video .video-card-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(255,215,0,0.88);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .equipment-split-video .video-card-overlay svg {
+            width: 20px;
+            height: 20px;
+            fill: #1a1a1a;
+            margin-left: 4px;
+        }
+        .equipment-split-cards {
+            flex: 1 1 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 0;
+        }
+        .equipment-split-cards .banner-card {
+            flex: 1;
+            min-width: unset;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            text-align: left;
+            background: transparent;
+            padding: 0;
+        }
+        .equipment-split-cards .banner-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border-radius: 0;
+            max-width: unset;
+        }
+        .equipment-split-cards .banner-text {
+            margin-top: 0;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #FFD700;
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .equipment-split {
+                flex-direction: column;
+            }
+            .equipment-split-video {
+                min-height: 260px;
+            }
+            .equipment-split-cards .banner-card img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* ===== CTA IMAGE SECTION (Starting a studio) ===== */
+        .cta-image-section {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            min-height: 340px;
+            display: flex;
+            align-items: center;
+        }
+        .cta-image-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            /* Crop 20% left and right — achieved by scaling and centering */
+            transform: scaleX(1.4);
+            transform-origin: center center;
+            display: block;
+            z-index: 0;
+        }
+        .cta-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right,
+                rgba(0,0,0,0.75) 0%,
+                rgba(0,0,0,0.55) 40%,
+                rgba(0,0,0,0.15) 70%,
+                rgba(0,0,0,0.05) 100%);
+            z-index: 1;
+        }
+        .cta-image-content {
+            position: relative;
+            z-index: 2;
+            padding: 3rem 2.5rem;
+            max-width: 520px;
+            text-align: left;
+        }
+        .cta-image-content h2 {
+            text-align: left !important;
+            color: #FFD700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            margin-bottom: 0.75rem;
+        }
+        .cta-image-content p {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .cta-image-section {
+                min-height: 300px;
+            }
+            .cta-image-content {
+                padding: 2rem 1.5rem;
+                max-width: 100%;
+            }
+            .cta-image-content h2 {
+                font-size: 1.6rem;
+            }
+        }
         
         /* ===== PRODUCT CARDS ===== */
         .category-grid {
