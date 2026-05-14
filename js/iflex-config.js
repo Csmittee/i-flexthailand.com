@@ -342,18 +342,22 @@ const IFLEX_CONFIG = {
         
         @media (max-width: 768px) {
           .testimonial-card {
-            min-width: 85vw;
+            min-width: 92vw;
             flex-direction: column;
             min-height: unset;
           }
           .testimonial-photo-wrap {
             width: 100%;
-            height: 160px;
+            height: 220px;
           }
           .testimonial-photo-wrap::after {
-            background: linear-gradient(to bottom, transparent 40%, rgba(10,10,20,0.45) 100%);
+            background: linear-gradient(to bottom, transparent 40%, rgba(10,10,20,0.55) 100%);
           }
-          .testimonial-content { padding: 1.2rem; }
+          .testimonial-content {
+            padding: 1.2rem;
+            background: rgba(10,10,20,0.35);
+            border-radius: 0 0 16px 16px;
+          }
         }
 
 
