@@ -6,6 +6,9 @@ on:
     paths:
       - 'data/testimonials*.csv'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
