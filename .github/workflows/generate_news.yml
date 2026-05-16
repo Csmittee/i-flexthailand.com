@@ -1,7 +1,10 @@
 name: Generate News JSON
 
 on:
-  workflow_dispatch:   # manual trigger from GitHub UI or Cloudflare Worker
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   generate:
