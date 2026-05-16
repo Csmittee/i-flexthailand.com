@@ -630,27 +630,29 @@
         const currentPath = window.location.pathname;
 
         function switchTo(lang) {
-            let path = currentPath;
+            // ── Blog post pages: use baked-in alternate URL from <html> tag ──
+            const htmlEl = document.documentElement;
+            const altUrl = lang === 'th'
+                ? htmlEl.getAttribute('data-lang-th')
+                : htmlEl.getAttribute('data-lang-en');
 
-            // Remove existing /th/ prefix if present
+            if (altUrl) {
+                window.location.href = altUrl;
+                return;
+            }
+
+            // ── All other pages: path string manipulation (unchanged) ──
+            let path = currentPath;
             path = path.replace(/^\/th\//, '/');
 
-            // Normalize homepage — use trailing slash, not /index.html
-            // to avoid Cloudflare redirect rules intercepting /index.html
             if (path === '/' || path === '/index.html' || path.endsWith('/index.html')) {
                 path = '/';
             }
 
-            // Add Thai prefix when switching to TH
             if (lang === 'th') {
-                if (path === '/') {
-                    path = '/th/';
-                } else {
-                    path = '/th' + path;
-                }
+                path = path === '/' ? '/th/' : '/th' + path;
             }
 
-            // Ensure .html extension if missing (skip for trailing-slash homepage)
             if (path !== '/' && path !== '/th/' && !path.includes('.')) {
                 path += '.html';
             }
@@ -659,12 +661,10 @@
             window.location.href = path;
         }
 
-        // Attach click handlers to both desktop and mobile language options
         document.querySelectorAll('.lang-option, .mobile-lang-option').forEach(el => {
             el.addEventListener('click', () => {
                 const lang = el.getAttribute('data-lang');
                 const isCurrentlyThai = getCurrentLang() === 'th';
-
                 if (lang && lang !== (isCurrentlyThai ? 'th' : 'en')) {
                     switchTo(lang);
                 }
@@ -673,7 +673,6 @@
 
         if (DEBUG) console.log(`🌍 Language switcher ready. Current: ${getCurrentLang().toUpperCase()}`);
     }
-
     function setFavicon() {
         // Remove any existing favicon links first (stops flashing)
         document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')
