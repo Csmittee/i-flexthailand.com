@@ -1,6 +1,70 @@
 import csv
 import shutil
+import os
 from pathlib import Path
+
+SITE_URL = 'https://i-flexthailand.com'
+
+# ── Airtable fetch (runs before main, overwrites CSV if token present) ─
+def _fetch_airtable_to_csv():
+    token   = os.environ.get('AIRTABLE_TOKEN', '')
+    base_id = os.environ.get('AIRTABLE_BASE_ID', '')
+    if not token or not base_id:
+        return  # no env vars → skip, use existing CSV unchanged
+    try:
+        import urllib.request, urllib.parse, json as _json, csv as _csv
+
+        FIELDS = [
+            'title','title_th','slug','slug_th',
+            'excerpt','excerpt_th','content','content_th',
+            'category','category_th','featured_image','gallery_images',
+            'author','date','read_time','display_order'
+        ]
+
+        formula = urllib.parse.quote("AND({web_published}=1)")
+        base_url = (f'https://api.airtable.com/v0/{base_id}/Blogs'
+                    f'?filterByFormula={formula}'
+                    f'&sort%5B0%5D%5Bfield%5D=display_order'
+                    f'&sort%5B0%5D%5Bdirection%5D=asc')
+
+        all_records, offset = [], None
+        while True:
+            page_url = base_url + (f'&offset={urllib.parse.quote(str(offset))}' if offset else '')
+            req = urllib.request.Request(page_url, headers={'Authorization': f'Bearer {token}'})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                data = _json.loads(r.read())
+            all_records.extend(data.get('records', []))
+            offset = data.get('offset')
+            if not offset:
+                break
+
+        if not all_records:
+            print('⚠️  Airtable returned 0 records — keeping existing CSV')
+            return
+
+        rows = []
+        for rec in all_records:
+            f = rec.get('fields', {})
+            row = {}
+            for col in FIELDS:
+                val = f.get(col, '')
+                if isinstance(val, list):
+                    val = '\n'.join(str(v) for v in val)
+                row[col] = str(val) if val != '' else ''
+            rows.append(row)
+
+        Path('data').mkdir(exist_ok=True)
+        with open('data/blog.csv', 'w', encoding='utf-8', newline='') as f:
+            writer = _csv.DictWriter(f, fieldnames=FIELDS, extrasaction='ignore')
+            writer.writeheader()
+            writer.writerows(rows)
+        print(f'✅ Airtable → CSV: {len(rows)} blog posts written to data/blog.csv')
+
+    except Exception as e:
+        print(f'⚠️  Airtable fetch failed ({e}) — existing CSV will be used as fallback')
+
+_fetch_airtable_to_csv()
+# ── End Airtable fetch ─────────────────────────────────────────────────
 
 # Configuration
 CSV_PATH = Path('data/blog.csv')
@@ -8,8 +72,6 @@ ENGLISH_LISTING = Path('blog-listing.html')
 THAI_LISTING = Path('th/blog-listing.html')
 ENGLISH_POSTS_DIR = Path('blog')
 THAI_POSTS_DIR = Path('th/blog')
-
-SITE_URL = 'https://i-flexthailand.com'
 
 # ===== POST TEMPLATE =====
 POST_TEMPLATE = '''<!DOCTYPE html>
@@ -231,24 +293,16 @@ POST_TEMPLATE = '''<!DOCTYPE html>
 </div>
 
 <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox?.querySelector('img');
-    const lightboxClose = lightbox?.querySelector('.lightbox-close');
-    
     function openLightbox(src) {{
-        if (lightboxImg) {{
-            lightboxImg.src = src;
-            lightbox.classList.add('active');
-        }}
+        document.querySelector('#lightbox img').src = src;
+        document.getElementById('lightbox').classList.add('active');
     }}
-    
-    lightboxClose?.addEventListener('click', () => {{
-        lightbox.classList.remove('active');
+    document.querySelector('.lightbox-close').addEventListener('click', () => {{
+        document.getElementById('lightbox').classList.remove('active');
     }});
-    
-    lightbox?.addEventListener('click', (e) => {{
-        if (e.target === lightbox) {{
-            lightbox.classList.remove('active');
+    document.getElementById('lightbox').addEventListener('click', (e) => {{
+        if (e.target === document.getElementById('lightbox')) {{
+            document.getElementById('lightbox').classList.remove('active');
         }}
     }});
 </script>
@@ -262,7 +316,7 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | I-Flex Pilates</title>
-    <meta name="description" content="Practical advice for opening and growing your Pilates studio in Thailand. Equipment guides, space planning, and insider tips from experienced owners.">
+    <meta name="description" content="Pilates tips, equipment guides, and wellness insights from I-Flex Thailand.">
 
     <!-- Canonical -->
     <link rel="canonical" href="{canonical_url}">
@@ -271,10 +325,10 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="I-Flex Thailand">
     <meta property="og:title" content="Blog | I-Flex Pilates">
-    <meta property="og:description" content="Practical advice for opening and growing your Pilates studio in Thailand.">
+    <meta property="og:description" content="Pilates tips, equipment guides, and wellness insights from I-Flex Thailand.">
     <meta property="og:url" content="{canonical_url}">
 
-    <!-- Google Fonts — preconnect for performance -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
@@ -291,74 +345,34 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
     <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
     <script src="/js/iflex-core.js"></script>
-    
+
     <style>
-        
         body {{ background: white; font-family: 'Montserrat', sans-serif; }}
-        
-        .blog-page {{ max-width: 1280px; margin: 0 auto; padding: 2rem; }}
+        .blog-listing-page {{ max-width: 1280px; margin: 0 auto; padding: 2rem; }}
         .page-header {{ text-align: center; padding: 2rem 0; }}
         .page-header h1 {{ font-size: 2.5rem; margin-bottom: 1rem; color: #FFD700; }}
-        
-        .filter-buttons {{
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }}
-        .filter-btn {{
-            background: #f0f0f0;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }}
+        .filter-buttons {{ display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }}
+        .filter-btn {{ background: #f0f0f0; border: none; padding: 0.75rem 1.5rem; border-radius: 40px; cursor: pointer; font-weight: 600; transition: all 0.3s; }}
         .filter-btn:hover, .filter-btn.active {{ background: #FFD700; color: #1a1a1a; }}
-        
-        .blog-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }}
-        
-        .blog-card {{
-            background: #f9f9f9;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }}
+        .blog-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }}
+        .blog-card {{ background: #f9f9f9; border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: inherit; display: block; }}
         .blog-card:hover {{ transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }}
-        .blog-card img {{ width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }}
+        .blog-card img {{ width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }}
         .blog-card-info {{ padding: 1.5rem; }}
-        .blog-card-info h3 {{ font-size: 1.2rem; margin-bottom: 0.5rem; color: #1a1a1a; }}
-        .blog-card-meta {{ font-size: 0.8rem; color: #888; margin-bottom: 0.75rem; display: flex; gap: 1rem; }}
-        .blog-card-excerpt {{ font-size: 0.9rem; color: #666; line-height: 1.5; }}
-        .blog-card-category {{
-            display: inline-block;
-            background: #FFD700;
-            color: #1a1a1a;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }}
-        
+        .blog-card-category {{ display: inline-block; background: #FFD700; color: #1a1a1a; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }}
+        .blog-card-info h3 {{ font-size: 1.1rem; margin-bottom: 0.5rem; }}
+        .blog-card-meta {{ font-size: 0.8rem; color: #999; margin-bottom: 0.5rem; display: flex; gap: 1rem; }}
+        .blog-card-excerpt {{ font-size: 0.85rem; color: #777; }}
         @media (max-width: 768px) {{
-            .blog-page {{ padding: 1rem; }}
-            .blog-grid {{ grid-template-columns: 1fr; }}
+            .blog-listing-page {{ padding: 1rem; }}
+            .filter-buttons {{ gap: 0.5rem; }}
+            .filter-btn {{ padding: 0.5rem 1rem; font-size: 0.85rem; }}
         }}
     </style>
 </head>
 <body>
 
-<div class="blog-page">
+<div class="blog-listing-page">
     <div class="page-header">
         <h1>{page_title}</h1>
         <p>{page_subtitle}</p>
@@ -404,7 +418,6 @@ def parse_gallery(gallery_str):
     urls = [line.strip() for line in str(gallery_str).split('\n') if line.strip() and line.strip() != 'nan']
     if not urls:
         return ''
-    
     html = '<div class="blog-gallery"><h3>Gallery</h3><div class="gallery-grid">'
     for url in urls:
         html += f'<img src="{url}" class="gallery-image" loading="lazy" onclick="openLightbox(this.src)">'
@@ -427,7 +440,6 @@ def generate_blog_card(post, lang):
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
-    # Build correct link based on language
     if lang == 'th':
         link = f'/th/blog/{slug}.html'
     else:
@@ -462,16 +474,13 @@ def generate_blog_page(post, all_posts, lang, posts_dir, back_link):
     date = post.get('date', '')
     read_time = post.get('read_time', '')
     
-    # Build canonical URL — EN: /blog/{slug}  TH: /th/blog/{slug_th}
     if lang == 'th':
         canonical_url = f'{SITE_URL}/th/blog/{slug}'
     else:
         canonical_url = f'{SITE_URL}/blog/{slug}'
 
-    # Parse gallery
     gallery_html = parse_gallery(gallery_images)
     
-    # Find current index for navigation (using English slug for ordering)
     current_idx = next((i for i, p in enumerate(all_posts) if p.get('slug') == post.get('slug')), 0)
     prev_post = all_posts[current_idx - 1] if current_idx > 0 else None
     next_post = all_posts[current_idx + 1] if current_idx < len(all_posts) - 1 else None
@@ -523,13 +532,11 @@ def generate_listing_page(posts, lang, output_file):
     for post in posts:
         blog_cards += generate_blog_card(post, lang)
 
-    # Canonical URL for listing page
     if lang == 'th':
         canonical_url = f'{SITE_URL}/th/blog-listing.html'
     else:
         canonical_url = f'{SITE_URL}/blog-listing.html'
     
-    # Filter buttons with correct category mapping
     if lang == 'th':
         filter_buttons = '''
         <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
@@ -564,13 +571,12 @@ def generate_listing_page(posts, lang, output_file):
     print(f'✅ Generated: {output_file}')
 
 def main():
-    print('📖 Reading blog/posts.csv...')
+    print('📖 Reading blog.csv...')
     
     if not CSV_PATH.exists():
         print(f'❌ Error: {CSV_PATH} not found!')
         return
     
-    # Clean old folders
     if ENGLISH_POSTS_DIR.exists():
         shutil.rmtree(ENGLISH_POSTS_DIR)
         print('🗑️ Deleted old blog folder')
@@ -579,12 +585,10 @@ def main():
         shutil.rmtree(THAI_POSTS_DIR)
         print('🗑️ Deleted old Thai blog folder')
     
-    # Create fresh folders
     ENGLISH_POSTS_DIR.mkdir(exist_ok=True)
     THAI_POSTS_DIR.mkdir(parents=True, exist_ok=True)
     print('📁 Created fresh blog folders')
     
-    # Read CSV
     posts = []
     with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
@@ -593,16 +597,13 @@ def main():
     
     print(f'✅ Found {len(posts)} blog posts')
     
-    # Sort by display_order
     posts.sort(key=lambda x: int(x.get('display_order', 999)))
     
-    # Generate English pages
     print('\n📄 Generating English blog pages...')
     for post in posts:
         generate_blog_page(post, posts, 'en', ENGLISH_POSTS_DIR, '/blog-listing.html')
     generate_listing_page(posts, 'en', ENGLISH_LISTING)
     
-    # Generate Thai pages
     print('\n📄 Generating Thai blog pages...')
     for post in posts:
         generate_blog_page(post, posts, 'th', THAI_POSTS_DIR, '/th/blog-listing.html')
