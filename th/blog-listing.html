@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | I-Flex Pilates</title>
-    <meta name="description" content="Practical advice for opening and growing your Pilates studio in Thailand. Equipment guides, space planning, and insider tips from experienced owners.">
+    <meta name="description" content="Pilates tips, equipment guides, and wellness insights from I-Flex Thailand.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://i-flexthailand.com/th/blog-listing.html">
@@ -13,10 +13,10 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="I-Flex Thailand">
     <meta property="og:title" content="Blog | I-Flex Pilates">
-    <meta property="og:description" content="Practical advice for opening and growing your Pilates studio in Thailand.">
+    <meta property="og:description" content="Pilates tips, equipment guides, and wellness insights from I-Flex Thailand.">
     <meta property="og:url" content="https://i-flexthailand.com/th/blog-listing.html">
 
-    <!-- Google Fonts — preconnect for performance -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
@@ -33,74 +33,34 @@
     <!-- INJECTOR SCRIPTS -->
     <script src="/js/iflex-config.js"></script>
     <script src="/js/iflex-core.js"></script>
-    
+
     <style>
-        
         body { background: white; font-family: 'Montserrat', sans-serif; }
-        
-        .blog-page { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+        .blog-listing-page { max-width: 1280px; margin: 0 auto; padding: 2rem; }
         .page-header { text-align: center; padding: 2rem 0; }
         .page-header h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #FFD700; }
-        
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            background: #f0f0f0;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
+        .filter-buttons { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
+        .filter-btn { background: #f0f0f0; border: none; padding: 0.75rem 1.5rem; border-radius: 40px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
         .filter-btn:hover, .filter-btn.active { background: #FFD700; color: #1a1a1a; }
-        
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        
-        .blog-card {
-            background: #f9f9f9;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        .blog-card { background: #f9f9f9; border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: inherit; display: block; }
         .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .blog-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+        .blog-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
         .blog-card-info { padding: 1.5rem; }
-        .blog-card-info h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: #1a1a1a; }
-        .blog-card-meta { font-size: 0.8rem; color: #888; margin-bottom: 0.75rem; display: flex; gap: 1rem; }
-        .blog-card-excerpt { font-size: 0.9rem; color: #666; line-height: 1.5; }
-        .blog-card-category {
-            display: inline-block;
-            background: #FFD700;
-            color: #1a1a1a;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-        
+        .blog-card-category { display: inline-block; background: #FFD700; color: #1a1a1a; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .blog-card-info h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .blog-card-meta { font-size: 0.8rem; color: #999; margin-bottom: 0.5rem; display: flex; gap: 1rem; }
+        .blog-card-excerpt { font-size: 0.85rem; color: #777; }
         @media (max-width: 768px) {
-            .blog-page { padding: 1rem; }
-            .blog-grid { grid-template-columns: 1fr; }
+            .blog-listing-page { padding: 1rem; }
+            .filter-buttons { gap: 0.5rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="blog-page">
+<div class="blog-listing-page">
     <div class="page-header">
         <h1>พิลาทิสเพื่อชีวิตจริง</h1>
         <p>แค่คนที่เคยเจ็บ เคยเจอพิลาทิส และอยากช่วยคุณเลือกอุปกรณ์และเคลื่อนไหวให้ดีขึ้น สำหรับผู้ใช้ที่บ้านและครูใหม่</p>
@@ -117,68 +77,68 @@
     
     <div class="blog-grid" id="blogGrid">
         
-<a href="/th/blog/พิลาทิสเพื่อชีวิต.html" class="blog-card" data-category="สุขภาพ">
-        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547293/pilates-blog-6.png" alt="พิลาทิสเพื่อชีวิต" loading="lazy">
+<a href="/th/blog/{'state': 'generated', 'value': 'พิลาทิสเพื่อชีวิต', 'isStale': False}.html" class="blog-card" data-category="สุขภาพ">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547293/pilates-blog-6.png" alt="{'state': 'generated', 'value': 'พิลาทิสเพื่อชีวิต', 'isStale': False}" loading="lazy">
         <div class="blog-card-info">
             <div class="blog-card-category">สุขภาพ</div>
-            <h3>พิลาทิสเพื่อชีวิต</h3>
+            <h3>{'state': 'generated', 'value': 'พิลาทิสเพื่อชีวิต', 'isStale': False}</h3>
             <div class="blog-card-meta">
-                <span>1/3/2026</span>
+                <span>2026-03-01</span>
                 <span> 5 min</span>
             </div>
-            <div class="blog-card-excerpt">พิลาทิสกลายเป็นทางเลือกที่มีประสิทธิภาพสำหรับคนทั่วไปมากกว่าการไปยิมแบบเดิม เพราะวิทยาศาสตร์ของการเคลื่อนไหวที่ยั่งยืนคื...</div>
+            <div class="blog-card-excerpt">{'state': 'generated', 'value': 'พิลาทิสกลายเป็นทางเลือกที่มีประสิทธิภาพสำหรับคนทั่วไปมากกว่าการไปยิมแบบเดิม เพราะวิทยาศ...</div>
         </div>
     </a>
     
-<a href="/th/blog/ทำไมอุปกรณ์สำคัญ.html" class="blog-card" data-category="อุปกรณ์">
-        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280486/df1a06701e4d0081f4ed867514bb89fd.png" alt="ทำไมอุปกรณ์จึงสำคัญ" loading="lazy">
+<a href="/th/blog/{'state': 'generated', 'value': 'ทำไมอุปกรณ์สำคัญ', 'isStale': False}.html" class="blog-card" data-category="อุปกรณ์">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774280486/df1a06701e4d0081f4ed867514bb89fd.png" alt="{'state': 'generated', 'value': 'ทำไมอุปกรณ์จึงสำคัญ', 'isStale': False}" loading="lazy">
         <div class="blog-card-info">
             <div class="blog-card-category">อุปกรณ์</div>
-            <h3>ทำไมอุปกรณ์จึงสำคัญ</h3>
+            <h3>{'state': 'generated', 'value': 'ทำไมอุปกรณ์จึงสำคัญ', 'isStale': False}</h3>
             <div class="blog-card-meta">
-                <span>1/3/2026</span>
+                <span>2026-03-01</span>
                 <span>3 min</span>
             </div>
-            <div class="blog-card-excerpt">ในบรรดาเครื่องพิลาทิสที่มีอยู่ในตลาด บางรุ่นออกแบบมาอย่างดี บางรุ่นใช้วัสดุคุณภาพสูง และบางรุ่นก็ดูสวยงาม แล้วการออกแบบแ...</div>
+            <div class="blog-card-excerpt">{'state': 'generated', 'value': 'ในบรรดาเครื่องพิลาทิสที่มีอยู่ในตลาด บางรุ่นออกแบบมาอย่างดี บางรุ่นใช้วัสดุคุณภาพสูง แล...</div>
         </div>
     </a>
     
-<a href="/th/blog/วิธีเลือกอุปกรณ์พิลาทิสที่เหมาะสม.html" class="blog-card" data-category="อุปกรณ์">
-        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1771608996/9555f445976448ab907785b631ecd7c1_sbvovv.jpg" alt="วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม" loading="lazy">
+<a href="/th/blog/{'state': 'generated', 'value': 'วิธีเลือกอุปกรณ์พิลาทิสที่เหมาะสม', 'isStale': False}.html" class="blog-card" data-category="อุปกรณ์">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1771608996/9555f445976448ab907785b631ecd7c1_sbvovv.jpg" alt="{'state': 'generated', 'value': 'วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม', 'isStale': False}" loading="lazy">
         <div class="blog-card-info">
             <div class="blog-card-category">อุปกรณ์</div>
-            <h3>วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม</h3>
+            <h3>{'state': 'generated', 'value': 'วิธีเลือกอุปกรณ์พิลาทิสให้เหมาะสม', 'isStale': False}</h3>
             <div class="blog-card-meta">
-                <span>1/3/2026</span>
+                <span>2026-03-01</span>
                 <span>3 min</span>
             </div>
-            <div class="blog-card-excerpt">เมื่อเลือกเครื่องพิลาทิสที่มีประสิทธิภาพ เช่น รีฟอร์เมอร์หรือเตียงคาดิลแลค มีปัจจัยสำคัญที่ควรพิจารณา ไม่ว่าคุณจะใช้ที่บ...</div>
+            <div class="blog-card-excerpt">{'state': 'generated', 'value': 'เมื่อเลือกเครื่องพิลาทิสที่มีประสิทธิภาพ เช่น รีฟอร์เมอร์หรือเตียงคาดิลแลค มีปัจจัยสำคั...</div>
         </div>
     </a>
     
-<a href="/th/blog/โยคะ-vs-พิลาทิส.html" class="blog-card" data-category="การออกกำลังกาย">
-        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547276/pilates-vs-yoga-1.jpg" alt="โยคะกับพิลาทิส" loading="lazy">
+<a href="/th/blog/{'state': 'generated', 'value': 'โยคะ-vs-พิลาทิส', 'isStale': False}.html" class="blog-card" data-category="การออกกำลังกาย">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1774547276/pilates-vs-yoga-1.jpg" alt="{'state': 'generated', 'value': 'โยคะกับพิลาทิส', 'isStale': False}" loading="lazy">
         <div class="blog-card-info">
             <div class="blog-card-category">การออกกำลังกาย</div>
-            <h3>โยคะกับพิลาทิส</h3>
+            <h3>{'state': 'generated', 'value': 'โยคะกับพิลาทิส', 'isStale': False}</h3>
             <div class="blog-card-meta">
-                <span>1/3/2026</span>
+                <span>2026-03-01</span>
                 <span>5 min</span>
             </div>
-            <div class="blog-card-excerpt">โยคะและพิลาทิสมีความคล้ายคลึงกันในบางด้าน แต่ก็มีความแตกต่างที่สำคัญเช่นกัน ซึ่งความแตกต่างเหล่านี้อาจขึ้นอยู่กับพื้นฐาน...</div>
+            <div class="blog-card-excerpt">{'state': 'generated', 'value': 'โยคะและพิลาทิสมีความคล้ายคลึงกันในบางด้าน แต่ก็มีความแตกต่างที่สำคัญเช่นกัน ซึ่งความแตก...</div>
         </div>
     </a>
     
-<a href="/th/blog/ฟิตเนสปกติ-vs-พิลาทิส.html" class="blog-card" data-category="การออกกำลังกาย">
-        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773236759/fitness_vs_pilates_3.jpg" alt="ฟิตเนสทั่วไปกับพิลาทิส" loading="lazy">
+<a href="/th/blog/{'state': 'generated', 'value': 'ฟิตเนสปกติ-vs-พิลาทิส', 'isStale': False}.html" class="blog-card" data-category="การออกกำลังกาย">
+        <img src="https://res.cloudinary.com/dfiomi0lb/image/upload/v1773236759/fitness_vs_pilates_3.jpg" alt="{'state': 'generated', 'value': 'ฟิตเนสทั่วไปกับพิลาทิส', 'isStale': False}" loading="lazy">
         <div class="blog-card-info">
             <div class="blog-card-category">การออกกำลังกาย</div>
-            <h3>ฟิตเนสทั่วไปกับพิลาทิส</h3>
+            <h3>{'state': 'generated', 'value': 'ฟิตเนสทั่วไปกับพิลาทิส', 'isStale': False}</h3>
             <div class="blog-card-meta">
-                <span>1/3/2026</span>
+                <span>2026-03-01</span>
                 <span>4 min</span>
             </div>
-            <div class="blog-card-excerpt">ควรไปฟิตเนสที่มีทั้งคาร์ดิโอ ครอสฟิต และเวทเทรนนิ่ง หรือควรเลือกฝึกพิลาทิสอย่างเดียวดี? ความแตกต่างหลักและผลลัพธ์ที่ได้ใ...</div>
+            <div class="blog-card-excerpt">{'state': 'generated', 'value': 'ควรไปฟิตเนสที่มีทั้งคาร์ดิโอ ครอสฟิต และเวทเทรนนิ่ง หรือควรเลือกฝึกพิลาทิสอย่างเดียวดี?...</div>
         </div>
     </a>
     
