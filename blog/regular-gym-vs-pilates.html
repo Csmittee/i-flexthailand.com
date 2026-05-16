@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang-en="https://i-flexthailand.com/blog/regular-gym-vs-pilates.html" data-lang-th="https://i-flexthailand.com/th/blog/ฟิตเนสปกติ-vs-พิลาทิส.html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,9 +68,7 @@
     <script src="/js/iflex-core.js"></script>
     
     <style>
-        
         body { background: white; font-family: 'Montserrat', sans-serif; }
-        
         .blog-detail-page { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
         .blog-header { text-align: center; margin-bottom: 3rem; }
         .blog-header h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #1A1A1A; }
@@ -106,8 +104,7 @@
             color: #444;
         }
         .blog-content p { margin-bottom: 1.5rem; }
-        .blog-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; loading: lazy; }
-        
+        .blog-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; }
         .blog-gallery { margin: 2rem 0; }
         .gallery-grid {
             display: grid;
@@ -124,7 +121,6 @@
             transition: transform 0.3s;
         }
         .gallery-image:hover { transform: scale(1.02); }
-        
         .blog-navigation {
             display: flex;
             justify-content: space-between;
@@ -150,14 +146,11 @@
         .btn-back:hover, .btn-nav:hover { background: #FFD700; color: #1a1a1a; }
         .btn-nav.disabled { opacity: 0.5; pointer-events: none; background: #e0e0e0; }
         .blog-nav-buttons { display: flex; gap: 1rem; flex: 1; justify-content: flex-end; }
-        
         .lightbox {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.9);
             z-index: 1000;
             justify-content: center;
@@ -167,13 +160,9 @@
         .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
         .lightbox-close {
             position: absolute;
-            top: 20px;
-            right: 40px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
+            top: 20px; right: 40px;
+            color: white; font-size: 40px; cursor: pointer;
         }
-        
         @media (max-width: 768px) {
             .blog-detail-page { padding: 2rem 1rem; }
             .blog-header h1 { font-size: 1.8rem; }
@@ -226,9 +215,8 @@
         document.getElementById('lightbox').classList.remove('active');
     });
     document.getElementById('lightbox').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('lightbox')) {
+        if (e.target === document.getElementById('lightbox'))
             document.getElementById('lightbox').classList.remove('active');
-        }
     });
 </script>
 </body>
