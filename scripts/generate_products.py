@@ -451,6 +451,7 @@ def generate_product_card(product, lang, prefix):
     name = product['name'] if lang == 'en' else product['name_th']
     slug = product['Slug']
     price = float(product['price'])
+    price_formatted = f'{price:,.0f}'
     material = product['material'] if lang == 'en' else product.get('material_th', product['material'])
     desc = product['full_description'] if lang == 'en' else product['full_description_th']
     sub_category = product['sub_category']
