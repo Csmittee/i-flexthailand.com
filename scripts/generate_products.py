@@ -472,6 +472,7 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
     """Generate individual product detail page with navigation"""
     name = product['name'] if lang == 'en' else product['name_th']
     slug = product['Slug']
+    price = float(product['price'])
     price_formatted = f'{price:,.0f}'
     material = product['material'] if lang == 'en' else product.get('material_th', product['material'])
     sub_category = product['sub_category']
