@@ -507,7 +507,7 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
         main_image=main_image,
         canonical_url=canonical_url,
         price=price,
-        price_formatted=f'{price:,.0f}',
+        price_formatted=price_formatted,
         material=material,
         sub_category=sub_category,
         description=description,
