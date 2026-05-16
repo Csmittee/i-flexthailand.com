@@ -6,16 +6,27 @@ from pathlib import Path
 
 SITE_URL = 'https://i-flexthailand.com'
 
+# ── Airtable AI field unwrapper ────────────────────────────────────
+def unwrap_ai(val):
+    """Airtable AI fields return {'state':..,'value':..,'isStale':..} — extract value."""
+    if isinstance(val, dict):
+        return str(val.get('value', ''))
+    if isinstance(val, list):
+        first = val[0] if val else ''
+        if isinstance(first, dict):
+            return str(first.get('value', ''))
+        return str(first)
+    return str(val) if val else ''
+
 # ── Airtable fetch (runs before main, overwrites CSV if token present) ─
 def _fetch_airtable_to_csv():
     token   = os.environ.get('AIRTABLE_TOKEN', '')
     base_id = os.environ.get('AIRTABLE_BASE_ID', '')
     if not token or not base_id:
-        return  # no env vars → skip, use existing CSV unchanged
+        return
     try:
         import urllib.request, urllib.parse, json as _json, csv as _csv
 
-        # Exact column order matching data/products.csv in this repo
         FIELDS = [
             'id','name','name_th','Slug','category','category_th',
             'material','material_th','price','main_image',
@@ -25,7 +36,10 @@ def _fetch_airtable_to_csv():
             'display_order','Group'
         ]
 
-        # FIX: was AND({Status}='Active',{bus_id}='BUS01') — never checked web_published
+        # AI-generated fields that need unwrapping
+        AI_FIELDS = {'name_th', 'category_th', 'material_th', 'sub_category_th',
+                     'full_description_th', 'feature_details_th', 'Group'}
+
         formula = urllib.parse.quote("AND({web_published}=1,{bus_id}='BUS01')")
         base_url = (f'https://api.airtable.com/v0/{base_id}/Products'
                     f'?filterByFormula={formula}'
@@ -53,9 +67,12 @@ def _fetch_airtable_to_csv():
             row = {}
             for col in FIELDS:
                 val = f.get(col, '')
-                if isinstance(val, list):
-                    val = '\n'.join(str(v) for v in val)
-                row[col] = str(val) if val != '' else ''
+                if col in AI_FIELDS:
+                    row[col] = unwrap_ai(val)
+                elif isinstance(val, list):
+                    row[col] = '\n'.join(str(v) for v in val)
+                else:
+                    row[col] = str(val) if val != '' else ''
             rows.append(row)
 
         Path('data').mkdir(exist_ok=True)
@@ -225,7 +242,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         </div>
         <div class="product-info">
             <h1>{name}</h1>
-            <div class="price">฿{{price:,.0f}}</div>
+            <div class="price">฿{price_formatted}</div>
             <div class="material"><strong>Material:</strong> {material}</div>
             <div class="category"><strong>Category:</strong> {sub_category}</div>
             <div class="description">
@@ -444,7 +461,7 @@ def generate_product_card(product, lang, prefix):
         <img src="{main_image}" alt="{name}" loading="lazy">
         <div class="product-card-info">
             <h3>{name}</h3>
-            <div class="product-card-price">฿{price:,.0f}</div>
+           <div class="product-card-price">฿{price_formatted}</div>
             <div class="product-card-material">{material}</div>
             <div class="product-card-desc">{desc[:100]}...</div>
         </div>
@@ -455,7 +472,7 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
     """Generate individual product detail page with navigation"""
     name = product['name'] if lang == 'en' else product['name_th']
     slug = product['Slug']
-    price = float(product['price'])
+    price_formatted = f'{price:,.0f}'
     material = product['material'] if lang == 'en' else product.get('material_th', product['material'])
     sub_category = product['sub_category']
     description = product['full_description'] if lang == 'en' else product['full_description_th']
@@ -489,6 +506,7 @@ def generate_product_page(product, all_products, lang, prefix, back_link):
         main_image=main_image,
         canonical_url=canonical_url,
         price=price,
+        price_formatted=f'{price:,.0f}',
         material=material,
         sub_category=sub_category,
         description=description,
