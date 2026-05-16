@@ -5,12 +5,24 @@ from pathlib import Path
 
 SITE_URL = 'https://i-flexthailand.com'
 
+# ── Airtable AI field unwrapper ────────────────────────────────────
+def unwrap_ai(val):
+    """Airtable AI fields return {'state':..,'value':..,'isStale':..} — extract value."""
+    if isinstance(val, dict):
+        return str(val.get('value', ''))
+    if isinstance(val, list):
+        first = val[0] if val else ''
+        if isinstance(first, dict):
+            return str(first.get('value', ''))
+        return str(first)
+    return str(val) if val else ''
+
 # ── Airtable fetch (runs before main, overwrites CSV if token present) ─
 def _fetch_airtable_to_csv():
     token   = os.environ.get('AIRTABLE_TOKEN', '')
     base_id = os.environ.get('AIRTABLE_BASE_ID', '')
     if not token or not base_id:
-        return  # no env vars → skip, use existing CSV unchanged
+        return
     try:
         import urllib.request, urllib.parse, json as _json, csv as _csv
 
@@ -20,6 +32,9 @@ def _fetch_airtable_to_csv():
             'category','category_th','featured_image','gallery_images',
             'author','date','read_time','display_order'
         ]
+
+        # AI-generated fields that need unwrapping
+        AI_FIELDS = {'title_th', 'excerpt_th', 'content_th', 'category_th'}
 
         formula = urllib.parse.quote("AND({web_published}=1)")
         base_url = (f'https://api.airtable.com/v0/{base_id}/Blogs'
@@ -48,9 +63,12 @@ def _fetch_airtable_to_csv():
             row = {}
             for col in FIELDS:
                 val = f.get(col, '')
-                if isinstance(val, list):
-                    val = '\n'.join(str(v) for v in val)
-                row[col] = str(val) if val != '' else ''
+                if col in AI_FIELDS:
+                    row[col] = unwrap_ai(val)
+                elif isinstance(val, list):
+                    row[col] = '\n'.join(str(v) for v in val)
+                else:
+                    row[col] = str(val) if val != '' else ''
             rows.append(row)
 
         Path('data').mkdir(exist_ok=True)
@@ -74,8 +92,10 @@ ENGLISH_POSTS_DIR = Path('blog')
 THAI_POSTS_DIR = Path('th/blog')
 
 # ===== POST TEMPLATE =====
+# data-lang-en and data-lang-th on <html> tell the language switcher
+# exactly where the counterpart page lives — no guessing from path strings
 POST_TEMPLATE = '''<!DOCTYPE html>
-<html lang="{lang}">
+<html lang="{lang}" data-lang-en="{url_en}" data-lang-th="{url_th}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -144,9 +164,7 @@ POST_TEMPLATE = '''<!DOCTYPE html>
     <script src="/js/iflex-core.js"></script>
     
     <style>
-        
         body {{ background: white; font-family: 'Montserrat', sans-serif; }}
-        
         .blog-detail-page {{ max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }}
         .blog-header {{ text-align: center; margin-bottom: 3rem; }}
         .blog-header h1 {{ font-size: 2.5rem; margin-bottom: 1rem; color: #1A1A1A; }}
@@ -182,8 +200,7 @@ POST_TEMPLATE = '''<!DOCTYPE html>
             color: #444;
         }}
         .blog-content p {{ margin-bottom: 1.5rem; }}
-        .blog-content img {{ max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; loading: lazy; }}
-        
+        .blog-content img {{ max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; }}
         .blog-gallery {{ margin: 2rem 0; }}
         .gallery-grid {{
             display: grid;
@@ -200,7 +217,6 @@ POST_TEMPLATE = '''<!DOCTYPE html>
             transition: transform 0.3s;
         }}
         .gallery-image:hover {{ transform: scale(1.02); }}
-        
         .blog-navigation {{
             display: flex;
             justify-content: space-between;
@@ -226,14 +242,11 @@ POST_TEMPLATE = '''<!DOCTYPE html>
         .btn-back:hover, .btn-nav:hover {{ background: #FFD700; color: #1a1a1a; }}
         .btn-nav.disabled {{ opacity: 0.5; pointer-events: none; background: #e0e0e0; }}
         .blog-nav-buttons {{ display: flex; gap: 1rem; flex: 1; justify-content: flex-end; }}
-        
         .lightbox {{
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.9);
             z-index: 1000;
             justify-content: center;
@@ -243,13 +256,9 @@ POST_TEMPLATE = '''<!DOCTYPE html>
         .lightbox img {{ max-width: 90vw; max-height: 90vh; object-fit: contain; }}
         .lightbox-close {{
             position: absolute;
-            top: 20px;
-            right: 40px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
+            top: 20px; right: 40px;
+            color: white; font-size: 40px; cursor: pointer;
         }}
-        
         @media (max-width: 768px) {{
             .blog-detail-page {{ padding: 2rem 1rem; }}
             .blog-header h1 {{ font-size: 1.8rem; }}
@@ -301,9 +310,8 @@ POST_TEMPLATE = '''<!DOCTYPE html>
         document.getElementById('lightbox').classList.remove('active');
     }});
     document.getElementById('lightbox').addEventListener('click', (e) => {{
-        if (e.target === document.getElementById('lightbox')) {{
+        if (e.target === document.getElementById('lightbox'))
             document.getElementById('lightbox').classList.remove('active');
-        }}
     }});
 </script>
 </body>
@@ -377,11 +385,9 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
         <h1>{page_title}</h1>
         <p>{page_subtitle}</p>
     </div>
-    
     <div class="filter-buttons">
         {filter_buttons}
     </div>
-    
     <div class="blog-grid" id="blogGrid">
         {blog_cards}
     </div>
@@ -390,13 +396,11 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
 <script>
     const filterBtns = document.querySelectorAll('.filter-btn');
     const blogCards = document.querySelectorAll('.blog-card');
-    
     filterBtns.forEach(btn => {{
         btn.addEventListener('click', () => {{
             const filter = btn.getAttribute('data-filter');
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             blogCards.forEach(card => {{
                 const category = card.getAttribute('data-category');
                 if (filter === 'all' || category === filter) {{
@@ -411,11 +415,11 @@ LISTING_TEMPLATE = '''<!DOCTYPE html>
 </body>
 </html>'''
 
+
 def parse_gallery(gallery_str):
-    """Convert newline-separated gallery URLs to HTML gallery grid"""
     if not gallery_str or gallery_str == 'nan':
         return ''
-    urls = [line.strip() for line in str(gallery_str).split('\n') if line.strip() and line.strip() != 'nan']
+    urls = [u.strip() for u in str(gallery_str).split('\n') if u.strip() and u.strip() != 'nan']
     if not urls:
         return ''
     html = '<div class="blog-gallery"><h3>Gallery</h3><div class="gallery-grid">'
@@ -425,84 +429,71 @@ def parse_gallery(gallery_str):
     return html
 
 def get_field(post, lang, field_name, th_field_name):
-    """Safely get field with fallback"""
     if lang == 'th':
         return post.get(th_field_name, post.get(field_name, ''))
     return post.get(field_name, '')
 
 def generate_blog_card(post, lang):
-    """Generate blog card HTML for listing page"""
-    title = get_field(post, lang, 'title', 'title_th')
-    slug = get_field(post, lang, 'slug', 'slug_th')
-    excerpt = get_field(post, lang, 'excerpt', 'excerpt_th')
+    title    = get_field(post, lang, 'title', 'title_th')
+    slug     = get_field(post, lang, 'slug', 'slug_th')
+    excerpt  = get_field(post, lang, 'excerpt', 'excerpt_th')
     category = get_field(post, lang, 'category', 'category_th')
     featured_image = post.get('featured_image', '')
-    date = post.get('date', '')
+    date      = post.get('date', '')
     read_time = post.get('read_time', '')
-    
-    if lang == 'th':
-        link = f'/th/blog/{slug}.html'
-    else:
-        link = f'/blog/{slug}.html'
-    
+    link = f'/th/blog/{slug}.html' if lang == 'th' else f'/blog/{slug}.html'
     return f'''
 <a href="{link}" class="blog-card" data-category="{category}">
-        <img src="{featured_image}" alt="{title}" loading="lazy">
-        <div class="blog-card-info">
-            <div class="blog-card-category">{category}</div>
-            <h3>{title}</h3>
-            <div class="blog-card-meta">
-                <span>{date}</span>
-                <span>{read_time}</span>
-            </div>
-            <div class="blog-card-excerpt">{excerpt[:120]}...</div>
+    <img src="{featured_image}" alt="{title}" loading="lazy">
+    <div class="blog-card-info">
+        <div class="blog-card-category">{category}</div>
+        <h3>{title}</h3>
+        <div class="blog-card-meta">
+            <span>{date}</span>
+            <span>{read_time}</span>
         </div>
-    </a>
-    '''
+        <div class="blog-card-excerpt">{excerpt[:120]}...</div>
+    </div>
+</a>'''
 
 def generate_blog_page(post, all_posts, lang, posts_dir, back_link):
-    """Generate individual blog post page"""
-    title = get_field(post, lang, 'title', 'title_th')
-    slug = get_field(post, lang, 'slug', 'slug_th')
-    excerpt = get_field(post, lang, 'excerpt', 'excerpt_th')
-    content = get_field(post, lang, 'content', 'content_th')
+    title    = get_field(post, lang, 'title', 'title_th')
+    slug     = get_field(post, lang, 'slug', 'slug_th')
+    excerpt  = get_field(post, lang, 'excerpt', 'excerpt_th')
+    content  = get_field(post, lang, 'content', 'content_th')
     category = get_field(post, lang, 'category', 'category_th')
-    
+
     featured_image = post.get('featured_image', '')
     gallery_images = post.get('gallery_images', '')
-    author = post.get('author', 'I-Flex Team')
-    date = post.get('date', '')
+    author    = post.get('author', 'I-Flex Team')
+    date      = post.get('date', '')
     read_time = post.get('read_time', '')
-    
-    if lang == 'th':
-        canonical_url = f'{SITE_URL}/th/blog/{slug}'
-    else:
-        canonical_url = f'{SITE_URL}/blog/{slug}'
+
+    # Canonical for this page
+    canonical_url = f'{SITE_URL}/th/blog/{slug}' if lang == 'th' else f'{SITE_URL}/blog/{slug}'
+
+    # Both language URLs — baked into html tag so switcher uses them directly
+    url_en = f'{SITE_URL}/blog/{post.get("slug", slug)}.html'
+    url_th = f'{SITE_URL}/th/blog/{post.get("slug_th", slug)}.html'
 
     gallery_html = parse_gallery(gallery_images)
-    
+
+    # Prev/next navigation
     current_idx = next((i for i, p in enumerate(all_posts) if p.get('slug') == post.get('slug')), 0)
     prev_post = all_posts[current_idx - 1] if current_idx > 0 else None
     next_post = all_posts[current_idx + 1] if current_idx < len(all_posts) - 1 else None
-    
-    if prev_post:
-        prev_slug = get_field(prev_post, lang, 'slug', 'slug_th')
-        prev_link = f'{prev_slug}.html'
-        prev_disabled = ''
-    else:
-        prev_link = '#'
-        prev_disabled = 'disabled'
-    
-    if next_post:
-        next_slug = get_field(next_post, lang, 'slug', 'slug_th')
-        next_link = f'{next_slug}.html'
-        next_disabled = ''
-    else:
-        next_link = '#'
-        next_disabled = 'disabled'
-    
+
+    prev_slug     = get_field(prev_post, lang, 'slug', 'slug_th') if prev_post else None
+    next_slug     = get_field(next_post, lang, 'slug', 'slug_th') if next_post else None
+    prev_link     = f'{prev_slug}.html' if prev_slug else '#'
+    next_link     = f'{next_slug}.html' if next_slug else '#'
+    prev_disabled = '' if prev_slug else 'disabled'
+    next_disabled = '' if next_slug else 'disabled'
+
     html = POST_TEMPLATE.format(
         lang='th' if lang == 'th' else 'en',
+        url_en=url_en,
+        url_th=url_th,
         title=title,
         excerpt=excerpt[:160],
         featured_image=featured_image,
@@ -519,7 +510,7 @@ def generate_blog_page(post, all_posts, lang, posts_dir, back_link):
         prev_disabled=prev_disabled,
         next_disabled=next_disabled
     )
-    
+
     output_path = posts_dir / f'{slug}.html'
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
@@ -527,35 +518,29 @@ def generate_blog_page(post, all_posts, lang, posts_dir, back_link):
     print(f'  Generated: {output_path}')
 
 def generate_listing_page(posts, lang, output_file):
-    """Generate blog listing page"""
     blog_cards = ''
     for post in posts:
         blog_cards += generate_blog_card(post, lang)
 
-    if lang == 'th':
-        canonical_url = f'{SITE_URL}/th/blog-listing.html'
-    else:
-        canonical_url = f'{SITE_URL}/blog-listing.html'
-    
+    canonical_url = f'{SITE_URL}/th/blog-listing.html' if lang == 'th' else f'{SITE_URL}/blog-listing.html'
+
     if lang == 'th':
         filter_buttons = '''
         <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
         <button class="filter-btn" data-filter="สุขภาพ">สุขภาพ</button>
         <button class="filter-btn" data-filter="อุปกรณ์">อุปกรณ์</button>
-        <button class="filter-btn" data-filter="การออกกำลังกาย">การออกกำลังกาย</button>
-        '''
-        page_title = "พิลาทิสเพื่อชีวิตจริง"
+        <button class="filter-btn" data-filter="การออกกำลังกาย">การออกกำลังกาย</button>'''
+        page_title    = "พิลาทิสเพื่อชีวิตจริง"
         page_subtitle = "แค่คนที่เคยเจ็บ เคยเจอพิลาทิส และอยากช่วยคุณเลือกอุปกรณ์และเคลื่อนไหวให้ดีขึ้น สำหรับผู้ใช้ที่บ้านและครูใหม่"
     else:
         filter_buttons = '''
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="Wellness">Wellness</button>
         <button class="filter-btn" data-filter="Equipments">Equipment</button>
-        <button class="filter-btn" data-filter="Exercise">Exercise</button>
-        '''
-        page_title = "Pilates for Real Life"
+        <button class="filter-btn" data-filter="Exercise">Exercise</button>'''
+        page_title    = "Pilates for Real Life"
         page_subtitle = "Just someone who got hurt, found Pilates, and wants to help you choose equipment and move better. For home users and new teachers, figuring it out together."
-    
+
     html = LISTING_TEMPLATE.format(
         lang='th' if lang == 'th' else 'en',
         canonical_url=canonical_url,
@@ -564,7 +549,6 @@ def generate_listing_page(posts, lang, output_file):
         filter_buttons=filter_buttons,
         blog_cards=blog_cards
     )
-    
     output_file.parent.mkdir(parents=True, exist_ok=True)
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(html)
@@ -572,43 +556,38 @@ def generate_listing_page(posts, lang, output_file):
 
 def main():
     print('📖 Reading blog.csv...')
-    
     if not CSV_PATH.exists():
         print(f'❌ Error: {CSV_PATH} not found!')
         return
-    
-    if ENGLISH_POSTS_DIR.exists():
-        shutil.rmtree(ENGLISH_POSTS_DIR)
-        print('🗑️ Deleted old blog folder')
-    
-    if THAI_POSTS_DIR.exists():
-        shutil.rmtree(THAI_POSTS_DIR)
-        print('🗑️ Deleted old Thai blog folder')
-    
+
+    for d in [ENGLISH_POSTS_DIR, THAI_POSTS_DIR]:
+        if d.exists():
+            shutil.rmtree(d)
+            print(f'🗑️ Deleted old {d}')
+
     ENGLISH_POSTS_DIR.mkdir(exist_ok=True)
     THAI_POSTS_DIR.mkdir(parents=True, exist_ok=True)
     print('📁 Created fresh blog folders')
-    
+
     posts = []
     with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         for row in reader:
             posts.append(row)
-    
+
     print(f'✅ Found {len(posts)} blog posts')
-    
     posts.sort(key=lambda x: int(x.get('display_order', 999)))
-    
+
     print('\n📄 Generating English blog pages...')
     for post in posts:
         generate_blog_page(post, posts, 'en', ENGLISH_POSTS_DIR, '/blog-listing.html')
     generate_listing_page(posts, 'en', ENGLISH_LISTING)
-    
+
     print('\n📄 Generating Thai blog pages...')
     for post in posts:
         generate_blog_page(post, posts, 'th', THAI_POSTS_DIR, '/th/blog-listing.html')
     generate_listing_page(posts, 'th', THAI_LISTING)
-    
+
     print('\n✅ Blog generation complete!')
 
 if __name__ == '__main__':
