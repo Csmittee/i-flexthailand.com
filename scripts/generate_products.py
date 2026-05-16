@@ -25,7 +25,8 @@ def _fetch_airtable_to_csv():
             'display_order','Group'
         ]
 
-        formula = urllib.parse.quote("AND({Status}='Active',{bus_id}='BUS01')")
+        # FIX: was AND({Status}='Active',{bus_id}='BUS01') — never checked web_published
+        formula = urllib.parse.quote("AND({web_published}=1,{bus_id}='BUS01')")
         base_url = (f'https://api.airtable.com/v0/{base_id}/Products'
                     f'?filterByFormula={formula}'
                     f'&sort%5B0%5D%5Bfield%5D=display_order'
@@ -224,7 +225,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
         </div>
         <div class="product-info">
             <h1>{name}</h1>
-            <div class="price">฿{price:,.0f}</div>
+            <div class="price">฿{{price:,.0f}}</div>
             <div class="material"><strong>Material:</strong> {material}</div>
             <div class="category"><strong>Category:</strong> {sub_category}</div>
             <div class="description">
