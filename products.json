@@ -115,5 +115,18 @@
     "slug": "oak-wunda-chair",
     "description": "Compact chair for strength, stability, and balance training.",
     "description_th": "เก้าอี้ขนาดกะทัดรัดสำหรับฝึกความแข็งแรง เสถียรภาพ และสมดุล"
+  },
+  {
+    "id": "IFP-012-Ref",
+    "name": "Aluminum reformer foldable",
+    "name_th": "รีฟอร์มเมอร์พับได้",
+    "price": 45000.0,
+    "main_image": "https://res.cloudinary.com/dfiomi0lb/image/upload/v1780195989/Business/I-Flex%20Pilates/Products/Upload-to-CMS/Foldable%20A041/Reformer-foldable-main_yme5c6.jpg",
+    "category": "Reformers",
+    "material": "Aluminum",
+    "material_th": "อะลูมิเนียม",
+    "slug": "aluminum-reformer-foldable",
+    "description": "All-purpose reformer for versatile Pilates exercises",
+    "description_th": "รีฟอร์เมอร์อเนกประสงค์สำหรับออกกำลังกายพิลาทิสหลากหลายแบบ"
   }
 ]
