@@ -253,7 +253,7 @@ PRODUCT_TEMPLATE = '''<!DOCTYPE html>
                 <h3>Features</h3>
                 {features_html}
             </div>
-            <a href="/{lang}/contact-us.html" class="btn">Request Quote</a>
+            <a href="{back_link}contact-us.html" class="btn">Request Quote</a>
             
             <div class="product-navigation">
                 <a href="{back_link}product-listing.html" class="btn-back">← Back to Products</a>
